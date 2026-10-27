@@ -1,0 +1,7 @@
+[DOCUMENT: Enterprise Cloud SLA & Support Policy 2026]
+The Enterprise Cloud Service Level Agreement outlines response and resolution commitments.
+Severity 1 Critical Outage: System completely unavailable. Response time is strictly under 15 minutes with 24x7 phone, SMS, and pager alerts. Dedicated bridge established immediately.
+Severity 2 Major Degradation: Core workflows impacted. Response time is under 2 hours during normal business hours (Monday to Friday, 8 AM to 6 PM IST).
+Severity 3 Minor Issue: Non-critical anomalies or inquiries. Response time is under 24 business hours.
+Annual Uptime Commitment: A guaranteed target of 99.95% availability calculated on an annual basis, excluding weekly scheduled maintenance windows (Sunday 02:00 to 04:00 AM IST).
+Penalty Credits: Service credits of 5% of monthly billing for each full 0.1% uptime drop below 99.95%.

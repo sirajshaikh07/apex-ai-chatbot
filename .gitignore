@@ -1,0 +1,22 @@
+# Secrets & Sensitive Credentials
+.secrets.env
+*.env
+CREDENTIALS.md
+
+# Logs & Temporary files
+*.log
+*.tmp
+temp_*.sql
+*.dump.txt
+*_dump.txt
+*_raw.txt
+*_output.txt
+*_results.txt
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# OS & IDE metadata
+.DS_Store
+Thumbs.db

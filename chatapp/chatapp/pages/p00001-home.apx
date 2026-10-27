@@ -1,0 +1,895 @@
+page 1 (
+    name: AI Chat
+    alias: HOME
+    title: Enterprise AI Assistant
+    appearance {
+        pageTemplate: @/standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        warnOnUnsavedChanges: false
+    }
+
+    region chat-header (
+        name: Header & Quick Prompts
+        title: Header & Quick Prompts
+        type: staticContent
+        source {
+            htmlCode:
+                ```html
+                <style>
+                    /* ========================================================
+                       State-of-the-Art Modern Clean AI Chat Interface
+                       ======================================================== */
+                    :root {
+                        --chat-bg: #f8fafc;
+                        --chat-card-bg: #ffffff;
+                        --chat-border: #e2e8f0;
+                        --chat-primary: #0284c7;
+                        --chat-primary-hover: #0369a1;
+                        --chat-user-bg: #0f172a;
+                        --chat-user-text: #ffffff;
+                        --chat-ai-text: #1e293b;
+                        --chat-radius: 20px;
+                    }
+                
+                    /* Main Centered Container */
+                    .chat-app-wrapper {
+                        max-width: 860px;
+                        margin: 0 auto;
+                        padding: 0 1rem;
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                    }
+                
+                    /* Minimalist Top App Bar */
+                    .chat-app-header {
+                        text-align: center;
+                        padding: 1.5rem 0 1rem 0;
+                    }
+                    .chat-brand-title {
+                        font-size: 1.75rem;
+                        font-weight: 700;
+                        color: #0f172a;
+                        letter-spacing: -0.03em;
+                        margin: 0 0 0.35rem 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                    }
+                    .chat-brand-desc {
+                        font-size: 0.92rem;
+                        color: #64748b;
+                        margin: 0 0 0.75rem 0;
+                    }
+                    .chat-status-pill {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.45rem;
+                        font-size: 0.76rem;
+                        font-weight: 600;
+                        color: #059669;
+                        background: #ecfdf5;
+                        border: 1px solid #a7f3d0;
+                        padding: 0.22rem 0.8rem;
+                        border-radius: 9999px;
+                        letter-spacing: 0.02em;
+                    }
+                    .chat-status-pulse {
+                        width: 7px;
+                        height: 7px;
+                        background: #10b981;
+                        border-radius: 50%;
+                        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+                        animation: pulse-ring 2s infinite;
+                    }
+                    @keyframes pulse-ring {
+                        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+                        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+                        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+                    }
+                
+                    /* Prompt Suggestions Chips */
+                    .prompt-chips-row {
+                        display: flex;
+                        gap: 0.5rem;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        margin: 0.5rem 0 1.25rem 0;
+                    }
+                    .prompt-chip {
+                        background: #ffffff;
+                        color: #334155;
+                        border: 1px solid #e2e8f0;
+                        padding: 0.42rem 0.95rem;
+                        border-radius: 9999px;
+                        font-size: 0.82rem;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+                        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                    }
+                    .prompt-chip:hover {
+                        background: #f0f9ff;
+                        border-color: #0284c7;
+                        color: #0284c7;
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(2, 132, 199, 0.12);
+                    }
+                
+                    /* Chat History Scroll Box */
+                    .chat-thread-container {
+                        min-height: 280px;
+                        max-height: 500px;
+                        overflow-y: auto;
+                        padding: 0.5rem 0.25rem 1rem 0.25rem;
+                        scroll-behavior: smooth;
+                    }
+                    .chat-thread-container::-webkit-scrollbar {
+                        width: 6px;
+                    }
+                    .chat-thread-container::-webkit-scrollbar-thumb {
+                        background: #cbd5e1;
+                        border-radius: 4px;
+                    }
+                
+                    /* User Message Row */
+                    .msg-row-user {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 1.25rem;
+                    }
+                    .bubble-user {
+                        background: var(--chat-user-bg);
+                        color: var(--chat-user-text);
+                        padding: 0.85rem 1.25rem;
+                        border-radius: 18px 18px 4px 18px;
+                        max-width: 75%;
+                        font-size: 0.93rem;
+                        line-height: 1.5;
+                        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+                    }
+                    .bubble-user-time {
+                        font-size: 0.72rem;
+                        opacity: 0.65;
+                        margin-bottom: 0.25rem;
+                    }
+                
+                    /* AI Message Row */
+                    .msg-row-ai {
+                        display: flex;
+                        justify-content: flex-start;
+                        margin-bottom: 1.5rem;
+                    }
+                    .bubble-ai {
+                        background: var(--chat-card-bg);
+                        color: var(--chat-ai-text);
+                        border: 1px solid var(--chat-border);
+                        padding: 1.15rem 1.4rem;
+                        border-radius: 18px 18px 18px 4px;
+                        max-width: 84%;
+                        font-size: 0.93rem;
+                        line-height: 1.65;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+                    }
+                    .bubble-ai-badge {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.45rem;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        color: var(--chat-primary);
+                        margin-bottom: 0.5rem;
+                    }
+                    .bubble-ai-text {
+                        white-space: pre-wrap;
+                        word-break: break-word;
+                    }
+                    .bubble-ai-source {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.4rem;
+                        margin-top: 0.9rem;
+                        padding: 0.35rem 0.75rem;
+                        background: #f0fdf4;
+                        border: 1px solid #bbf7d0;
+                        border-radius: 6px;
+                        font-size: 0.78rem;
+                        font-weight: 500;
+                        color: #166534;
+                    }
+                
+                    /* Empty Welcome State */
+                    .chat-empty-state {
+                        text-align: center;
+                        padding: 3.5rem 1rem;
+                        color: #94a3b8;
+                    }
+                    .chat-empty-icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 0.75rem;
+                        opacity: 0.8;
+                    }
+                    .chat-empty-title {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: #334155;
+                        margin-bottom: 0.35rem;
+                    }
+                    .chat-empty-desc {
+                        font-size: 0.88rem;
+                        color: #64748b;
+                        max-width: 480px;
+                        margin: 0 auto;
+                        line-height: 1.5;
+                    }
+                
+                    /* Unified Modern Floating Input Bar */
+                    .chat-input-wrapper {
+                        margin: 0.75rem auto 2.5rem auto;
+                        max-width: 860px;
+                    }
+                    .chat-pill-box {
+                        background: #ffffff;
+                        border: 1.5px solid #cbd5e1;
+                        border-radius: 9999px;
+                        padding: 6px 8px 6px 20px;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+                        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                    .chat-pill-box:focus-within {
+                        border-color: #0284c7;
+                        box-shadow: 0 4px 22px rgba(2, 132, 199, 0.18);
+                    }
+                    .chat-pill-box input {
+                        flex: 1 1 auto;
+                        border: none !important;
+                        outline: none !important;
+                        box-shadow: none !important;
+                        background: transparent !important;
+                        font-size: 0.96rem !important;
+                        color: #0f172a !important;
+                        padding: 8px 0 !important;
+                        width: 100%;
+                    }
+                    .chat-pill-box input::placeholder {
+                        color: #94a3b8;
+                    }
+                    .btn-action-send {
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 50%;
+                        background: #0284c7;
+                        color: #ffffff;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: all 0.15s ease-in-out;
+                        flex-shrink: 0;
+                        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+                    }
+                    .btn-action-send:hover {
+                        background: #0369a1;
+                        transform: scale(1.05);
+                        box-shadow: 0 4px 10px rgba(2, 132, 199, 0.45);
+                    }
+                    .btn-action-send:active {
+                        transform: scale(0.98);
+                    }
+                    .btn-action-clear {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 50%;
+                        background: #f8fafc;
+                        color: #64748b;
+                        border: 1px solid #e2e8f0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: all 0.15s ease-in-out;
+                        flex-shrink: 0;
+                    }
+                    .btn-action-clear:hover {
+                        background: #fee2e2;
+                        border-color: #fca5a5;
+                        color: #dc2626;
+                        transform: scale(1.05);
+                    }
+                    .chat-input-caption {
+                        text-align: center;
+                        font-size: 0.74rem;
+                        color: #94a3b8;
+                        margin-top: 0.45rem;
+                    }
+                </style>
+                
+                <div class="chat-app-wrapper">
+                    <!-- Modern Minimalist Header -->
+                    <div class="chat-app-header">
+                        <div class="chat-brand-title">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Enterprise AI Assistant
+                        </div>
+                        <div class="chat-brand-desc">Enterprise knowledge & memory engine powered by Oracle 26ai Vector Search</div>
+                        <div class="chat-status-pill">
+                            <span class="chat-status-pulse"></span> Oracle 26ai & Memory Engine Active
+                        </div>
+                    </div>
+                
+                    <!-- Quick Suggestions Chips -->
+                    <div class="prompt-chips-row">
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many projects are there and what is their status?');">
+                            📊 Projects Overview
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many tasks did Siraj complete in C4T?');">
+                            👤 Siraj C4T Tasks
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('What is the guaranteed response time for a Severity 1 Critical Outage?');">
+                            ⚡ Severity 1 SLA
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many days of annual earned leave are granted?');">
+                            🏖️ Annual Leaves
+                        </button>
+                    </div>
+                </div>
+                ```
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region chat-input-bar (
+        name: Chat Input Bar
+        title: Chat Input Bar
+        type: staticContent
+        source {
+            htmlCode:
+                ```html
+                
+                <div class="chat-app-wrapper">
+                    <div class="chat-input-wrapper">
+                        <div class="chat-pill-box">
+                            <input type="text" id="userChatInput" 
+                                   placeholder="Ask a question or type a message..." 
+                                   autocomplete="off" 
+                                   onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();sendChatStreaming();}" />
+                            <button type="button" id="btnSend" class="btn-action-send" title="Send message (Enter)" onclick="sendChatStreaming();">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                            <button type="button" id="btnClear" class="btn-action-clear" title="Clear chat history" onclick="apex.submit('CLEAR');">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="chat-input-caption">
+                            <span id="streamingStatusNotice" style="color:#0284c7; font-weight:500;">⚡ Real-Time Streaming Active</span> &bull; Press <strong>Enter ↵</strong> to send
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                /* Real-time Streaming Cursor & Markdown Styling */
+                .typing-cursor {
+                    display: inline-block;
+                    width: 8px;
+                    height: 16px;
+                    background: #0284c7;
+                    margin-left: 3px;
+                    vertical-align: -2px;
+                    border-radius: 2px;
+                    animation: blink-cursor 0.8s infinite;
+                }
+                @keyframes blink-cursor {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+                .pulse-thinking {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    color: #0284c7;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    margin-left: 8px;
+                }
+                .pulse-dot {
+                    width: 6px;
+                    height: 6px;
+                    background: #0284c7;
+                    border-radius: 50%;
+                    animation: pulse-dot-anim 1.4s infinite ease-in-out both;
+                }
+                .pulse-dot:nth-child(1) { animation-delay: -0.32s; }
+                .pulse-dot:nth-child(2) { animation-delay: -0.16s; }
+                @keyframes pulse-dot-anim {
+                    0%, 80%, 100% { transform: scale(0); }
+                    40% { transform: scale(1.0); }
+                }
+                </style>
+                
+                <script>
+                window.isGenerating = false;
+                
+                function escapeHtml(text) {
+                    if (!text) return "";
+                    var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+                }
+                
+                function formatMarkdown(text) {
+                    if (!text) return "";
+                    var html = escapeHtml(text);
+                    // Bold **text**
+                    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    // Bullet points
+                    html = html.replace(/^[ \t]*[\*\-][ \t]+(.*)$/gm, '&bull; $1');
+                    // Numbered lists
+                    html = html.replace(/^[ \t]*(\d+)\.[ \t]+(.*)$/gm, '<b>$1.</b> $2');
+                    // Line breaks
+                    html = html.replace(/\n/g, '<br/>');
+                    return html;
+                }
+                
+                function getApexSession() {
+                    if (typeof apex !== 'undefined' && apex.item && apex.item('pInstance')) {
+                        return apex.item('pInstance').getValue();
+                    }
+                    var hiddenSession = document.querySelector('input[name="p_instance"]');
+                    if (hiddenSession) return hiddenSession.value;
+                    var match = window.location.href.match(/session=([0-9]+)/);
+                    return match ? match[1] : '0';
+                }
+                
+                function getApexUser() {
+                    var userEl = document.querySelector('.t-Header-navUser, .app-user-name');
+                    return userEl ? userEl.innerText.trim() : 'USER';
+                }
+                
+                async function sendChatStreaming() {
+                    var input = document.getElementById('userChatInput');
+                    var text = input ? input.value.trim() : '';
+                    if (!text) return;
+                
+                    if (window.isGenerating) {
+                        console.warn('Resetting stuck generation lock...');
+                        window.isGenerating = false;
+                    }
+                
+                    window.isGenerating = true;
+                    input.value = '';
+                    var btnSend = document.getElementById('btnSend');
+                    if (btnSend) btnSend.disabled = true;
+                
+                    var chatScroll = document.getElementById('chatHistoryScroll');
+                    if (!chatScroll) {
+                        var wrapper = document.querySelector('.chat-app-wrapper');
+                        if (wrapper) {
+                            chatScroll = document.createElement('div');
+                            chatScroll.id = 'chatHistoryScroll';
+                            chatScroll.className = 'chat-thread-container';
+                            wrapper.prepend(chatScroll);
+                        }
+                    }
+                
+                    // Hide empty state if present
+                    var emptyState = document.querySelector('.chat-empty-state');
+                    if (emptyState) emptyState.style.display = 'none';
+                
+                    var now = new Date();
+                    var timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                    // 1. Immediately render User Message Bubble
+                    var userHtml = '<div class="msg-row-user">' +
+                        '<div class="bubble-user">' +
+                            '<div class="bubble-user-time">You &bull; ' + timeStr + '</div>' +
+                            '<div>' + escapeHtml(text) + '</div>' +
+                        '</div>' +
+                    '</div>';
+                    chatScroll.insertAdjacentHTML('beforeend', userHtml);
+                
+                    // 2. Immediately render AI Message Bubble with Thinking Pulse
+                    var streamUid = 'stream_' + Date.now();
+                    var aiHtml = '<div class="msg-row-ai" id="row_' + streamUid + '">' +
+                        '<div class="bubble-ai">' +
+                            '<div class="bubble-ai-badge">' +
+                                '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Enterprise AI' +
+                                '<span class="pulse-thinking" id="thinking_' + streamUid + '"><span class="pulse-dot"></span><span class="pulse-dot"></span><span class="pulse-dot"></span> Thinking...</span>' +
+                            '</div>' +
+                            '<div class="bubble-ai-text" id="text_' + streamUid + '"><span class="typing-cursor"></span></div>' +
+                            '<div id="footer_' + streamUid + '" style="display:none; justify-content:space-between; align-items:center; margin-top:10px; padding-top:8px; border-top:1px solid #e2e8f0; font-size:0.75rem;"></div>' +
+                        '</div>' +
+                    '</div>';
+                    chatScroll.insertAdjacentHTML('beforeend', aiHtml);
+                    chatScroll.scrollTop = chatScroll.scrollHeight;
+                
+                    var sessionId = getApexSession();
+                    var userName = getApexUser();
+                    var fullResponse = '';
+                    var textContainer = document.getElementById('text_' + streamUid);
+                    var thinkingIndicator = document.getElementById('thinking_' + streamUid);
+                
+                    try {
+                        var response = await fetch('/api/chat/stream', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                question: text,
+                                session_id: sessionId,
+                                user_name: userName
+                            })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+                        }
+                
+                        var reader = response.body.getReader();
+                        var decoder = new TextDecoder('utf-8');
+                        var buffer = '';
+                
+                        while (true) {
+                            var res = await reader.read();
+                            if (res.done) break;
+                            buffer += decoder.decode(res.value, { stream: true });
+                
+                            var lines = buffer.split('\n');
+                            buffer = lines.pop(); // keep last incomplete line
+                
+                            for (var i = 0; i < lines.length; i++) {
+                                var line = lines[i].trim();
+                                if (!line || !line.startsWith('data: ')) continue;
+                                try {
+                                    var payload = JSON.parse(line.substring(6).trim());
+                                    if (payload.error) {
+                                        if (thinkingIndicator) {
+                                            thinkingIndicator.remove();
+                                            thinkingIndicator = null;
+                                        }
+                                        textContainer.innerHTML = '<span style="color:#dc2626; font-weight:500;">⚠️ ' + escapeHtml(payload.error) + '</span>';
+                                        break;
+                                    }
+                                    if (payload.token) {
+                                        if (thinkingIndicator) {
+                                            thinkingIndicator.remove();
+                                            thinkingIndicator = null;
+                                        }
+                                        fullResponse += payload.token;
+                                        textContainer.innerHTML = formatMarkdown(fullResponse) + '<span class="typing-cursor"></span>';
+                                        if (chatScroll) chatScroll.scrollTop = chatScroll.scrollHeight;
+                                    }
+                                    if (payload.done) {
+                                        textContainer.innerHTML = formatMarkdown(fullResponse);
+                
+                                        var footer = document.getElementById('footer_' + streamUid);
+                                        if (footer) {
+                                            var msgId = payload.msg_id || 0;
+                                            var sources = payload.sources || '';
+                                            footer.style.display = 'flex';
+                                            footer.innerHTML =
+                                                '<div class="ai-sources" style="color:#64748b; font-size:0.75rem;">' +
+                                                    (sources ? '📁 <b>Source:</b> ' + escapeHtml(sources) : '') +
+                                                '</div>' +
+                                                '<div class="ai-feedback-actions" id="feedback_box_' + msgId + '" style="display:flex; align-items:center; gap:6px;">' +
+                                                    '<span style="color:#94a3b8; margin-right:2px;">Helpful?</span>' +
+                                                    '<button type="button" class="btn-fb-up" title="Helpful answer" onclick="submitChatFeedback(' + msgId + ', \'UP\');" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer; padding:3px 7px; font-size:0.85rem; transition:all 0.2s;">👍</button>' +
+                                                    '<button type="button" class="btn-fb-down" title="Report issue" onclick="openFeedbackModal(' + msgId + ');" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer; padding:3px 7px; font-size:0.85rem; transition:all 0.2s;">👎</button>' +
+                                                '</div>';
+                                        }
+                                        if (chatScroll) chatScroll.scrollTop = chatScroll.scrollHeight;
+                                    }
+                                } catch (pe) {
+                                    // Ignore JSON parse errors on incomplete chunks
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Streaming request failed:', err);
+                        if (thinkingIndicator) thinkingIndicator.remove();
+                        textContainer.innerHTML = '<span style="color:#dc2626;">⚠️ Unable to reach streaming service (' + escapeHtml(err.message) + '). Falling back to standard mode...</span>';
+                        setTimeout(function() {
+                            apex.item('P1_QUESTION').setValue(text);
+                            apex.submit('SEND');
+                        }, 1500);
+                    } finally {
+                        window.isGenerating = false;
+                        input.disabled = false;
+                        if (btnSend) btnSend.disabled = false;
+                        input.focus();
+                        chatScroll.scrollTop = chatScroll.scrollHeight;
+                    }
+                }
+                
+                function quickAsk(questionText) {
+                    var input = document.getElementById('userChatInput');
+                    if (input) {
+                        input.value = questionText;
+                        sendChatStreaming();
+                    }
+                }
+                
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (typeof apex !== 'undefined' && apex.page) {
+                        apex.page.warnOnUnsavedChanges = function() { return false; };
+                    }
+                    var input = document.getElementById('userChatInput');
+                    if (input) {
+                        input.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                sendChatStreaming();
+                            }
+                        });
+                        input.focus();
+                    }
+                    var scrollBox = document.getElementById('chatHistoryScroll');
+                    if (scrollBox) {
+                        scrollBox.scrollTop = scrollBox.scrollHeight;
+                    }
+                });
+                </script>
+                
+                ```
+        }
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region chat-stream (
+        name: Message Stream
+        title: Message Stream
+        type: dynamicContent
+        source {
+            plsqlFunctionBody:
+                ```plsql
+                DECLARE
+                    l_output CLOB := '<div class="chat-app-wrapper"><div id="chatHistoryScroll" class="chat-thread-container">';
+                    l_has_rows BOOLEAN := FALSE;
+                BEGIN
+                    FOR r IN (
+                        SELECT msg_id, user_prompt, ai_response, sources, user_feedback, feedback_category,
+                               TO_CHAR(created_at, 'HH24:MI') as msg_time
+                        FROM chat_history
+                        WHERE session_id = :APP_SESSION
+                        ORDER BY msg_id ASC
+                    ) LOOP
+                        l_has_rows := TRUE;
+                        l_output := l_output ||
+                            '<!-- User Bubble -->' ||
+                            '<div class="msg-row-user">' ||
+                                '<div class="bubble-user">' ||
+                                    '<div class="bubble-user-time">You &bull; ' || r.msg_time || '</div>' ||
+                                    '<div>' || apex_escape.html(r.user_prompt) || '</div>' ||
+                                '</div>' ||
+                            '</div>' ||
+                            '<!-- AI Bubble -->' ||
+                            '<div class="msg-row-ai">' ||
+                                '<div class="bubble-ai">' ||
+                                    '<div class="bubble-ai-badge">' ||
+                                        '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Enterprise AI' ||
+                                    '</div>' ||
+                                    '<div class="bubble-ai-text">' || apex_escape.html(r.ai_response) || '</div>' ||
+                                    -- Feedback & Sources bar
+                                    '<div class="ai-footer-bar" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:8px; border-top:1px solid #e2e8f0; font-size:0.75rem;">' ||
+                                        '<div class="ai-sources" style="color:#64748b; font-size:0.75rem;">' ||
+                                            CASE WHEN r.sources IS NOT NULL THEN '📁 <b>Source:</b> ' || apex_escape.html(r.sources) ELSE '' END ||
+                                        '</div>' ||
+                                        '<div class="ai-feedback-actions" id="feedback_box_' || r.msg_id || '" style="display:flex; align-items:center; gap:6px;">' ||
+                                            CASE 
+                                                WHEN r.user_feedback = 'UP' THEN
+                                                    '<span style="background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:2px 8px; border-radius:12px; font-weight:600;">👍 Helpful</span>'
+                                                WHEN r.user_feedback = 'DOWN' THEN
+                                                    '<span style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca; padding:2px 8px; border-radius:12px; font-weight:600;">👎 ' || NVL(apex_escape.html(r.feedback_category), 'Reported') || '</span>'
+                                                ELSE
+                                                    '<span style="color:#94a3b8; margin-right:2px;">Helpful?</span>' ||
+                                                    '<button type="button" class="btn-fb-up" title="Helpful answer" onclick="submitChatFeedback(' || r.msg_id || ', ''UP'');" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer; padding:3px 7px; font-size:0.85rem; transition:all 0.2s;" onmouseover="this.style.background=''#e2e8f0'';" onmouseout="this.style.background=''#f8fafc'';">👍</button>' ||
+                                                    '<button type="button" class="btn-fb-down" title="Report issue" onclick="openFeedbackModal(' || r.msg_id || ');" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; cursor:pointer; padding:3px 7px; font-size:0.85rem; transition:all 0.2s;" onmouseover="this.style.background=''#e2e8f0'';" onmouseout="this.style.background=''#f8fafc'';">👎</button>'
+                                            END ||
+                                        '</div>' ||
+                                    '</div>' ||
+                                '</div>' ||
+                            '</div>';
+                    END LOOP;
+                
+                    IF NOT l_has_rows THEN
+                        l_output := l_output ||
+                            '<div class="chat-empty-state">' ||
+                                '<div class="chat-empty-icon">💬</div>' ||
+                                '<div class="chat-empty-title">Enterprise AI Assistant Active</div>' ||
+                                '<div class="chat-empty-desc">Ask questions about uploaded documents, candidate bio-data, policies, tasks, or projects.</div>' ||
+                            '</div>';
+                    END IF;
+                
+                    -- Feedback Modal & Script Container
+                    l_output := l_output ||
+                        '<!-- Feedback Modal Pop-up -->' ||
+                        '<div id="aiFeedbackModal" style="display:none; position:fixed; z-index:99999; inset:0; background:rgba(15,23,42,0.6); backdrop-filter:blur(3px); align-items:center; justify-content:center;">' ||
+                            '<div style="background:#ffffff; border-radius:14px; width:90%; max-width:440px; padding:22px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #e2e8f0;">' ||
+                                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">' ||
+                                    '<h3 style="margin:0; color:#0f172a; font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:8px;">' ||
+                                        '<span>👎</span> Tell Us What Happened' ||
+                                    '</h3>' ||
+                                    '<button type="button" onclick="closeFeedbackModal();" style="background:none; border:none; font-size:1.3rem; color:#94a3b8; cursor:pointer;">&times;</button>' ||
+                                '</div>' ||
+                                '<p style="color:#64748b; font-size:0.875rem; margin:0 0 14px 0;">Help us refine the Enterprise AI by identifying the issue:</p>' ||
+                                '<input type="hidden" id="modal_fb_msg_id" value="" />' ||
+                                '<div style="display:flex; flex-direction:column; gap:9px; margin-bottom:16px;">' ||
+                                    '<label style="display:flex; align-items:center; gap:9px; font-size:0.9rem; color:#334155; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">' ||
+                                        '<input type="radio" name="fb_category_choice" value="Right info not found" checked />' ||
+                                        '<span><b>Right info not found</b> (Information exists in document but wasn''t returned)</span>' ||
+                                    '</label>' ||
+                                    '<label style="display:flex; align-items:center; gap:9px; font-size:0.9rem; color:#334155; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">' ||
+                                        '<input type="radio" name="fb_category_choice" value="Wrong answer" />' ||
+                                        '<span><b>Wrong answer</b> (Answer is factually incorrect or misinterpreted)</span>' ||
+                                    '</label>' ||
+                                    '<label style="display:flex; align-items:center; gap:9px; font-size:0.9rem; color:#334155; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">' ||
+                                        '<input type="radio" name="fb_category_choice" value="Incomplete details" />' ||
+                                        '<span><b>Incomplete details</b> (Partial info returned, missed key facts)</span>' ||
+                                    '</label>' ||
+                                '</div>' ||
+                                '<textarea id="modal_fb_comment" placeholder="Optional details (e.g. expected specific phone number, brother count, etc.)..." style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:10px; font-size:0.875rem; box-sizing:border-box; min-height:65px; font-family:inherit;"></textarea>' ||
+                                '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">' ||
+                                    '<button type="button" onclick="closeFeedbackModal();" style="padding:8px 16px; background:#f1f5f9; color:#475569; border:none; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.875rem;">Cancel</button>' ||
+                                    '<button type="button" onclick="confirmFeedbackSubmission();" style="padding:8px 18px; background:#ef4444; color:#ffffff; border:none; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.875rem; box-shadow:0 2px 4px rgba(239,68,68,0.3);">Submit Feedback</button>' ||
+                                '</div>' ||
+                            '</div>' ||
+                        '</div>' ||
+                        '<script>' ||
+                        'window.openFeedbackModal = function(msgId) {' ||
+                        '    document.getElementById("modal_fb_msg_id").value = msgId;' ||
+                        '    document.getElementById("modal_fb_comment").value = "";' ||
+                        '    document.getElementById("aiFeedbackModal").style.display = "flex";' ||
+                        '};' ||
+                        'window.closeFeedbackModal = function() {' ||
+                        '    document.getElementById("aiFeedbackModal").style.display = "none";' ||
+                        '};' ||
+                        'window.confirmFeedbackSubmission = function() {' ||
+                        '    var msgId = document.getElementById("modal_fb_msg_id").value;' ||
+                        '    var catEl = document.querySelector("input[name=\"fb_category_choice\"]:checked");' ||
+                        '    var cat = catEl ? catEl.value : "Right info not found";' ||
+                        '    var comm = document.getElementById("modal_fb_comment").value;' ||
+                        '    submitChatFeedback(msgId, "DOWN", cat, comm);' ||
+                        '    closeFeedbackModal();' ||
+                        '};' ||
+                        'window.submitChatFeedback = function(msgId, type, category, comment) {' ||
+                        '    apex.server.process("SUBMIT_FEEDBACK", {' ||
+                        '        x01: msgId,' ||
+                        '        x02: type,' ||
+                        '        x03: category || "",' ||
+                        '        x04: comment || ""' ||
+                        '    }, {' ||
+                        '        success: function(pData) {' ||
+                        '            var box = document.getElementById("feedback_box_" + msgId);' ||
+                        '            if (box) {' ||
+                        '                if (type === "UP") {' ||
+                        '                    box.innerHTML = "<span style=\"background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:2px 8px; border-radius:12px; font-weight:600;\">👍 Helpful</span>";' ||
+                        '                } else {' ||
+                        '                    box.innerHTML = "<span style=\"background:#fef2f2; color:#dc2626; border:1px solid #fecaca; padding:2px 8px; border-radius:12px; font-weight:600;\">👎 " + (category || "Reported") + "</span>";' ||
+                        '                }' ||
+                        '            }' ||
+                        '        },' ||
+                        '        error: function(err) {' ||
+                        '            console.error("Feedback error:", err);' ||
+                        '        }' ||
+                        '    });' ||
+                        '};' ||
+                        '</script>' ||
+                        '</div></div>';
+                    RETURN l_output;
+                END;
+                ```
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    pageItem P1_QUESTION (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+    )
+
+    process ask-policy-ai (
+        name: Query Enterprise RAG AI
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_ans CLOB;
+                    l_src VARCHAR2(1000);
+                BEGIN
+                    IF :P1_QUESTION IS NOT NULL THEN
+                        enterprise_rag_pkg.ask_with_context(
+                            p_question   => :P1_QUESTION,
+                            p_session_id => :APP_SESSION,
+                            p_user_name  => :APP_USER,
+                            p_answer     => l_ans,
+                            p_sources    => l_src
+                        );
+                
+                        INSERT INTO chat_history (session_id, user_name, user_prompt, ai_response, sources)
+                        VALUES (:APP_SESSION, :APP_USER, :P1_QUESTION, l_ans, l_src);
+                        COMMIT;
+                
+                        :P1_QUESTION := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: afterSubmit
+        }
+        advanced {
+            executionMappingIdentifier: 101001
+        }
+        serverSideCondition {
+            type: request=Value
+            value: SEND
+        }
+    )
+
+    process clear-chat-history (
+        name: Clear Chat History
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    DELETE FROM chat_history WHERE session_id = :APP_SESSION;
+                    COMMIT;
+                    :P1_QUESTION := NULL;
+                END;
+                ```
+        }
+        execution {
+            sequence: 20
+            point: afterSubmit
+        }
+        advanced {
+            executionMappingIdentifier: 101002
+        }
+        serverSideCondition {
+            type: request=Value
+            value: CLEAR
+        }
+    )
+
+)
+

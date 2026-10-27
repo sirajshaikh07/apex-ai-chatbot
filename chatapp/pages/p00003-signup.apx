@@ -1,0 +1,228 @@
+page 3 (
+    name: Sign Up
+    alias: SIGNUP
+    title: Create an Account
+    appearance {
+        pageTemplate: @/login
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: firstItemOnPage
+        warnOnUnsavedChanges: false
+    }
+    security {
+        authentication: public
+    }
+
+    region signup-card (
+        name: Sign Up
+        title: Request Access Account
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @/login
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    pageItem P3_FULL_NAME (
+        type: textField
+        label {
+            label: Full Name
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @signup-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            icon: fa-user
+            valuePlaceholder: e.g. John Doe
+        }
+    )
+
+    pageItem P3_USERNAME (
+        type: textField
+        label {
+            label: Username
+            alignment: left
+        }
+        layout {
+            sequence: 20
+            region: @signup-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            icon: fa-id-badge
+            valuePlaceholder: Choose a username (e.g. jdoe)
+        }
+    )
+
+    pageItem P3_EMAIL (
+        type: textField
+        label {
+            label: Email Address
+            alignment: left
+        }
+        layout {
+            sequence: 30
+            region: @signup-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            icon: fa-envelope
+            valuePlaceholder: e.g. john.doe@company.com
+        }
+    )
+
+    pageItem P3_PASSWORD (
+        type: password
+        label {
+            label: Password
+            alignment: left
+        }
+        layout {
+            sequence: 40
+            region: @signup-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            icon: fa-key
+            valuePlaceholder: Password
+        }
+    )
+
+    pageItem P3_CONFIRM_PASSWORD (
+        type: password
+        label {
+            label: Confirm Password
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @signup-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            icon: fa-key
+            valuePlaceholder: Re-type password
+        }
+    )
+
+    button P3_SUBMIT (
+        buttonName: SUBMIT_REQUEST
+        label: Request Account
+        layout {
+            sequence: 60
+            region: @signup-card
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @/text
+            hot: true
+            icon: fa-user-plus
+            templateOptions: [
+                #DEFAULT#
+                t-Button--primary
+            ]
+        }
+        behavior {
+            action: submitPage
+        }
+    )
+
+    region signup-footer (
+        name: Login Link
+        title: Login Link
+        type: staticContent
+        layout {
+            sequence: 70
+            slot: contentBody
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            htmlCode:
+                ```html
+                <div style="text-align: center; margin-top: 1.25rem; font-size: 0.88rem;">
+                    <span style="color: #64748b;">Already have an approved account?</span>
+                    <a href="f?p=&APP_ID.:LOGIN:&APP_SESSION." style="color: #0284c7; font-weight: 600; text-decoration: none; margin-left: 4px;">
+                        Log In here
+                    </a>
+                </div>
+                ```
+        }
+    )
+
+    process submit-signup (
+        name: Register User Request
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_cnt NUMBER;
+                BEGIN
+                    IF :P3_PASSWORD != :P3_CONFIRM_PASSWORD THEN
+                        apex_error.add_error(
+                            p_message          => 'Passwords do not match. Please re-enter your password.',
+                            p_display_location => apex_error.c_inline_in_notification
+                        );
+                        RETURN;
+                    END IF;
+
+                    SELECT count(*) INTO l_cnt FROM user_registrations WHERE UPPER(username) = UPPER(TRIM(:P3_USERNAME));
+                    IF l_cnt > 0 THEN
+                        apex_error.add_error(
+                            p_message          => 'Username "' || :P3_USERNAME || '" is already requested or exists. Please pick another username.',
+                            p_display_location => apex_error.c_inline_in_notification
+                        );
+                        RETURN;
+                    END IF;
+
+                    INSERT INTO user_registrations (username, full_name, email, password, status)
+                    VALUES (UPPER(TRIM(:P3_USERNAME)), TRIM(:P3_FULL_NAME), TRIM(:P3_EMAIL), :P3_PASSWORD, 'PENDING');
+                    COMMIT;
+
+                    apex_application.g_print_success_message :=
+                        'Success! Your account request for username "' || apex_escape.html(:P3_USERNAME) || 
+                        '" has been submitted to Administrator Siraj. You can log in once approved.';
+
+                    :P3_FULL_NAME := NULL;
+                    :P3_USERNAME := NULL;
+                    :P3_EMAIL := NULL;
+                    :P3_PASSWORD := NULL;
+                    :P3_CONFIRM_PASSWORD := NULL;
+                END;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: SUBMIT_REQUEST
+        }
+        advanced {
+            executionMappingIdentifier: 103001
+        }
+    )
+
+)

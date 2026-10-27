@@ -1,0 +1,2 @@
+SELECT id, plug_name FROM APEX_260200.WWV_FLOW_PAGE_PLUGS WHERE flow_id = 101 AND page_id = 1;
+EXIT;

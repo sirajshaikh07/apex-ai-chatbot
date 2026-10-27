@@ -1,0 +1,15 @@
+[Unit]
+Description=Enterprise APEX Real-Time Token Streaming Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/docs
+ExecStart=/usr/bin/python3 /home/ubuntu/docs/streaming_rag_service.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

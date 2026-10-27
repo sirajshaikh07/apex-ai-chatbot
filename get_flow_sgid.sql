@@ -1,0 +1,2 @@
+SELECT id, security_group_id FROM APEX_260200.WWV_FLOWS WHERE id = 101;
+EXIT;

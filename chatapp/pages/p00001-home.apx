@@ -1,0 +1,571 @@
+page 1 (
+    name: AI Chat
+    alias: HOME
+    title: Enterprise AI Assistant
+    appearance {
+        pageTemplate: @/standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        warnOnUnsavedChanges: false
+    }
+
+    pageItem P1_QUESTION (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        sessionState {
+            storage: session
+        }
+    )
+
+    region chat-header (
+        name: Header & Quick Prompts
+        title: Header & Quick Prompts
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            htmlCode:
+                ```html
+                <style>
+                    /* ========================================================
+                       State-of-the-Art Modern Clean AI Chat Interface
+                       ======================================================== */
+                    :root {
+                        --chat-bg: #f8fafc;
+                        --chat-card-bg: #ffffff;
+                        --chat-border: #e2e8f0;
+                        --chat-primary: #0284c7;
+                        --chat-primary-hover: #0369a1;
+                        --chat-user-bg: #0f172a;
+                        --chat-user-text: #ffffff;
+                        --chat-ai-text: #1e293b;
+                        --chat-radius: 20px;
+                    }
+
+                    /* Main Centered Container */
+                    .chat-app-wrapper {
+                        max-width: 860px;
+                        margin: 0 auto;
+                        padding: 0 1rem;
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                    }
+
+                    /* Minimalist Top App Bar */
+                    .chat-app-header {
+                        text-align: center;
+                        padding: 1.5rem 0 1rem 0;
+                    }
+                    .chat-brand-title {
+                        font-size: 1.75rem;
+                        font-weight: 700;
+                        color: #0f172a;
+                        letter-spacing: -0.03em;
+                        margin: 0 0 0.35rem 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                    }
+                    .chat-brand-desc {
+                        font-size: 0.92rem;
+                        color: #64748b;
+                        margin: 0 0 0.75rem 0;
+                    }
+                    .chat-status-pill {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.45rem;
+                        font-size: 0.76rem;
+                        font-weight: 600;
+                        color: #059669;
+                        background: #ecfdf5;
+                        border: 1px solid #a7f3d0;
+                        padding: 0.22rem 0.8rem;
+                        border-radius: 9999px;
+                        letter-spacing: 0.02em;
+                    }
+                    .chat-status-pulse {
+                        width: 7px;
+                        height: 7px;
+                        background: #10b981;
+                        border-radius: 50%;
+                        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+                        animation: pulse-ring 2s infinite;
+                    }
+                    @keyframes pulse-ring {
+                        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+                        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+                        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+                    }
+
+                    /* Prompt Suggestions Chips */
+                    .prompt-chips-row {
+                        display: flex;
+                        gap: 0.5rem;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        margin: 0.5rem 0 1.25rem 0;
+                    }
+                    .prompt-chip {
+                        background: #ffffff;
+                        color: #334155;
+                        border: 1px solid #e2e8f0;
+                        padding: 0.42rem 0.95rem;
+                        border-radius: 9999px;
+                        font-size: 0.82rem;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+                        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                    }
+                    .prompt-chip:hover {
+                        background: #f0f9ff;
+                        border-color: #0284c7;
+                        color: #0284c7;
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(2, 132, 199, 0.12);
+                    }
+
+                    /* Chat History Scroll Box */
+                    .chat-thread-container {
+                        min-height: 280px;
+                        max-height: 500px;
+                        overflow-y: auto;
+                        padding: 0.5rem 0.25rem 1rem 0.25rem;
+                        scroll-behavior: smooth;
+                    }
+                    .chat-thread-container::-webkit-scrollbar {
+                        width: 6px;
+                    }
+                    .chat-thread-container::-webkit-scrollbar-thumb {
+                        background: #cbd5e1;
+                        border-radius: 4px;
+                    }
+
+                    /* User Message Row */
+                    .msg-row-user {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 1.25rem;
+                    }
+                    .bubble-user {
+                        background: var(--chat-user-bg);
+                        color: var(--chat-user-text);
+                        padding: 0.85rem 1.25rem;
+                        border-radius: 18px 18px 4px 18px;
+                        max-width: 75%;
+                        font-size: 0.93rem;
+                        line-height: 1.5;
+                        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+                    }
+                    .bubble-user-time {
+                        font-size: 0.72rem;
+                        opacity: 0.65;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    /* AI Message Row */
+                    .msg-row-ai {
+                        display: flex;
+                        justify-content: flex-start;
+                        margin-bottom: 1.5rem;
+                    }
+                    .bubble-ai {
+                        background: var(--chat-card-bg);
+                        color: var(--chat-ai-text);
+                        border: 1px solid var(--chat-border);
+                        padding: 1.15rem 1.4rem;
+                        border-radius: 18px 18px 18px 4px;
+                        max-width: 84%;
+                        font-size: 0.93rem;
+                        line-height: 1.65;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+                    }
+                    .bubble-ai-badge {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.45rem;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        color: var(--chat-primary);
+                        margin-bottom: 0.5rem;
+                    }
+                    .bubble-ai-text {
+                        white-space: pre-wrap;
+                        word-break: break-word;
+                    }
+                    .bubble-ai-source {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.4rem;
+                        margin-top: 0.9rem;
+                        padding: 0.35rem 0.75rem;
+                        background: #f0fdf4;
+                        border: 1px solid #bbf7d0;
+                        border-radius: 6px;
+                        font-size: 0.78rem;
+                        font-weight: 500;
+                        color: #166534;
+                    }
+
+                    /* Empty Welcome State */
+                    .chat-empty-state {
+                        text-align: center;
+                        padding: 3.5rem 1rem;
+                        color: #94a3b8;
+                    }
+                    .chat-empty-icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 0.75rem;
+                        opacity: 0.8;
+                    }
+                    .chat-empty-title {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: #334155;
+                        margin-bottom: 0.35rem;
+                    }
+                    .chat-empty-desc {
+                        font-size: 0.88rem;
+                        color: #64748b;
+                        max-width: 480px;
+                        margin: 0 auto;
+                        line-height: 1.5;
+                    }
+
+                    /* Unified Modern Floating Input Bar */
+                    .chat-input-wrapper {
+                        margin: 0.75rem auto 2.5rem auto;
+                        max-width: 860px;
+                    }
+                    .chat-pill-box {
+                        background: #ffffff;
+                        border: 1.5px solid #cbd5e1;
+                        border-radius: 9999px;
+                        padding: 6px 8px 6px 20px;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+                        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                    .chat-pill-box:focus-within {
+                        border-color: #0284c7;
+                        box-shadow: 0 4px 22px rgba(2, 132, 199, 0.18);
+                    }
+                    .chat-pill-box input {
+                        flex: 1 1 auto;
+                        border: none !important;
+                        outline: none !important;
+                        box-shadow: none !important;
+                        background: transparent !important;
+                        font-size: 0.96rem !important;
+                        color: #0f172a !important;
+                        padding: 8px 0 !important;
+                        width: 100%;
+                    }
+                    .chat-pill-box input::placeholder {
+                        color: #94a3b8;
+                    }
+                    .btn-action-send {
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 50%;
+                        background: #0284c7;
+                        color: #ffffff;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: all 0.15s ease-in-out;
+                        flex-shrink: 0;
+                        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+                    }
+                    .btn-action-send:hover {
+                        background: #0369a1;
+                        transform: scale(1.05);
+                        box-shadow: 0 4px 10px rgba(2, 132, 199, 0.45);
+                    }
+                    .btn-action-send:active {
+                        transform: scale(0.98);
+                    }
+                    .btn-action-clear {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 50%;
+                        background: #f8fafc;
+                        color: #64748b;
+                        border: 1px solid #e2e8f0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: all 0.15s ease-in-out;
+                        flex-shrink: 0;
+                    }
+                    .btn-action-clear:hover {
+                        background: #fee2e2;
+                        border-color: #fca5a5;
+                        color: #dc2626;
+                        transform: scale(1.05);
+                    }
+                    .chat-input-caption {
+                        text-align: center;
+                        font-size: 0.74rem;
+                        color: #94a3b8;
+                        margin-top: 0.45rem;
+                    }
+                </style>
+
+                <div class="chat-app-wrapper">
+                    <!-- Modern Minimalist Header -->
+                    <div class="chat-app-header">
+                        <div class="chat-brand-title">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Enterprise AI Assistant
+                        </div>
+                        <div class="chat-brand-desc">Enterprise knowledge & memory engine powered by Oracle 26ai Vector Search</div>
+                        <div class="chat-status-pill">
+                            <span class="chat-status-pulse"></span> Oracle 26ai & Memory Engine Active
+                        </div>
+                    </div>
+
+                    <!-- Quick Suggestions Chips -->
+                    <div class="prompt-chips-row">
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many projects are there and what is their status?');">
+                            📊 Projects Overview
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many tasks did Siraj complete in C4T?');">
+                            👤 Siraj C4T Tasks
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('What is the guaranteed response time for a Severity 1 Critical Outage?');">
+                            ⚡ Severity 1 SLA
+                        </button>
+                        <button type="button" class="prompt-chip" onclick="quickAsk('How many days of annual earned leave are granted?');">
+                            🏖️ Annual Leaves
+                        </button>
+                    </div>
+                </div>
+                ```
+        }
+    )
+
+    region chat-stream (
+        name: Message Stream
+        title: Message Stream
+        type: dynamicContent
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            plsqlFunctionBody:
+                ```plsql
+                DECLARE
+                    l_output CLOB := '<div class="chat-app-wrapper"><div id="chatHistoryScroll" class="chat-thread-container">';
+                    l_has_rows BOOLEAN := FALSE;
+                BEGIN
+                    FOR r IN (
+                        SELECT msg_id, user_prompt, ai_response, sources, TO_CHAR(created_at, 'HH24:MI') as msg_time
+                        FROM chat_history
+                        WHERE session_id = :APP_SESSION
+                        ORDER BY msg_id ASC
+                    ) LOOP
+                        l_has_rows := TRUE;
+                        l_output := l_output ||
+                            '<!-- User Bubble -->' ||
+                            '<div class="msg-row-user">' ||
+                                '<div class="bubble-user">' ||
+                                    '<div class="bubble-user-time">You &bull; ' || r.msg_time || '</div>' ||
+                                    '<div>' || apex_escape.html(r.user_prompt) || '</div>' ||
+                                '</div>' ||
+                            '</div>' ||
+                            '<!-- AI Bubble -->' ||
+                            '<div class="msg-row-ai">' ||
+                                '<div class="bubble-ai">' ||
+                                    '<div class="bubble-ai-badge">' ||
+                                        '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:5px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Enterprise AI' ||
+                                    '</div>' ||
+                                    '<div class="bubble-ai-text">' || apex_escape.html(r.ai_response) || '</div>' ||
+                                '</div>' ||
+                            '</div>';
+                    END LOOP;
+
+                    IF NOT l_has_rows THEN
+                        l_output := l_output ||
+                            '<div class="chat-empty-state">' ||
+                                '<div class="chat-empty-icon">💬</div>' ||
+                                '<div class="chat-empty-title">Enterprise AI Assistant Active</div>' ||
+                                '<div class="chat-empty-desc">Ask questions about uploaded documents, candidate bio-data, policies, tasks, or projects.</div>' ||
+                            '</div>';
+                    END IF;
+
+                    l_output := l_output || '</div></div>';
+                    RETURN l_output;
+                END;
+                ```
+        }
+    )
+
+    region chat-input-bar (
+        name: Chat Input Bar
+        title: Chat Input Bar
+        type: staticContent
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            htmlCode:
+                ```html
+                <div class="chat-app-wrapper">
+                    <div class="chat-input-wrapper">
+                        <div class="chat-pill-box">
+                            <input type="text" id="userChatInput" placeholder="Ask a question or type a message..." autocomplete="off" />
+                            <button type="button" id="btnSend" class="btn-action-send" title="Send message (Enter)" onclick="sendChat();">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                            <button type="button" id="btnClear" class="btn-action-clear" title="Clear chat history" onclick="apex.submit('CLEAR');">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="chat-input-caption">Press <strong>Enter ↵</strong> to send</div>
+                    </div>
+                </div>
+
+                <script>
+                    function sendChat() {
+                        var input = document.getElementById('userChatInput');
+                        var text = input ? input.value.trim() : '';
+                        if (!text) return;
+                        apex.item('P1_QUESTION').setValue(text);
+                        apex.submit('SEND');
+                    }
+
+                    function quickAsk(questionText) {
+                        apex.item('P1_QUESTION').setValue(questionText);
+                        apex.submit('SEND');
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if (typeof apex !== 'undefined' && apex.page) {
+                            apex.page.warnOnUnsavedChanges = function() { return false; };
+                        }
+                        var input = document.getElementById('userChatInput');
+                        if (input) {
+                            input.addEventListener('keydown', function(e) {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    sendChat();
+                                }
+                            });
+                            input.focus();
+                        }
+                        var scrollBox = document.getElementById('chatHistoryScroll');
+                        if (scrollBox) {
+                            scrollBox.scrollTop = scrollBox.scrollHeight;
+                        }
+                    });
+                </script>
+                ```
+        }
+    )
+
+    process ask-policy-ai (
+        name: Query Enterprise RAG AI
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_ans CLOB;
+                    l_src VARCHAR2(1000);
+                BEGIN
+                    IF :P1_QUESTION IS NOT NULL THEN
+                        enterprise_rag_pkg.ask_with_context(
+                            p_question   => :P1_QUESTION,
+                            p_session_id => :APP_SESSION,
+                            p_user_name  => :APP_USER,
+                            p_answer     => l_ans,
+                            p_sources    => l_src
+                        );
+
+                        INSERT INTO chat_history (session_id, user_name, user_prompt, ai_response, sources)
+                        VALUES (:APP_SESSION, :APP_USER, :P1_QUESTION, l_ans, l_src);
+                        COMMIT;
+
+                        :P1_QUESTION := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: SEND
+        }
+        advanced {
+            executionMappingIdentifier: 101001
+        }
+    )
+
+    process clear-chat-history (
+        name: Clear Chat History
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    DELETE FROM chat_history WHERE session_id = :APP_SESSION;
+                    COMMIT;
+                    :P1_QUESTION := NULL;
+                END;
+                ```
+        }
+        execution {
+            sequence: 20
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: CLEAR
+        }
+        advanced {
+            executionMappingIdentifier: 101002
+        }
+    )
+
+)

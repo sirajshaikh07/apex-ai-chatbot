@@ -1,0 +1,10 @@
+SET LINESIZE 300;
+SET PAGESIZE 100;
+SET LONG 10000;
+ALTER SESSION SET CURRENT_SCHEMA = AIDEMO;
+
+SELECT chunk_id, chunk_no, chunk_text
+FROM doc_chunks
+WHERE doc_id = 161 AND chunk_no IN (24, 25);
+
+EXIT;

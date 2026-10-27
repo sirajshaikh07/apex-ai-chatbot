@@ -1,0 +1,320 @@
+# [DOCUMENT: Enterprise Task Registry - All Projects]
+> **Format:** UGDS Canonical Markdown | **Standard:** Record-Level Atomic Units
+
+
+## [SECTION: Project C4T]
+> **Owner:** Amrish | **Team:** Nasir, Amrish, Aditya, Divyangi, Neha, Yogita, Siraj | **Status:** On Track
+- **Task 1:** Task: Give demo to C4T with obj storage, VM creation, how we can use a replicated boot storage to spin up a new VM | Project: C4T | Assignee: Aditya | Status: Blocked | Priority: Medium | Deadline: 2026-10-30
+---
+- **Task 2:** Task: DC-DR drill | Project: C4T | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 3:** Task: Provide access to C4T for VM creation. | Project: C4T | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-13
+---
+- **Task 4:** Task: Daily Report Submission | Project: C4T | Assignee: Yogita | Status: In Progress | Priority: High | Deadline: 2026-10-23
+---
+- **Task 5:** Task: Documentation Networking for DR | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-29
+---
+- **Task 6:** Task: WAF+ LB removal | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-28
+---
+- **Task 7:** Task: DR VM creation | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-28
+---
+- **Task 8:** Task: Script to Swap Default book with Backup Copy | Project: C4T | Assignee: Aditya | Status: Done | Priority: High | Deadline: 2026-10-16
+---
+- **Task 9:** Task: Connectivity Test for all DR VMs | Project: C4T | Assignee: Yogita | Status: Done | Priority: High | Deadline: 2026-09-29
+---
+- **Task 10:** Task: DCs VM CREATIONS IN DR | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-28
+---
+- **Task 11:** Task: Create a Load Balancer in DR C4T | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-09
+---
+- **Task 12:** Task: Enable Compute Instance Run Command | Project: C4T | Assignee: Siraj | Status: Done | Priority: Low | Deadline: 2026-10-16
+---
+- **Task 13:** Task: Resolved SSH connectivity issues for COPA and NPCL Web app. | Project: C4T | Assignee: Aditya | Status: Done | Priority: High | Deadline: 2026-10-07
+---
+- **Task 14:** Task: Change SSH keys for all VMs in tenancy | Project: C4T | Assignee: Aditya | Status: Done | Priority: High | Deadline: 2026-10-10
+---
+- **Task 15:** Task: Configuring C4T NPCL_GASGRID_AI VMs With new Pem Keys | Project: C4T | Assignee: Siraj | Status: Done | Priority: High | Deadline: 2026-10-12
+---
+- **Task 16:** Task: Vulnerability Scanning Enable | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-21
+---
+- **Task 17:** Task: DC DR DRILL DEMO | Project: C4T | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-10-28
+---
+- **Task 18:** Task: Configuring COPA VMs with New PEM key | Project: C4T | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 19:** Task: Review 1:1 DC DR Network configuration | Project: C4T | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 20:** Task: Dc-DR networking script | Project: C4T | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-10-30
+---
+- **Task 21:** Task: DR drill run book | Project: C4T | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-10-25
+---
+- **Task 22:** Task: DR drill reversal script | Project: C4T | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-11-04
+---
+- **Task 23:** Task: share the detailed analysis on regular alerts on COPA DB & CPOA HES on c4t group. | Project: C4T | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-26
+---
+
+## [SECTION: Project PSPCL]
+> **Owner:** Amrish | **Team:** Amrish, Aditya, Divyangi, Siraj, Yogita | **Status:** On Track
+- **Task 1:** Task: FortiNet - Firewall | Project: PSPCL | Assignee: Aditya | Status: In Progress | Priority: High | Deadline: 2026-11-09
+---
+- **Task 2:** Task: PSPCL APP | Project: PSPCL | Assignee: Siraj | Status: Done | Priority: High | Deadline: 2026-09-16
+---
+- **Task 3:** Task: PSPCL Documentation Update | Project: PSPCL | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-21
+---
+- **Task 4:** Task: DC DR Clone Configurations for C4T Tenancy | Project: PSPCL | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-09-20
+---
+- **Task 5:** Task: Boot vol Backups to Object Storage | Project: PSPCL | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 6:** Task: OKE deletion | Project: PSPCL | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-09-16
+---
+- **Task 7:** Task: OKE Cluster clear | Project: PSPCL | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-16
+---
+- **Task 8:** Task: ARCON compartment | Project: PSPCL | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-09-23
+---
+- **Task 9:** Task: Connect PSPCL DB in Analytics | Project: PSPCL | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 10:** Task: PSPCL Daily Reporting | Project: PSPCL | Assignee: Siraj | Status: In Progress | Priority: Medium | Deadline: 2026-10-26
+---
+- **Task 11:** Task: Script for Analytics | Project: PSPCL | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-05
+---
+- **Task 12:** Task: Enable Compute Instance Run Command for all PSPCL Instances . | Project: PSPCL | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 13:** Task: R&D on OS and e4to e5 shape upgrade. How it could affect VMs | Project: PSPCL | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-21
+---
+- **Task 14:** Task: Shared VPN connection details to FG. Testing of Test env going on | Project: PSPCL | Assignee: Aditya | Status: Done | Priority: Medium | Deadline: 2026-10-23
+---
+- **Task 15:** Task: Check forticlient console for any vulnerability issues | Project: PSPCL | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-10-30
+---
+- **Task 16:** Task: Autonomous database in PSPCL PROD make it 24*7 available | Project: PSPCL | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-10-26
+---
+- **Task 17:** Task: Obj storage replication to be on on | Project: PSPCL | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-10-27
+---
+- **Task 18:** Task: PSPCL DR script creation | Project: PSPCL | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-11-05
+---
+- **Task 19:** Task: DR drill runbook creation | Project: PSPCL | Assignee: Aditya | Status: Not Started | Priority: Medium | Deadline: 2026-11-02
+---
+
+## [SECTION: Project Task Tracker App]
+> **Owner:** Amrish | **Team:** Divyangi, Amrish, Nasir | **Status:** On Track
+- **Task 1:** Task: Faveo_installation | Project: Task Tracker App | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-09-15
+---
+- **Task 2:** Task: Faveo-Testing | Project: Task Tracker App | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-09-21
+---
+- **Task 3:** Task: Access Control | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-09-16
+---
+- **Task 4:** Task: List of features in helpdesk | Project: Task Tracker App | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-09-28
+---
+- **Task 5:** Task: Edit Task Window - Save moves down | Project: Task Tracker App | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-09-30
+---
+- **Task 6:** Task: Helpdesk #5: Private / internal notes | Project: Task Tracker App | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-21
+---
+- **Task 7:** Task: Helpdesk #17: Overdue request dashboard | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-21
+---
+- **Task 8:** Task: Helpdesk #18: Unique request ID | Project: Task Tracker App | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-21
+---
+- **Task 9:** Task: Send deadline extension requests to the project owner | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-20
+---
+- **Task 10:** Task: Set project owners: Chitra on LMIA ERP, Amrish elsewhere | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-19
+---
+- **Task 11:** Task: Group overdue items by how late they are | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 12:** Task: Give Yogita read-only sight of every project | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 13:** Task: Clean up the board: five finished projects removed | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 14:** Task: Ship the board screen with the app on every deploy | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-19
+---
+- **Task 15:** Task: Build board tools for owners, overdue and bulk updates | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-19
+---
+- **Task 16:** Task: Record all current work on the tracker | Project: Task Tracker App | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-19
+---
+
+## [SECTION: Project LMIA ERP]
+> **Owner:** Chitra | **Team:** Amrish, Chitra, Divyangi, Yash, Yogita | **Status:** On Track
+- **Task 1:** Task: DB Restart | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-16
+---
+- **Task 2:** Task: Host app on vm- alliance portal | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-16
+---
+- **Task 3:** Task: Accounting Calender | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-17
+---
+- **Task 4:** Task: Dashboard same as legacy auraerp app | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-17
+---
+- **Task 5:** Task: TEKGEMINUS: Display TEKGEMINUS brand name on top | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 6:** Task: Navigator: Get 'Main-Navigator' readable on the top | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 7:** Task: Menu Display: Move Organization / Enterprises / Legal Entities / Business Units to LMIA ERP | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 8:** Task: CARD Display: Move the sub-cards with counts under the General Ledger link | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 9:** Task: API: Maintain the 'upload' button in the General Ledger screen as in Aura ERP | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 10:** Task: Dashboard: Fix the 'Dashboard' menu at the top of the navigator | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-11
+---
+- **Task 11:** Task: CARD Display: Remove the additional cards from the main display | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-11
+---
+- **Task 12:** Task: User Screen: Users with the Modules and Roles grid | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-09
+---
+- **Task 13:** Task: API: Journal and line CSV upload with validations | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-23
+---
+- **Task 14:** Task: Periods: Add the Periods screen under General Ledger | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 15:** Task: COA: Add the Chart of Accounts screen under General Ledger | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 16:** Task: Ledger: Add the Ledger screen under General Ledger | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 17:** Task: Journals + Journal Lines: screen modifications | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 18:** Task: Journals: Validations | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 19:** Task: Trial Balance: Account requirement | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: High | Deadline: 2026-09-30
+---
+- **Task 20:** Task: Cards for sub-ledger modules: AP / AR / FA placeholders marked Under Construction | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Low | Deadline: 2026-10-27
+---
+- **Task 21:** Task: System: Bring the SYSTEM label across with Lookup Options under it | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Low | Deadline: 2026-10-30
+---
+- **Task 22:** Task: LOGO: Update the LMIA ERP logo on the new instance | Project: LMIA ERP | Assignee: Amrish | Status: Done | Priority: Medium | Deadline: 2026-09-30
+---
+- **Task 23:** Task: Menu: Menu hierarchy and role matrix design | Project: LMIA ERP | Assignee: Chitra | Status: Done | Priority: Medium | Deadline: 2026-09-30
+---
+- **Task 24:** Task: DBeaver is slow reading tables - investigate | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-09-30
+---
+- **Task 25:** Task: Rename the Aura ERP v1 title to 'old Aura ERP' | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-09-30
+---
+- **Task 26:** Task: Master Data: Customers, Suppliers, Banks, Assets and Tax Masters | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-31
+---
+- **Task 27:** Task: LMIA Weekly Review | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-22
+---
+- **Task 28:** Task: Journals: bring the four business units into the Business Unit field | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 2:** Task: The field now lists business units and resolves each one to its own ledger. | Project: LMIA ERP | Assignee: Unassigned | Status: Open | Priority: Normal | Deadline: None
+---
+- **Task 29:** Task: Journals: rename the status 'Draft' to 'Saved' | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 30:** Task: Cards: change 'Not yet enabled' to 'Under Progress' | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 1:** Task: Shared with Yogita.Applies to the General Ledger overview cards that have no screen yet. | Project: LMIA ERP | Assignee: Unassigned | Status: Open | Priority: Normal | Deadline: None
+---
+- **Task 31:** Task: Ledgers: new Ledger screen | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 32:** Task: Organizations: add the 'Parent Org' dropdown after Description | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 33:** Task: Organizations: remove Legal Entities and Business Units from the Organization link | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 34:** Task: Organizations: move Organizations under Administration, before Users | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 35:** Task: Organizations: bring the Legal Entity and Business Unit fields onto the Organization screen | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 36:** Task: Organizations: map the org structure per the sheet grid | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 37:** Task: Organizations: PAN, TAN and GST on a legal entity | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-13
+---
+- **Task 38:** Task: Adding New Module Page 'INVOICE' with cards and components | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 39:** Task: Creating 'Invoice Header' and 'Invoice lines' in Invoice Entry | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-16
+---
+- **Task 40:** Task: Connected with Db and backend to save the data for 'invoice | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 41:** Task: Creating 'Invoice' card in main dashboard | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-15
+---
+- **Task 42:** Task: Bringing saved invoices in 'Invoice Entry' with search button | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-16
+---
+- **Task 43:** Task: Hide 'Invoice header' | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-16
+---
+- **Task 44:** Task: Add an 'Ask the Database' link on the ERP dashboard | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-24
+---
+- **Task 45:** Task: Correction-Editing date feature in Invoice date | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-16
+---
+- **Task 46:** Task: Make every field on User Management mandatory | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 47:** Task: Show the General Ledger menu according to the user's role | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 48:** Task: Stop the whole page scrolling - only the data table moves | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-20
+---
+- **Task 49:** Task: Open the journal header and lines as a full screen sheet | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: High | Deadline: 2026-10-20
+---
+- **Task 50:** Task: Build the Period Close form under General Ledger | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-24
+---
+- **Task 51:** Task: Add an Administrator (full access) option on the Users screen | Project: LMIA ERP | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-10-26
+---
+- **Task 52:** Task: Create Amrish's ERP administrator account | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 53:** Task: Hide Currencies and Chart of Accounts on the GL screen | Project: LMIA ERP | Assignee: Divyangi | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 54:** Task: Edit New Invoice and saved invoice page | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-19
+---
+- **Task 55:** Task: Add 'Cash trasaction Entry' Page inside invoice module | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-23
+---
+- **Task 56:** Task: Create 'lookup-Invoice access' page | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-23
+---
+- **Task 57:** Task: 'Invoice-Period closure' form | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-24
+---
+- **Task 58:** Task: AP-AR balance due table | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-22
+---
+- **Task 59:** Task: changes in cash transaction new entry form | Project: LMIA ERP | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-10-23
+---
+
+## [SECTION: Project LMIA DB Chat]
+> **Owner:** Amrish | **Team:** Divyangi | **Status:** On Track
+- **Task 1:** Task: Follow the document and land the app on portal | Project: LMIA DB Chat | Assignee: Divyangi | Status: Done | Priority: Low | Deadline: 2026-10-01
+---
+- **Task 2:** Task: Connect the Aura ERP database to DB Chat | Project: LMIA DB Chat | Assignee: Divyangi | Status: Not Started | Priority: High | Deadline: 2026-10-31
+---
+- **Task 3:** Task: Answer from an uploaded document, starting with the HR handbook | Project: LMIA DB Chat | Assignee: Divyangi | Status: Not Started | Priority: Medium | Deadline: 2026-11-07
+---
+
+## [SECTION: Project PSPCL Analytics]
+> **Owner:** Amrish | **Team:** Siraj, Amrish, Divyangi, Yogita | **Status:** On Track
+- **Task 1:** Task: Create PSPCL Analytics Dashboard Application | Project: PSPCL Analytics | Assignee: Amrish | Status: Not Started | Priority: Medium | Deadline: 2026-10-31
+---
+- **Task 11:** Task: Connect to Autonomous Database in PSPCL | Project: PSPCL Analytics | Assignee: Unassigned | Status: Open | Priority: Normal | Deadline: None
+---
+- **Task 2:** Task: Extract the data using below query SELECT METER_NUMBER AS me | Project: PSPCL Analytics | Assignee: Unassigned | Status: Open | Priority: Normal | Deadline: None
+---
+- **Task 3:** Task: Create a custom application which shows - i. 3 tiles - total meters, meters installed insta | Project: PSPCL Analytics | Assignee: Unassigned | Status: Open | Priority: Normal | Deadline: None
+---
+- **Task 2:** Task: PSPCL PG Dump | Project: PSPCL Analytics | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-11-06
+---
+- **Task 3:** Task: PSPCL Original Query | Project: PSPCL Analytics | Assignee: Yogita | Status: Done | Priority: Medium | Deadline: 2026-11-06
+---
+- **Task 4:** Task: Get Query From Yogita And Run On Pspcl Analytics | Project: PSPCL Analytics | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 5:** Task: Get Query From Yogita And Run On Pspcl Analytics | Project: PSPCL Analytics | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 6:** Task: Get Query From Yogita And Run On Pspcl Analytics | Project: PSPCL Analytics | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 7:** Task: Get Query From Yogita And Run On Pspcl Analytics | Project: PSPCL Analytics | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+- **Task 8:** Task: Get Query From Yogita And Run On Pspcl Analytics | Project: PSPCL Analytics | Assignee: Unassigned | Status: Done | Priority: Medium | Deadline: 2026-10-08
+---
+
+## [SECTION: Project ARCON]
+> **Owner:** Amrish | **Team:** Aditya, Siraj, Nasir | **Status:** On Track
+- **Task 1:** Task: Tenancy Onboarding | Project: ARCON | Assignee: Siraj | Status: Done | Priority: Medium | Deadline: 2026-10-20
+---
+- **Task 2:** Task: ARCON Daily Reporting | Project: ARCON | Assignee: Siraj | Status: In Progress | Priority: Medium | Deadline: 2026-10-19
+---
+- **Task 3:** Task: ARCON SUMMARY | Project: ARCON | Assignee: Siraj | Status: Done | Priority: High | Deadline: 2026-10-26
+---
+
+## [SECTION: Project PRPO]
+> **Owner:** Amrish | **Team:** - | **Status:** On Track
+- **Task 1:** Task: Deploy the PR/PO portal on trial-vm | Project: PRPO | Assignee: Divyangi | Status: In Progress | Priority: High | Deadline: 2026-10-20
+---
+- **Task 2:** Task: Demo the PR/PO portal to Chitra and Yash | Project: PRPO | Assignee: Divyangi | Status: In Progress | Priority: High | Deadline: 2026-10-19
+---
+- **Task 3:** Task: Fix the PR/PO service so it starts | Project: PRPO | Assignee: Divyangi | Status: In Progress | Priority: High | Deadline: 2026-10-20
+---
+- **Task 4:** Task: Open port 3001 in the OCI security list | Project: PRPO | Assignee: Divyangi | Status: Not Started | Priority: High | Deadline: 2026-10-20
+---
+
+## [SECTION: Project Apex LLM]
+> **Owner:** Siraj | **Team:** Siraj, Amrish | **Status:** On Track
+- **Task 1:** Task: Research about Oracle Apex | Project: Apex LLM | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-10-27
+---
+- **Task 2:** Task: In Test Compartment create take a VM and deploy Oracle 26ai on the same | Project: Apex LLM | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-10-28
+---
+- **Task 3:** Task: Research on how we deploy Oracle APEX on separate VM in same compartment and connect the DB to it. | Project: Apex LLM | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-10-29
+---
+- **Task 4:** Task: Host a local LLM and link it to Oracle APEX and DB | Project: Apex LLM | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-11-02
+---
+- **Task 5:** Task: Post that create a agentic ai that can chat with content available in database | Project: Apex LLM | Assignee: Siraj | Status: Not Started | Priority: Medium | Deadline: 2026-11-04
+---

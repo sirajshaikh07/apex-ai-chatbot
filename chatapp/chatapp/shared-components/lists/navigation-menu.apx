@@ -1,0 +1,38 @@
+list navigation-menu (
+    name: Navigation Menu
+
+    entry admin-kb (
+        label: Knowledge Base & Upload (Admin)
+        icon {
+            imageIconCssClasses: fa-cloud-upload
+        }
+        layout {
+            sequence: 20
+        }
+        link {
+            target: {
+                page: 2
+            }
+        }
+        security {
+            authorizationScheme: @administration-rights
+        }
+    )
+
+    entry chat (
+        label: Policy AI Chat
+        icon {
+            imageIconCssClasses: fa-comments-o
+        }
+        layout {
+            sequence: 10
+        }
+        link {
+            target: {
+                page: 1
+            }
+        }
+    )
+
+)
+

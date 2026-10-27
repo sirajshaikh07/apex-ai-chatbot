@@ -1,0 +1,17 @@
+SET SERVEROUTPUT ON;
+DECLARE
+  v_cnt NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_cnt
+  FROM user_tab_cols
+  WHERE table_name = 'CHAT_HISTORY' AND column_name = 'PROMPT_EMBEDDING';
+  
+  IF v_cnt = 0 THEN
+    EXECUTE IMMEDIATE 'ALTER TABLE chat_history ADD (prompt_embedding VECTOR(384, FLOAT32))';
+    DBMS_OUTPUT.PUT_LINE('Added PROMPT_EMBEDDING VECTOR column to CHAT_HISTORY.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('PROMPT_EMBEDDING column already exists.');
+  END IF;
+END;
+/
+EXIT;

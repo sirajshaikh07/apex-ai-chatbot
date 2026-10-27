@@ -1,0 +1,30 @@
+authorization administration-rights (
+    name: Administration Rights
+    type: plSqlFunctionBody
+    settings {
+        plsqlFunctionBody:
+            ```
+            BEGIN
+                IF UPPER(NVL(:APP_USER, 'x')) IN ('AIDEMO_ADMIN', 'ADMIN', 'SIRAJ', 'AIADMIN') THEN
+                    RETURN TRUE;
+                END IF;
+                FOR r IN (
+                    SELECT is_admin 
+                    FROM apex_workspace_apex_users 
+                    WHERE user_name = UPPER(:APP_USER)
+                ) LOOP
+                    IF r.is_admin = 'Yes' THEN
+                        RETURN TRUE;
+                    END IF;
+                END LOOP;
+                RETURN FALSE;
+            EXCEPTION
+                WHEN OTHERS THEN
+                    RETURN FALSE;
+            END;
+            ```
+    }
+    error {
+        errorMessage: Insufficient privileges, only Administrators can access Knowledge Base Ingestion.
+    }
+)

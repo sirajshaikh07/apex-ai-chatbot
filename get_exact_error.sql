@@ -1,0 +1,7 @@
+SET DEFINE OFF LONG 100000 LONGC 100000 PAGESIZE 0 LINESIZE 2000;
+SELECT message
+FROM apex_debug_messages
+WHERE application_id = 101 AND message LIKE '%ORA-%'
+ORDER BY message_timestamp DESC
+FETCH FIRST 3 ROWS ONLY;
+EXIT;

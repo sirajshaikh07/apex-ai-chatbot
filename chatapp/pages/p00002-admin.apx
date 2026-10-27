@@ -1,0 +1,873 @@
+page 2 (
+    name: Admin Command Center
+    alias: ADMIN
+    title: Admin Command Center
+    appearance {
+        pageTemplate: @/standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        warnOnUnsavedChanges: false
+    }
+    security {
+        authorizationScheme: @administration-rights
+    }
+
+    pageItem P2_ACTION_REQ_ID (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 1
+            slot: body
+        }
+        sessionState {
+            storage: session
+        }
+    )
+
+    pageItem P2_DELETE_DOC_ID (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 2
+            slot: body
+        }
+        sessionState {
+            storage: session
+        }
+    )
+
+    region admin-header (
+        name: Header Bar
+        title: Header Bar
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            htmlCode:
+                ```html
+                <style>
+                    .admin-wrap {
+                        max-width: 1050px;
+                        margin: 0 auto;
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                    }
+                    .admin-card {
+                        background: #ffffff;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 1.5rem;
+                        margin-bottom: 2rem;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+                    }
+                    .admin-card-header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: 1.25rem;
+                        padding-bottom: 0.75rem;
+                        border-bottom: 1px solid #f1f5f9;
+                    }
+                    .admin-card-title {
+                        font-size: 1.15rem;
+                        font-weight: 700;
+                        color: #0f172a;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    .admin-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 0.88rem;
+                    }
+                    .admin-table th {
+                        background: #f8fafc;
+                        color: #475569;
+                        font-weight: 600;
+                        padding: 10px 14px;
+                        border-bottom: 1px solid #e2e8f0;
+                        text-align: left;
+                    }
+                    .admin-table td {
+                        padding: 12px 14px;
+                        border-bottom: 1px solid #f1f5f9;
+                        color: #1e293b;
+                    }
+                    .badge-pending {
+                        background: #fef3c7;
+                        color: #b45309;
+                        padding: 3px 9px;
+                        border-radius: 9999px;
+                        font-size: 0.76rem;
+                        font-weight: 600;
+                    }
+                    .badge-approved {
+                        background: #ecfdf5;
+                        color: #059669;
+                        padding: 3px 9px;
+                        border-radius: 9999px;
+                        font-size: 0.76rem;
+                        font-weight: 600;
+                    }
+                    .badge-rejected {
+                        background: #fee2e2;
+                        color: #dc2626;
+                        padding: 3px 9px;
+                        border-radius: 9999px;
+                        font-size: 0.76rem;
+                        font-weight: 600;
+                    }
+                    .btn-action-sm {
+                        padding: 5px 12px;
+                        border-radius: 6px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        border: none;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 4px;
+                    }
+                    .btn-approve {
+                        background: #10b981;
+                        color: #ffffff;
+                    }
+                    .btn-approve:hover {
+                        background: #059669;
+                    }
+                    .btn-reject {
+                        background: #ef4444;
+                        color: #ffffff;
+                        margin-left: 6px;
+                    }
+                    .btn-reject:hover {
+                        background: #dc2626;
+                    }
+                    .btn-delete {
+                        background: #f8fafc;
+                        border: 1px solid #e2e8f0;
+                        color: #ef4444;
+                    }
+                    .btn-delete:hover {
+                        background: #fee2e2;
+                        border-color: #fca5a5;
+                    }
+                </style>
+
+                <script>
+                    window.approveUser = function(arg1, arg2) {
+                        try {
+                            var reqId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var username = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-user') : arg2;
+                            if (!reqId) {
+                                alert('Error: Missing request ID');
+                                return;
+                            }
+                            if (confirm('Approve user "' + (username || reqId) + '"? This will activate their account immediately.')) {
+                                apex.item('P2_ACTION_REQ_ID').setValue(reqId);
+                                apex.submit({
+                                    request: 'APPROVE_USER',
+                                    set: { 'P2_ACTION_REQ_ID': reqId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in approveUser:', e);
+                            alert('Could not submit approval: ' + e.message);
+                        }
+                    };
+
+                    window.rejectUser = function(arg1, arg2) {
+                        try {
+                            var reqId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var username = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-user') : arg2;
+                            if (!reqId) {
+                                alert('Error: Missing request ID');
+                                return;
+                            }
+                            if (confirm('Reject account request for "' + (username || reqId) + '"?')) {
+                                apex.item('P2_ACTION_REQ_ID').setValue(reqId);
+                                apex.submit({
+                                    request: 'REJECT_USER',
+                                    set: { 'P2_ACTION_REQ_ID': reqId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in rejectUser:', e);
+                            alert('Could not submit rejection: ' + e.message);
+                        }
+                    };
+
+                    window.deleteDoc = function(arg1, arg2) {
+                        try {
+                            var docId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var docTitle = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-title') : arg2;
+                            if (!docId) {
+                                alert('Error: Missing document ID');
+                                return;
+                            }
+                            if (confirm('Permanently delete document "' + (docTitle || docId) + '" and all its vector embeddings?')) {
+                                apex.item('P2_DELETE_DOC_ID').setValue(docId);
+                                apex.submit({
+                                    request: 'DELETE_DOC',
+                                    set: { 'P2_DELETE_DOC_ID': docId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in deleteDoc:', e);
+                            alert('Could not delete document: ' + e.message);
+                        }
+                    };
+                </script>
+
+                <div class="admin-wrap" style="text-align: center; padding: 1.5rem 0 1rem 0; border-bottom: 1px solid #e2e8f0; margin-bottom: 1.5rem;">
+                    <h1 style="font-size: 1.7rem; font-weight: 700; color: #0f172a; margin: 0 0 0.35rem 0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px; margin-right:6px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Admin Command Center
+                    </h1>
+                    <p style="font-size: 0.95rem; color: #64748b; margin: 0 0 0.75rem 0;">
+                        Universal document vectorization, user access approval &amp; knowledge base management
+                    </p>
+                    <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #0284c7; background: #f0f9ff; border: 1px solid #bae6fd; padding: 0.25rem 0.85rem; border-radius: 9999px; font-weight: 600;">
+                        🔒 Logged in as Administrator: &APP_USER.
+                    </span>
+                </div>
+                ```
+        }
+    )
+
+    region user-approvals (
+        name: User Account Approvals
+        title: User Account Approvals
+        type: dynamicContent
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            plsqlFunctionBody:
+                ```plsql
+                DECLARE
+                    l_html CLOB := '<div class="admin-wrap"><div class="admin-card">' ||
+                                   '<div class="admin-card-header">' ||
+                                       '<div class="admin-card-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> User Account Approval Requests</div>' ||
+                                   '</div>' ||
+                                   '<div style="overflow-x:auto;">' ||
+                                   '<table class="admin-table">' ||
+                                   '<thead><tr>' ||
+                                   '<th>#</th>' ||
+                                   '<th>Username</th>' ||
+                                   '<th>Full Name</th>' ||
+                                   '<th>Email</th>' ||
+                                   '<th>Requested At</th>' ||
+                                   '<th>Status</th>' ||
+                                   '<th>Actions</th>' ||
+                                   '</tr></thead><tbody>';
+                    l_count NUMBER := 0;
+                BEGIN
+                    FOR r IN (
+                        SELECT request_id, username, full_name, email, 
+                               TO_CHAR(requested_at, 'YYYY-MM-DD HH24:MI') as req_time,
+                               status
+                        FROM user_registrations
+                        ORDER BY DECODE(status, 'PENDING', 1, 2), request_id DESC
+                    ) LOOP
+                        l_count := l_count + 1;
+                        l_html := l_html || '<tr>' ||
+                            '<td>' || r.request_id || '</td>' ||
+                            '<td><strong>' || apex_escape.html(r.username) || '</strong></td>' ||
+                            '<td>' || apex_escape.html(r.full_name) || '</td>' ||
+                            '<td>' || apex_escape.html(r.email) || '</td>' ||
+                            '<td>' || r.req_time || '</td>' ||
+                            '<td>' ||
+                                CASE r.status 
+                                    WHEN 'PENDING'  THEN '<span class="badge-pending">⏳ Pending Approval</span>'
+                                    WHEN 'APPROVED' THEN '<span class="badge-approved">✔ Approved &amp; Active</span>'
+                                    ELSE '<span class="badge-rejected">✖ Rejected</span>'
+                                END ||
+                            '</td>' ||
+                            '<td>' ||
+                                CASE r.status
+                                    WHEN 'PENDING' THEN
+                                        '<button type="button" class="btn-action-sm btn-approve" data-id="' || r.request_id || '" data-user="' || apex_escape.html_attribute(r.username) || '" onclick="approveUser(this);">✔ Approve</button>' ||
+                                        '<button type="button" class="btn-action-sm btn-reject" data-id="' || r.request_id || '" data-user="' || apex_escape.html_attribute(r.username) || '" onclick="rejectUser(this);">✖ Reject</button>' ||
+                                        '<button type="button" class="btn-action-sm btn-delete" data-id="' || r.request_id || '" data-user="' || apex_escape.html_attribute(r.username) || '" onclick="deleteUser(this);" style="margin-left:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:3px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>'
+                                    ELSE
+                                        '<button type="button" class="btn-action-sm btn-delete" data-id="' || r.request_id || '" data-user="' || apex_escape.html_attribute(r.username) || '" onclick="deleteUser(this);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:3px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete User</button>'
+                                END ||
+                            '</td>' ||
+                        '</tr>';
+                    END LOOP;
+
+                    IF l_count = 0 THEN
+                        l_html := l_html || '<tr><td colspan="7" style="text-align:center; padding:2rem; color:#94a3b8;">No pending or previous user registration requests found.</td></tr>';
+                    END IF;
+
+                    l_html := l_html || '</tbody></table></div></div></div>';
+                    RETURN l_html;
+                END;
+                ```
+        }
+    )
+
+    region upload-card (
+        name: Ingest New Document
+        title: Universal Document Ingestion (Single or Batch Upload)
+        type: staticContent
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @/standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--noBorder
+            ]
+        }
+    )
+
+    pageItem P2_DOC_FILE (
+        type: fileUpload
+        storage {
+            type: appTempFiles
+        }
+        label {
+            label: Upload Corporate Document(s) - Select 1 or N Files
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @upload-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+        }
+        help {
+            helpText: You can select multiple documents at once (hold Ctrl/Cmd or Shift to select N files). All document formats are supported: PDF, Word (DOCX/DOC), Excel (XLSX/XLS), PowerPoint (PPTX/PPT), Text (TXT/CSV/MD), JSON, XML, etc.
+        }
+        advanced {
+            customAttributes: multiple="multiple"
+        }
+    )
+
+    pageItem P2_DOC_TITLE (
+        type: textField
+        label {
+            label: Custom Document Title (Optional - for single file)
+            alignment: left
+        }
+        layout {
+            sequence: 20
+            region: @upload-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            valuePlaceholder: Leave blank to automatically use original file name(s)
+        }
+    )
+
+    pageItem P2_DOC_CONTENT (
+        type: textarea
+        label {
+            label: Or Paste Policy Text Directly (Optional)
+            alignment: left
+        }
+        layout {
+            sequence: 30
+            region: @upload-card
+            slot: regionBody
+        }
+        appearance {
+            template: @/optional
+            templateOptions: #DEFAULT#
+            width: 100
+            height: 5
+            valuePlaceholder: If not uploading a file, you can paste text or policy clauses here...
+        }
+    )
+
+    button P2_UPLOAD (
+        buttonName: UPLOAD
+        label: Vectorize & Ingest
+        layout {
+            sequence: 40
+            region: @upload-card
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @/text
+            hot: true
+            icon: fa-bolt
+            templateOptions: [
+                #DEFAULT#
+                t-Button--primary
+            ]
+        }
+        behavior {
+            action: submitPage
+            warnOnUnsavedChanges: doNotCheck
+        }
+    )
+
+    region kb-overview (
+        name: Active Knowledge Base
+        title: In-Database Knowledge Base Documents
+        type: dynamicContent
+        layout {
+            sequence: 40
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            plsqlFunctionBody:
+                ```plsql
+                DECLARE
+                    l_html CLOB := '<div class="admin-wrap"><div class="admin-card">' ||
+                                   '<div class="admin-card-header">' ||
+                                       '<div class="admin-card-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px;"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Active Knowledge Base Documents in Oracle 26ai</div>' ||
+                                   '</div>' ||
+                                   '<div style="overflow-x:auto;">' ||
+                                   '<table class="admin-table">' ||
+                                   '<thead><tr>' ||
+                                   '<th>ID</th>' ||
+                                   '<th>Document Title</th>' ||
+                                   '<th>Source File</th>' ||
+                                   '<th>Type</th>' ||
+                                   '<th>Size</th>' ||
+                                   '<th>Chunks (384-dim)</th>' ||
+                                   '<th>Vectorized At</th>' ||
+                                   '<th>Action</th>' ||
+                                   '</tr></thead><tbody>';
+                    l_count NUMBER := 0;
+                BEGIN
+                    FOR r IN (
+                        SELECT d.doc_id, d.title, d.source_ref, d.mime_type, d.file_size,
+                               COUNT(c.chunk_id) as total_chunks,
+                               TO_CHAR(d.ingested_at, 'YYYY-MM-DD HH24:MI') as vectorized_at
+                        FROM source_docs d
+                        LEFT JOIN doc_chunks c ON d.doc_id = c.doc_id
+                        GROUP BY d.doc_id, d.title, d.source_ref, d.mime_type, d.file_size, d.ingested_at
+                        ORDER BY d.doc_id DESC
+                    ) LOOP
+                        l_count := l_count + 1;
+                        l_html := l_html || '<tr>' ||
+                            '<td>' || r.doc_id || '</td>' ||
+                            '<td><strong>' || apex_escape.html(r.title) || '</strong></td>' ||
+                            '<td style="font-family:monospace; color:#64748b;">' || apex_escape.html(r.source_ref) || '</td>' ||
+                            '<td><span style="font-size:0.78rem; background:#f1f5f9; padding:2px 7px; border-radius:4px;">' || NVL(apex_escape.html(r.mime_type), 'text/plain') || '</span></td>' ||
+                            '<td>' || CASE WHEN r.file_size > 0 THEN ROUND(r.file_size / 1024, 1) || ' KB' ELSE '-' END || '</td>' ||
+                            '<td><span style="background:#e0f2fe; color:#0369a1; padding:3px 9px; border-radius:9999px; font-size:0.8rem; font-weight:600;">' || r.total_chunks || ' Chunks</span></td>' ||
+                            '<td style="font-size:0.85rem; color:#64748b;">' || NVL(r.vectorized_at, 'Pending') || '</td>' ||
+                            '<td>' ||
+                                '<button type="button" class="btn-action-sm btn-delete" data-id="' || r.doc_id || '" data-title="' || apex_escape.html_attribute(r.title) || '" onclick="deleteDoc(this);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:3px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>' ||
+                            '</td>' ||
+                        '</tr>';
+                    END LOOP;
+
+                    IF l_count = 0 THEN
+                        l_html := l_html || '<tr><td colspan="8" style="text-align:center; padding:2rem; color:#94a3b8;">No documents currently in knowledge base. Upload your original documents above!</td></tr>';
+                    END IF;
+
+                    l_html := l_html || '</tbody></table></div></div></div>';
+                    RETURN l_html;
+                END;
+                ```
+        }
+    )
+
+    region admin-scripts (
+        name: Admin Scripts
+        title: Admin Scripts
+        type: staticContent
+        layout {
+            sequence: 50
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        source {
+            htmlCode:
+                ```html
+                <script>
+                    if (typeof apex !== 'undefined' && apex.page) {
+                        apex.page.warnOnUnsavedChanges = function() { return false; };
+                    }
+                    window.approveUser = function(arg1, arg2) {
+                        try {
+                            var reqId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var username = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-user') : arg2;
+                            if (!reqId) {
+                                alert('Error: Missing request ID');
+                                return;
+                            }
+                            if (confirm('Approve user "' + (username || reqId) + '"? This will activate their account immediately.')) {
+                                apex.item('P2_ACTION_REQ_ID').setValue(reqId);
+                                apex.submit({
+                                    request: 'APPROVE_USER',
+                                    set: { 'P2_ACTION_REQ_ID': reqId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in approveUser:', e);
+                            alert('Could not submit approval: ' + e.message);
+                        }
+                    };
+
+                    window.rejectUser = function(arg1, arg2) {
+                        try {
+                            var reqId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var username = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-user') : arg2;
+                            if (!reqId) {
+                                alert('Error: Missing request ID');
+                                return;
+                            }
+                            if (confirm('Reject account request for "' + (username || reqId) + '"?')) {
+                                apex.item('P2_ACTION_REQ_ID').setValue(reqId);
+                                apex.submit({
+                                    request: 'REJECT_USER',
+                                    set: { 'P2_ACTION_REQ_ID': reqId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in rejectUser:', e);
+                            alert('Could not submit rejection: ' + e.message);
+                        }
+                    };
+
+                    window.deleteUser = function(arg1, arg2) {
+                        try {
+                            var reqId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var username = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-user') : arg2;
+                            if (!reqId) {
+                                alert('Error: Missing request ID');
+                                return;
+                            }
+                            if (confirm('Permanently delete user account "' + (username || reqId) + '" and revoke all login access?')) {
+                                apex.item('P2_ACTION_REQ_ID').setValue(reqId);
+                                apex.submit({
+                                    request: 'DELETE_USER',
+                                    set: { 'P2_ACTION_REQ_ID': reqId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in deleteUser:', e);
+                            alert('Could not delete user: ' + e.message);
+                        }
+                    };
+
+                    window.deleteDoc = function(arg1, arg2) {
+                        try {
+                            var docId = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-id') : arg1;
+                            var docTitle = (typeof arg1 === 'object' && arg1 !== null) ? arg1.getAttribute('data-title') : arg2;
+                            if (!docId) {
+                                alert('Error: Missing document ID');
+                                return;
+                            }
+                            if (confirm('Permanently delete document "' + (docTitle || docId) + '" and all its vector embeddings?')) {
+                                apex.item('P2_DELETE_DOC_ID').setValue(docId);
+                                apex.submit({
+                                    request: 'DELETE_DOC',
+                                    set: { 'P2_DELETE_DOC_ID': docId },
+                                    validate: false
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error in deleteDoc:', e);
+                            alert('Could not delete document: ' + e.message);
+                        }
+                    };
+
+                    window.clearAuditLog = function() {
+                        if (confirm('Are you sure you want to permanently clear all AI performance & user feedback audit logs? All metrics will reset to 0.')) {
+                            apex.submit({
+                                request: 'CLEAR_AUDIT_LOG',
+                                validate: false
+                            });
+                        }
+                    };
+                </script>
+                ```
+        }
+    )
+
+    process ingest-document (
+        name: Ingest and Vectorize Document
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_count NUMBER := 0;
+                    l_total_chunks NUMBER := 0;
+                    l_doc_count NUMBER := 0;
+                    l_file_list apex_t_varchar2;
+                    l_errors VARCHAR2(4000) := '';
+                BEGIN
+                    IF :P2_DOC_FILE IS NOT NULL THEN
+                        -- Support batch ingestion of N documents at once (colon-separated list)
+                        l_file_list := apex_string.split(:P2_DOC_FILE, ':');
+
+                        FOR i IN 1 .. l_file_list.COUNT LOOP
+                            IF TRIM(l_file_list(i)) IS NOT NULL THEN
+                                BEGIN
+                                    ingest_file_document(
+                                        p_file_name    => TRIM(l_file_list(i)),
+                                        p_title        => CASE WHEN l_file_list.COUNT = 1 THEN :P2_DOC_TITLE ELSE NULL END,
+                                        p_chunks_count => l_count
+                                    );
+                                    l_total_chunks := l_total_chunks + l_count;
+                                    l_doc_count    := l_doc_count + 1;
+                                EXCEPTION
+                                    WHEN OTHERS THEN
+                                        IF LENGTH(l_errors) < 3000 THEN
+                                            l_errors := l_errors || ' [' || TRIM(l_file_list(i)) || ': ' || SQLERRM || ']';
+                                        END IF;
+                                END;
+                            END IF;
+                        END LOOP;
+
+                        IF l_doc_count > 0 THEN
+                            apex_application.g_print_success_message := 
+                                'Success! Processed & vectorized ' || l_doc_count || ' document(s) into ' || l_total_chunks || ' chunks in Oracle 26ai.' ||
+                                CASE WHEN l_errors IS NOT NULL AND LENGTH(l_errors) > 0 THEN ' (Warnings:' || l_errors || ')' ELSE '' END;
+                        ELSIF l_errors IS NOT NULL AND LENGTH(l_errors) > 0 THEN
+                            apex_error.add_error(
+                                p_message          => 'Error processing uploaded files: ' || l_errors,
+                                p_display_location => apex_error.c_inline_in_notification
+                            );
+                        END IF;
+
+                        :P2_DOC_FILE := NULL;
+                        :P2_DOC_TITLE := NULL;
+                        :P2_DOC_CONTENT := NULL;
+
+                    ELSIF :P2_DOC_CONTENT IS NOT NULL THEN
+                        ingest_document(
+                            p_title        => NVL(:P2_DOC_TITLE, 'Policy Entry ' || TO_CHAR(SYSDATE, 'YYYYMMDD-HH24MI')),
+                            p_ref          => NVL(:P2_DOC_TITLE, 'Manual Entry'),
+                            p_content      => :P2_DOC_CONTENT,
+                            p_chunks_count => l_count
+                        );
+
+                        apex_application.g_print_success_message := 
+                            'Success! Manual text vectorized into ' || l_count || ' chunks in Oracle 26ai.';
+
+                        :P2_DOC_TITLE := NULL;
+                        :P2_DOC_CONTENT := NULL;
+                    ELSE
+                        apex_error.add_error(
+                            p_message          => 'Please select document file(s) to upload or paste text content.',
+                            p_display_location => apex_error.c_inline_in_notification
+                        );
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: UPLOAD
+        }
+        advanced {
+            executionMappingIdentifier: 102001
+        }
+    )
+
+    process approve-user (
+        name: Approve User Request
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    IF :P2_ACTION_REQ_ID IS NOT NULL THEN
+                        approve_user_registration(:P2_ACTION_REQ_ID, :APP_USER);
+                        apex_application.g_print_success_message :=
+                            'User registration #' || :P2_ACTION_REQ_ID || ' approved and activated! The user can now log in.';
+                        :P2_ACTION_REQ_ID := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 20
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: APPROVE_USER
+        }
+        advanced {
+            executionMappingIdentifier: 102002
+        }
+    )
+
+    process reject-user (
+        name: Reject User Request
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    IF :P2_ACTION_REQ_ID IS NOT NULL THEN
+                        reject_user_registration(:P2_ACTION_REQ_ID, :APP_USER);
+                        apex_application.g_print_success_message :=
+                            'User registration #' || :P2_ACTION_REQ_ID || ' rejected.';
+                        :P2_ACTION_REQ_ID := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 30
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: REJECT_USER
+        }
+        advanced {
+            executionMappingIdentifier: 102003
+        }
+    )
+
+    process delete-doc (
+        name: Delete Knowledge Base Document
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    IF :P2_DELETE_DOC_ID IS NOT NULL THEN
+                        delete_document(:P2_DELETE_DOC_ID);
+                        apex_application.g_print_success_message :=
+                            'Document #' || :P2_DELETE_DOC_ID || ' and all associated vector chunks deleted from database.';
+                        :P2_DELETE_DOC_ID := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 40
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: DELETE_DOC
+        }
+        advanced {
+            executionMappingIdentifier: 102004
+        }
+    )
+
+    process delete-user (
+        name: Delete User Account
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_uname VARCHAR2(255);
+                BEGIN
+                    IF :P2_ACTION_REQ_ID IS NOT NULL THEN
+                        BEGIN
+                            SELECT username INTO l_uname FROM user_registrations WHERE request_id = :P2_ACTION_REQ_ID;
+                        EXCEPTION
+                            WHEN NO_DATA_FOUND THEN l_uname := NULL;
+                        END;
+
+                        IF l_uname IS NOT NULL THEN
+                            BEGIN
+                                apex_util.set_workspace(p_workspace => 'AIWORKSPACE');
+                                IF apex_util.get_user_id(l_uname) IS NOT NULL THEN
+                                    apex_util.remove_user(p_user_name => l_uname);
+                                END IF;
+                            EXCEPTION
+                                WHEN OTHERS THEN NULL;
+                            END;
+                        END IF;
+
+                        DELETE FROM user_registrations WHERE request_id = :P2_ACTION_REQ_ID;
+                        COMMIT;
+
+                        apex_application.g_print_success_message :=
+                            'User account "' || NVL(l_uname, 'ID ' || :P2_ACTION_REQ_ID) || '" and login access permanently deleted.';
+                        :P2_ACTION_REQ_ID := NULL;
+                    END IF;
+                END;
+                ```
+        }
+        execution {
+            sequence: 50
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: DELETE_USER
+        }
+        advanced {
+            executionMappingIdentifier: 102005
+        }
+    )
+
+    process clear-audit-log (
+        name: Purge Audit Log
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                BEGIN
+                    DELETE FROM chat_history;
+                    COMMIT;
+                    apex_application.g_print_success_message := 'AI Performance & User Feedback Audit Log cleared successfully. All metrics reset to 0.';
+                END;
+                ```
+        }
+        execution {
+            sequence: 60
+            point: afterSubmit
+        }
+        serverSideCondition {
+            type: request=Value
+            value: CLEAR_AUDIT_LOG
+        }
+        advanced {
+            executionMappingIdentifier: 102006
+        }
+    )
+
+)
+

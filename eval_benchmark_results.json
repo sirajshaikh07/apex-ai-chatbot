@@ -1,0 +1,120 @@
+{
+  "total": 10,
+  "passed": 8,
+  "pass_rate_pct": 80.0,
+  "avg_latency_ms": 11215,
+  "avg_correctness_pct": 71.7,
+  "avg_groundedness_pct": 100.0,
+  "details": [
+    {
+      "id": "TC-01",
+      "category": "Project Aggregation",
+      "question": "How many projects are there",
+      "latency_ms": 10890,
+      "sources": "NONE",
+      "answer": "There are 5 distinct projects:\n\n1. APEX_LLM (Apex LLM Agentic AI Project)\n2. ARCON (ARCON Project)\n3. C4T (C4T Disaster Recovery & Infrastructure)\n4. PSPCL (PSPCL Infrastructure & Security Support)\n5. PSPCL_ANALYTICS (PSPCL Analytics Project)",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-02",
+      "category": "Direct Entity QA",
+      "question": "How many task siraj completed",
+      "latency_ms": 11330,
+      "sources": "NONE",
+      "answer": "Based on the verified member assignments and task counts, I can provide the following answer:\n\nSiraj has completed a total of 10 tasks across different projects.\n\n* In Project C4T, he completed all 8 assigned tasks (Done: 8).\n* In Project PSPCL_ANALYTICS, he completed 2 tasks (Done: 2).",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-03",
+      "category": "Multi-Turn Context & Pronoun",
+      "question": "how many task he completed in pspcl project",
+      "latency_ms": 22570,
+      "sources": "NONE",
+      "answer": "Since the question asks about the tasks completed by Siraj in the PSPCL project, and according to the verified member assignments and task counts, Siraj has only been assigned 2 tasks in PSPCL: PSPCL Daily Reporting (in progress, daily) and Autonomous DB 24*7 (not started). Unfortunately, the record...",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-04",
+      "category": "Similar Project Distinction",
+      "question": "What is the difference between PSPCL and PSPCL Analytics projects?",
+      "latency_ms": 17170,
+      "sources": "NONE",
+      "answer": "Based on the verified enterprise project registry, PSPCL and PSPCL Analytics are two distinct projects. PSPCL is not explicitly documented in the provided registry, but the description of PSPCL Analytics mentions that it is an Analytics dashboard application for PSPCL, suggesting that PSPCL is a par...",
+      "correctness": 0.67,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-05",
+      "category": "Reporting Hierarchy",
+      "question": "Who reports to Nasir?",
+      "latency_ms": 4570,
+      "sources": "NONE",
+      "answer": "Based on the verified corporate project databases, I have found that Nasir reports to Abdul Hameed.",
+      "correctness": 0.0,
+      "groundedness": 1.0,
+      "passed": false
+    },
+    {
+      "id": "TC-06",
+      "category": "Corporate Policy & SLA",
+      "question": "What is the guaranteed response time for a Severity 1 Critical Outage?",
+      "latency_ms": 7070,
+      "sources": "NONE",
+      "answer": "Based on the project databases and documented SLAs, the guaranteed response time for a Severity 1 Critical Outage is 15 minutes for initial acknowledgement, as stated in the enterprise's standard operating procedures.",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-07",
+      "category": "Information Security Policy",
+      "question": "What encryption standard is mandatory for sensitive data at rest?",
+      "latency_ms": 9550,
+      "sources": "NONE",
+      "answer": "Based on the verified enterprise data and recent conversation history, the encryption standard mandatory for sensitive data at rest is AES-256. This is in accordance with the corporate security policy documentation, which specifies that all sensitive data must be encrypted using the Advanced Encrypt...",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-08",
+      "category": "HR Policy",
+      "question": "How many days of annual earned leave are granted?",
+      "latency_ms": 15490,
+      "sources": "NONE",
+      "answer": "According to the verified corporate project databases, the number of days of annual earned leave granted varies by employee category and is not directly related to any of the specified projects (C4T, PSPCL, PSPCL Analytics, ARCON, and Apex LLM). \n\nHowever, based on the enterprise's human resources p...",
+      "correctness": 0.5,
+      "groundedness": 1.0,
+      "passed": true
+    },
+    {
+      "id": "TC-09",
+      "category": "Hallucination Prevention",
+      "question": "What is the budget for Project Falcon in London?",
+      "latency_ms": 4540,
+      "sources": "NONE",
+      "answer": "I'm unable to provide information regarding the budget for Project Falcon in London, as no relevant data is available in my access.",
+      "correctness": 0.0,
+      "groundedness": 1.0,
+      "passed": false
+    },
+    {
+      "id": "TC-10",
+      "category": "Multi-Turn Project State",
+      "question": "Who is the owner of Apex LLM and what is its status?",
+      "latency_ms": 8970,
+      "sources": "NONE",
+      "answer": "Based on the verified enterprise data, the owner of the Apex LLM project is Siraj, and the project's status is \"On track\" with a completion percentage of 0%.",
+      "correctness": 1.0,
+      "groundedness": 1.0,
+      "passed": true
+    }
+  ]
+}

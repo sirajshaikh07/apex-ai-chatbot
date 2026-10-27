@@ -1,0 +1,30 @@
+appProcess SUBMIT_FEEDBACK (
+    name: SUBMIT_FEEDBACK
+    source {
+        plsqlCode:
+            ```plsql
+            BEGIN
+                enterprise_rag_pkg.submit_feedback(
+                    p_msg_id            => TO_NUMBER(apex_application.g_x01),
+                    p_feedback          => apex_application.g_x02,
+                    p_feedback_category => apex_application.g_x03,
+                    p_feedback_comment  => apex_application.g_x04
+                );
+                apex_json.open_object;
+                apex_json.write('status', 'SUCCESS');
+                apex_json.close_object;
+            EXCEPTION
+                WHEN OTHERS THEN
+                    apex_json.open_object;
+                    apex_json.write('status', 'ERROR');
+                    apex_json.write('message', SQLERRM);
+                    apex_json.close_object;
+            END;
+            ```
+    }
+    execution {
+        sequence: 10
+        point: ajaxCallback
+    }
+)
+

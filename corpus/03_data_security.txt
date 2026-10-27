@@ -1,0 +1,12 @@
+[DOCUMENT: Enterprise Information Security & Compliance Standard 2026]
+Data Classification and Encryption:
+All sensitive customer and company data at rest must be encrypted using AES-256 standard encryption.
+Data in transit across public and internal networks must mandate TLS 1.3 encryption with verified digital certificates.
+Authentication Standards:
+Passwords must be a minimum of 14 characters containing uppercase, lowercase, numbers, and special symbols.
+Multi-Factor Authentication (MFA) using hardware tokens or authenticator apps is mandatory for all internal and VPN access.
+Device Security and Patching:
+All employee laptops must run managed endpoint detection and response (EDR) software with automatic daily definition updates.
+Security vulnerabilities categorized as Critical must be patched within 7 calendar days of vendor release.
+Incident Reporting:
+Any security anomaly, phishing attempt, or potential data breach must be reported immediately to security-ops@enterprise.com.

@@ -1,0 +1,227 @@
+Connecting to 20.0.1.130:1521/FREEPDB1 as AIDEMO...
+=== STDOUT ===
+=== CHUNK 1 ===
+=== DOC === doc_id: DOC001 title: Reporting hierarchy overview source_ref: Tekgeminus app, Team page
+, Reporting hierarchy---The Team page of the Tekgeminus app shows the reporting hierarchy of 9 peopl
+e. It shows who reports to whom across the team. There are two top-level Engineering Managers on the
+ page: Nasir and Amrish. Nasir has 3 direct reports. Amrish has 3 direct reports. One of Amrish's di
+rect reports, Chitra, is also an Engineering Manager and has 1 direct report. Deadline extensions an
+d project change requests route up this reporting chain. A person's request goes to their manager fo
+r approval. === DOC === doc_id: DOC002 title: Nasir's team
+=== CHUNK 2 ===
+=== doc_id: DOC002 title: Nasir's team source_ref: Tekgeminus app, Team page, Reporting hierarchy---
+Nasir is an Engineering Manager. Nasir has 3 direct reports: Aditya, Yogita and Siraj. Aditya is a T
+eam Lead and an individual contributor. Aditya reports to Nasir. Yogita is a Software Engineer and a
+n individual contributor. Yogita reports to Nasir. Siraj is a Software Engineer and an individual co
+ntributor. Siraj reports to Nasir. Siraj is the user currently logged in to the app (marked "You" on
+ the Team page). === DOC === doc_id: DOC003 title: Amrish's team source_ref: Tekgeminus app, Team pa
+ge, Reporting hierarchy---Amrish is
+=== CHUNK 3 ===
+Tekgeminus app, Team page, Reporting hierarchy---Amrish is an Engineering Manager. Amrish has 3 dire
+ct reports. One of them is Chitra. The names of the other two direct reports are not recorded in thi
+s document. Chitra is an Engineering Manager and reports to Amrish. Chitra has 1 direct report, whos
+e name is not recorded in this document. === DOC === doc_id: DOC004 title: Approval routing for dead
+line extensions and change requests source_ref: Tekgeminus app, Team page, Reporting hierarchy---Dea
+dline extensions and project change requests route up the reporting chain. A person's request goes t
+o their manager for approval. Requests from Aditya, Yogita and Siraj go to their manager, Nasir, for
+ approval. Requests from
+=== CHUNK 4 ===
+Yogita and Siraj go to their manager, Nasir, for approval. Requests from Chitra go to Chitra's manag
+er, Amrish, for approval. The direct reports of Chitra send their requests to Chitra. === DOC === do
+c_id: DOC005 title: Projects in the Tekgeminus app source_ref: Tekgeminus app, sidebar, Projects---T
+he Tekgeminus app lists 5 projects in the sidebar, each with a number next to it: C4T (3), PSPCL (4)
+, PSPCL Analytics (1), ARCON (1) and Apex LLM (5). Apex LLM has the highest number (5). PSPCL Analyt
+ics and ARCON have the lowest number (1). For C4T (3), PSPCL
+=== CHUNK 5 ===
+lowest number (1). For C4T (3), PSPCL (4), PSPCL Analytics (1) and Apex LLM (5), the number equals t
+he count of that project's items that are not done. === DOC === doc_id: DOC006 title: C4T project ov
+erview source_ref: Tekgeminus app, C4T project page---C4T is a project in the Tekgeminus app. Its st
+atus is On track. The project owner is Amrish. C4T has 19 items in total. 16 are done, 1 is overdue 
+and 1 is blocked. The C4T team members are Nasir, Amrish, Aditya, Divyangi, Neha, Yogita and Siraj. 
+The
+=== CHUNK 6 ===
+Nasir, Amrish, Aditya, Divyangi, Neha, Yogita and Siraj. The C4T page has a Request change button fo
+r raising a project change request. The task list can be filtered by Active, Overdue, Blocked, Done,
+ High and All. Each task shows its assignee, priority, status, deadline and repeat setting (Once or 
+Daily). Most C4T tasks relate to disaster recovery (DR) setup and to VM, network and access configur
+ation. === DOC === doc_id: DOC007 title: C4T open items (not done) source_ref: Tekgeminus app, C4T p
+roject page---C4T has 3 items that are not done. 1. Give demo to C4T
+=== CHUNK 7 ===
+3 items that are not done. 1. Give demo to C4T with obj storage, VM creation, how we can use a ... (
+the title is truncated; the full text is not recorded). Assignee: Aditya. Priority: Medium. Status: 
+Blocked. Deadline: 30 Oct. Repeat: Once. 2. Daily Report Submission. Assignee: Yogita. Priority: Hig
+h. Status: In progress. Deadline: 23 Oct, shown in red. Repeat: Daily. 3. DC DR DRILL DEMO. Assignee
+: Aditya. Priority: Medium. Status: Not started. Deadline: 26 Oct. Repeat: Once. The one blocked ite
+m in C4T is the demo task assigned to Aditya. The one overdue item in C4T
+=== CHUNK 8 ===
+the demo task assigned to Aditya. The one overdue item in C4T is Daily Report Submission, assigned t
+o Yogita. === DOC === doc_id: DOC008 title: C4T tasks assigned to Aditya source_ref: Tekgeminus app,
+ C4T project page---Aditya has 7 C4T items: 5 done, 1 blocked and 1 not started.-Give demo to C4T wi
+th obj storage, VM creation, how we can use a ... (title truncated). Medium priority. Blocked. Deadl
+ine 30 Oct.-DC-DR drill. Medium priority. Done. Deadline 15 Oct.-Provide access to C4T for VM creati
+on. Medium priority. Done. Deadline 13
+=== CHUNK 9 ===
+to C4T for VM creation. Medium priority. Done. Deadline 13 Oct.-Script to Swap Default book with Bac
+kup Copy. High priority. Done. Deadline 16 Oct. It has 1 comment.-Resolved SSH connectivity issues f
+or COPA and NPCL Web app. High priority. Done. Deadline 7 Oct.-Change SSH keys for all VMs in tenanc
+y. High priority. Done. Deadline 10 Oct.-DC DR DRILL DEMO. Medium priority. Not started. Deadline 26
+ Oct. === DOC === doc_id: DOC009 title: C4T tasks assigned to Yogita source_ref: Tekgeminus app, C4T
+ project page---Yogita has 4 C4T items: 3 done and 1 in
+=== CHUNK 10 ===
+has 4 C4T items: 3 done and 1 in progress.-Daily Report Submission. High priority. In progress. Dead
+line 23 Oct (overdue). Repeats daily.-Connectivity Test for all DR VMs. High priority. Done. Deadlin
+e 29 Sept.-Configuring COPA VMs with New PEM key. Medium priority. Done. Deadline 15 Oct.-Review 1:1
+ DC DR Network configuration. Medium priority. Done. Deadline 15 Oct. === DOC === doc_id: DOC010 tit
+le: C4T tasks assigned to Siraj source_ref: Tekgeminus app, C4T project page---Siraj has 8 C4T items
+, and all 8 are done.-Documentation Networking for DR. Medium priority.
+=== CHUNK 11 ===
+and all 8 are done.-Documentation Networking for DR. Medium priority. Done. Deadline 29 Sept.-WAF + 
+LB removal. Medium priority. Done. Deadline 28 Sept.-DR VM creation. Medium priority. Done. Deadline
+ 28 Sept.-DCs VM CREATIONS IN DR. Medium priority. Done. Deadline 28 Sept.-Create a Load Balancer in
+ DR C4T. Medium priority. Done. Deadline 9 Oct. It has 1 comment.-Enable Compute Instance Run Comman
+d. Low priority. Done. Deadline 16 Oct.-Configuring C4T NPCL_GASGRID_AI VMs With new Pem Keys. High 
+priority. Done. Deadline 12 Oct.-Vulnerability Scanning Enable. Medium priority. Done. Deadline 21 O
+ct. === DOC
+=== CHUNK 12 ===
+Enable. Medium priority. Done. Deadline 21 Oct. === DOC === doc_id: DOC011 title: C4T tasks by prior
+ity source_ref: Tekgeminus app, C4T project page---Of the 19 C4T items, 6 have High priority, 12 hav
+e Medium priority and 1 has Low priority. High priority items: Daily Report Submission (Yogita, in p
+rogress), Connectivity Test for all DR VMs (Yogita, done), Script to Swap Default book with Backup C
+opy (Aditya, done), Resolved SSH connectivity issues for COPA and NPCL Web app (Aditya, done), Chang
+e SSH keys for all VMs in tenancy (Aditya, done) and Configuring C4T NPCL_GASGRID_AI VMs
+=== CHUNK 13 ===
+done) and Configuring C4T NPCL_GASGRID_AI VMs With new Pem Keys (Siraj, done). The only Low priority
+ item is Enable Compute Instance Run Command (Siraj, done). === DOC === doc_id: DOC012 title: PSPCL 
+project overview source_ref: Tekgeminus app, PSPCL project page---PSPCL is a project in the Tekgemin
+us app. Its status is On track. The project owner is Amrish. PSPCL has 16 items in total. 12 are don
+e, 0 are overdue and 0 are blocked. The remaining 4 items are active (not done). The PSPCL team memb
+ers are Amrish, Aditya, Divyangi, Siraj and Yogita. The PSPCL page has a Request change button for r
+aising a project change
+=== CHUNK 14 ===
+Yogita. The PSPCL page has a Request change button for raising a project change request. The names o
+f the 12 done items are not recorded in this document. === DOC === doc_id: DOC013 title: PSPCL activ
+e items (not done) source_ref: Tekgeminus app, PSPCL project page---PSPCL has 4 active items. 1. For
+tiNet-Firewall. Assignee: Aditya. Priority: High. Status: In progress. Deadline: 9 Nov. Repeat: Once
+. It has 6 comments. 2. PSPCL Daily Reporting. Assignee: Siraj. Priority: Medium. Status: In progres
+s. Deadline: 26 Oct. Repeat: Daily. 3. Check forticlient console for any vulnerability issues. Assig
+nee: Aditya. Priority:
+=== CHUNK 15 ===
+Check forticlient console for any vulnerability issues. Assignee: Aditya. Priority: Medium. Status: 
+Not started. Deadline: 30 Oct. Repeat: Weekly. 4. Autonomous database in PSPCL PROD make it 24*7 ava
+ilable. Assignee: Siraj. Priority: Medium. Status: Not started. Deadline: 26 Oct. Repeat: Once. Adit
+ya has 2 active PSPCL items (FortiNet-Firewall and the forticlient console check). Siraj has 2 activ
+e PSPCL items (PSPCL Daily Reporting and the 24*7 Autonomous database task). The only High priority 
+active PSPCL item is FortiNet-Firewall. === DOC === doc_id: DOC014 title: PSPCL Analytics project ov
+erview source_ref: Tekgeminus app, PSPCL Analytics project page---PSPCL Analytics
+=== CHUNK 16 ===
+Tekgeminus app, PSPCL Analytics project page---PSPCL Analytics is a project in the Tekgeminus app. I
+ts status is On track. The project owner is Amrish. It was created on 16 Sept 2026. PSPCL Analytics 
+has 8 items in total. 7 are done, 0 are overdue and 0 are blocked. Only 1 item is not done. The PSPC
+L Analytics team members are Siraj, Amrish, Divyangi and Yogita. The PSPCL Analytics page has a Requ
+est change button for raising a project change request. === DOC === doc_id: DOC015 title: PSPCL Anal
+ytics tasks source_ref: Tekgeminus app, PSPCL Analytics project page---All PSPCL Analytics items hav
+e Medium priority and repeat Once. The one item that is not done is Create PSPCL
+=== CHUNK 17 ===
+priority and repeat Once. The one item that is not done is Create PSPCL Analytics Dashboard Applicat
+ion. Assignee: Amrish. Status: Not started. Deadline: 31 Oct. The 7 done items are:-PSPCL PG Dump. A
+ssignee: Siraj. Deadline 6 Nov.-PSPCL Original Query. Assignee: Yogita. Deadline 6 Nov.-Get Query Fr
+om Yogita And Run On Pspcl Analytics. Assignee: Siraj. Deadline 8 Oct.-Get Query From Yogita And Run
+ On Pspcl Analytics (4 more items with the same title). Unassigned. Deadline 8 Oct. In total, the ti
+tle "Get Query From Yogita And Run On Pspcl Analytics" appears on 5 done items: 1 assigned to Siraj 
+and 4 unassigned. === DOC ===
+=== CHUNK 18 ===
+1 assigned to Siraj and 4 unassigned. === DOC === doc_id: DOC016 title: Project owners and team memb
+ership source_ref: Tekgeminus app, C4T, PSPCL, PSPCL Analytics and Apex LLM project pages---Amrish i
+s the owner of C4T, PSPCL and PSPCL Analytics. Siraj is the owner of Apex LLM. C4T team: Nasir, Amri
+sh, Aditya, Divyangi, Neha, Yogita and Siraj. PSPCL team: Amrish, Aditya, Divyangi, Siraj and Yogita
+. PSPCL Analytics team: Siraj, Amrish, Divyangi and Yogita. Apex LLM team: Siraj and Amrish. Divyang
+i is a team member of C4T, PSPCL and PSPCL Analytics. Yogita is a member of those same three project
+s.
+=== CHUNK 19 ===
+PSPCL and PSPCL Analytics. Yogita is a member of those same three projects. Siraj and Amrish are mem
+bers of all four projects (C4T, PSPCL, PSPCL Analytics and Apex LLM). Aditya is a member of C4T and 
+PSPCL. Nasir and Neha are members of C4T only. The job roles of Divyangi and Neha are not recorded i
+n this document. This document covers only C4T, PSPCL, PSPCL Analytics and Apex LLM. The owner and t
+eam of ARCON are not recorded. === DOC === doc_id: DOC017 title: Open items by person (C4T, PSPCL, P
+SPCL Analytics, Apex LLM) source_ref: Tekgeminus app, C4T, PSPCL, PSPCL Analytics and Apex LLM
+=== CHUNK 20 ===
+Tekgeminus app, C4T, PSPCL, PSPCL Analytics and Apex LLM project pages---Aditya has 4 open items: Gi
+ve demo to C4T with obj storage, VM creation... (C4T, Blocked, deadline 30 Oct); DC DR DRILL DEMO (C
+4T, Not started, deadline 26 Oct); FortiNet-Firewall (PSPCL, In progress, deadline 9 Nov); Check for
+ticlient console for any vulnerability issues (PSPCL, Not started, deadline 30 Oct, weekly). Siraj h
+as 8 open items. In ARCON: ARCON Daily Reporting (overdue, 5 days late at the dashboard view). In PS
+PCL: PSPCL Daily Reporting (In progress, deadline 26 Oct, daily) and Autonomous database in PSPCL PR
+OD make
+=== CHUNK 21 ===
+progress, deadline 26 Oct, daily) and Autonomous database in PSPCL PROD make it 24*7 available (Not 
+started, deadline 26 Oct). In Apex LLM, all Not started: Research about Oracle Apex (deadline 27 Oct
+); In Test Compartment create take a VM and deploy Oracle 26ai on the same (28 Oct); Research on how
+ do we deploy Oracle APEX on separate VM in same compartment and connect the DB to it (29 Oct); Host
+ a local LLM and link it to Oracle APEX and DB (2 Nov); Post that create a agentic ai that can chat 
+with content available in database (4 Nov). Yogita has 1 open item: Daily Report Submission (C4T, In
+ progress, deadline 23 Oct,
+=== CHUNK 22 ===
+Daily Report Submission (C4T, In progress, deadline 23 Oct, overdue, daily). Amrish has 1 open item:
+ Create PSPCL Analytics Dashboard Application (PSPCL Analytics, Not started, deadline 31 Oct). ARCON
+ has 1 open item: ARCON Daily Reporting (Siraj, overdue by 5 days at the dashboard view). In total t
+here are 14 open items across the five projects: Aditya 4, Siraj 8, Yogita 1 and Amrish 1. === DOC =
+== doc_id: DOC018 title: Apex LLM project overview source_ref: Tekgeminus app, Apex LLM project page
+---Apex LLM is a project in the Tekgeminus app. Its status is On track. The project owner is Siraj. 
+It was created on 24 Oct
+=== CHUNK 23 ===
+On track. The project owner is Siraj. It was created on 24 Oct 2026. Apex LLM has 5 items in total. 
+0 are done, 0 are overdue and 0 are blocked. All 5 items are active and not started. The Apex LLM te
+am members are Siraj and Amrish. The Apex LLM page has a Request change button for raising a project
+ change request. === DOC === doc_id: DOC019 title: Apex LLM tasks source_ref: Tekgeminus app, Apex L
+LM project page---All 5 Apex LLM items are assigned to Siraj. All have Medium priority, status Not s
+tarted and repeat Once. 1. Research about Oracle Apex. Deadline: 27 Oct. 2. In Test Compartment crea
+te take a VM and deploy Oracle
+=== CHUNK 24 ===
+27 Oct. 2. In Test Compartment create take a VM and deploy Oracle 26ai on the same. Deadline: 28 Oct
+. 3. Research on how do we deploy Oracle APEX on separate VM in same compartment and connect the DB 
+to it. Deadline: 29 Oct. 4. Host a local LLM and link it to Oracle APEX and DB. Deadline: 2 Nov. 5. 
+Post that create a agentic ai that can chat with content available in database. Deadline: 4 Nov. Tog
+ether these items describe the Apex LLM assignment: deploy Oracle 26ai on a VM in the Test Compartme
+nt, deploy Oracle APEX on a separate VM in the same compartment and connect it to the database, host
+ a local LLM and link it to APEX and the database, and then
+=== CHUNK 25 ===
+host a local LLM and link it to APEX and the database, and then create an agentic AI that can chat w
+ith the content available in the database. The last deadline is 4 Nov. === DOC === doc_id: DOC020 ti
+tle: Dashboard summary source_ref: Tekgeminus app, Dashboard---The Dashboard of the Tekgeminus app s
+hows four summary numbers. Total items: 50, across 5 projects. The 5 projects are C4T, PSPCL, PSPCL 
+Analytics, ARCON and Apex LLM. Completion: 72%. Active: 14 items in progress (not done). Overdue: 2 
+items that need attention. The 72% completion means 36 of the 50 items are done: 16 in C4T, 12 in PS
+PCL,
+=== CHUNK 26 ===
+50 items are done: 16 in C4T, 12 in PSPCL, 7 in PSPCL Analytics, 1 in ARCON and 0 in Apex LLM. === D
+OC === doc_id: DOC021 title: Items due in the next 7 days source_ref: Tekgeminus app, Dashboard, Due
+ in next 7 days---The Dashboard lists 6 items due in the next 7 days, with the days remaining shown 
+next to each: 1. PSPCL Daily Reporting (PSPCL, Siraj): due in 2 days. 2. DC DR DRILL DEMO (C4T, Adit
+ya): due in 2 days. 3. Autonomous database in PSPCL PROD make it 24*7 available (PSPCL, Siraj): due 
+in 2 days. 4.
+=== CHUNK 27 ===
+available (PSPCL, Siraj): due in 2 days. 4. Research about Oracle Apex (Apex LLM, Siraj): due in 3 d
+ays. 5. In Test Compartment create take a VM and deploy Oracle 26ai on the same (Apex LLM, Siraj): d
+ue in 4 days. 6. Research on how we deploy Oracle APEX on separate VM in same compartment and connec
+t the DB to it (Apex LLM, Siraj): due in 5 days. Three of these 6 items belong to Apex LLM, two to P
+SPCL and one to C4T. Siraj is the assignee of 5 of the 6 items and Aditya of 1. === DOC === doc_id: 
+DOC022 title: Overdue items source_ref: Tekgeminus
+=== CHUNK 28 ===
+doc_id: DOC022 title: Overdue items source_ref: Tekgeminus app, Dashboard, Overdue by age---There ar
+e 2 overdue items in total. 1. One item is 1-3 days late. It is assigned to Yogita. This is the C4T 
+item Daily Report Submission (deadline 23 Oct). 2. One item is 4-7 days late. It is assigned to Sira
+j. This is ARCON Daily Reporting, which is 5 days late and is the oldest overdue item. C4T has 1 ove
+rdue item and ARCON has 1 overdue item. PSPCL, PSPCL Analytics and Apex LLM have no overdue items. =
+== DOC === doc_id: DOC023 title: Project progress source_ref: Tekgeminus
+=== CHUNK 29 ===
+doc_id: DOC023 title: Project progress source_ref: Tekgeminus app, Dashboard, Projects---All 5 proje
+cts are marked On track. Progress per project:-C4T: 16 of 19 items done (84%), 1 overdue.-PSPCL: 12 
+of 16 items done (75%), no overdue items.-PSPCL Analytics: 7 of 8 items done (88%), no overdue items
+.-ARCON: 1 of 2 items done (50%), 1 overdue.-Apex LLM: 0 of 5 items done (0%), no overdue items. PSP
+CL Analytics has the highest completion (88%). Apex LLM has the lowest completion (0%) because it wa
+s created on 24 Oct
+=== CHUNK 30 ===
+has the lowest completion (0%) because it was created on 24 Oct 2026 and none of its items have star
+ted. ARCON is the only project with just 2 items. C4T has the most items (19).
+
+

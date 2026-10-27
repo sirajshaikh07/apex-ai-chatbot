@@ -1,0 +1,21 @@
+SET LINESIZE 300;
+SET PAGESIZE 200;
+SET SERVEROUTPUT ON SIZE UNLIMITED;
+
+ALTER SESSION SET CURRENT_SCHEMA = AIDEMO;
+
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('=== INSPECTING RETRIEVED CHUNKS FOR MSG 261 ===');
+  FOR r IN (
+    SELECT chunk_id, chunk_no, chunk_text
+    FROM doc_chunks
+    WHERE chunk_id IN (550, 551, 552, 553, 554, 555, 556, 557, 565, 566, 567, 621, 622, 623)
+    ORDER BY chunk_no
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('--- CHUNK_ID ' || r.chunk_id || ' (Chunk #' || r.chunk_no || ') ---');
+    DBMS_OUTPUT.PUT_LINE(r.chunk_text);
+    DBMS_OUTPUT.PUT_LINE(' ');
+  END LOOP;
+END;
+/
+EXIT;
