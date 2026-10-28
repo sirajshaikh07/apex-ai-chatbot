@@ -125,20 +125,24 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
             hist_turns.append(f"Turn {i} User: {u_prompt}\nAssistant: {a_resp}")
         hist_ctx = "\n".join(hist_turns)
 
-        # 2. Determine Smart Context Budget & Neighbor Window Expansion (Fix 1)
+        # 2. Determine Smart Context Budget & Neighbor Window Expansion (Fix 1 & Fix 3)
         upper_q = clean_q.upper()
         is_procedure_query = any(w in upper_q for w in [
             "STAGE", "STAGES", "STEP", "STEPS", "PROCEDURE", "PROCESS", 
             "HOW TO", "ALL", "LIST", "EVERY", "SAB", "SAARE", "TIMELINE", "LEVEL", "SECTION"
         ])
-        cand_budget = 5 if is_procedure_query else 3
-        fetch_limit = 6 if is_procedure_query else 4
+        cand_budget = 7 if is_procedure_query else 5
+        fetch_limit = 10 if is_procedure_query else 7
         is_proc_val = 1 if is_procedure_query else 0
 
-        # Extract primary semantic keywords for lexical boost
-        clean_words = [w for w in re.findall(r'[a-zA-Z0-9]+', upper_q) if len(w) >= 4 and w not in ["WHAT", "WHEN", "WHERE", "WHICH", "ABOUT", "TELL", "GIVE", "SHOW", "THEIR", "THIS", "THAT", "WITH", "FROM", "HAVE", "BEEN", "WILL", "THEY", "YOUR", "DOES"]]
-        kw1 = clean_words[0] if len(clean_words) > 0 else "POLICY"
-        kw2 = clean_words[1] if len(clean_words) > 1 else kw1
+        # Extract primary semantic keywords for lexical boost (Fix 4: No hardcoded POLICY fallback)
+        clean_words = [w for w in re.findall(r'[a-zA-Z0-9]+', upper_q) if len(w) >= 3 and w not in [
+            "WHAT", "WHEN", "WHERE", "WHICH", "ABOUT", "TELL", "GIVE", "SHOW", 
+            "THEIR", "THIS", "THAT", "WITH", "FROM", "HAVE", "BEEN", "WILL", 
+            "THEY", "YOUR", "DOES", "SOME", "MANY", "NAME", "DESCRIBE"
+        ]]
+        kw1 = clean_words[0] if len(clean_words) > 0 else None
+        kw2 = clean_words[1] if len(clean_words) > 1 else None
 
         # 3. Hybrid Vector + Keyword Retrieval with Cross-Chunk Neighbor Expansion
         retrieval_sql = """
@@ -149,13 +153,13 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
             JOIN source_docs d ON c.doc_id = d.doc_id
             WHERE d.status = 'ACTIVE'
             ORDER BY dist ASC
-            FETCH FIRST 30 ROWS ONLY
+            FETCH FIRST 35 ROWS ONLY
         ),
         scored_cand AS (
             SELECT v.chunk_id, v.doc_id, v.chunk_no, v.chunk_text,
                    (v.dist - (
-                       CASE WHEN UPPER(v.chunk_text) LIKE '%' || UPPER(:kw1) || '%' THEN 0.08 ELSE 0.0 END +
-                       CASE WHEN UPPER(v.chunk_text) LIKE '%' || UPPER(:kw2) || '%' THEN 0.05 ELSE 0.0 END
+                       CASE WHEN :kw1 IS NOT NULL AND UPPER(v.chunk_text) LIKE '%' || UPPER(:kw1) || '%' THEN 0.08 ELSE 0.0 END +
+                       CASE WHEN :kw2 IS NOT NULL AND UPPER(v.chunk_text) LIKE '%' || UPPER(:kw2) || '%' THEN 0.05 ELSE 0.0 END
                    )) AS adj_dist
             FROM vec_cand v
         ),
@@ -165,7 +169,7 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
             ) WHERE ROWNUM <= :budget
         ),
         retrieved_cand AS (
-            -- Dynamic Neighbor Window Expansion: automatically pulls N, N+1, N+2 for multi-stage procedures
+            -- Dynamic Neighbor Window Expansion: automatically pulls N, N+1, N+2 for continuity
             SELECT c.chunk_id, t.adj_dist as dist,
                    ROW_NUMBER() OVER (PARTITION BY c.chunk_id ORDER BY t.adj_dist ASC) as rn
             FROM top_cand t
@@ -180,7 +184,14 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
         ORDER BY r.dist ASC, c.doc_id ASC, c.chunk_no ASC
         FETCH FIRST :fetch_lim ROWS ONLY
         """
-        cursor.execute(retrieval_sql, [clean_q, kw1, kw2, cand_budget, is_proc_val, fetch_limit])
+        cursor.execute(retrieval_sql, {
+            "q1": clean_q,
+            "kw1": kw1,
+            "kw2": kw2,
+            "budget": cand_budget,
+            "is_proc": is_proc_val,
+            "fetch_lim": fetch_limit
+        })
         chunks = cursor.fetchall()
 
         chunks_text_parts = []
@@ -194,17 +205,16 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
         sources_text = ", ".join(sources_list) if sources_list else "Enterprise Knowledge Base"
         chunks_ctx = "".join(chunks_text_parts)
 
-        # 4. Assemble Grounded System Prompt (Fix 2: Zero Speculation & Multi-Part Decomposition)
+        # 4. Assemble Grounded System Prompt (Fix 1, 2 & 5: Adaptive, Domain-Agnostic, High-Precision)
         prompt = (
             "You are an authoritative Enterprise AI Assistant for Oracle APEX.\n"
-            "Answer the user's question thoroughly, accurately, and completely based SOLELY on the provided enterprise context chunks below.\n\n"
+            "Answer the user's question accurately, thoroughly, and factually based SOLELY on the provided enterprise context chunks below.\n\n"
             "STRICT RAG GENERATION RULES:\n"
-            "1. NO SPECULATION OR INFERENCE: If the retrieved context does not explicitly contain the answer, state ONLY what is missing and stop immediately. NEVER use phrases like 'we can infer', 'typically', 'the policy might specify', or provide general industry advice.\n"
-            "2. MULTI-PART QUESTION DECOMPOSITION: If the user asks about multiple items (e.g., 'Can I do X or Y?'), evaluate each item independently against the text BEFORE writing your conclusion. Quote the exact rule for X, quote the exact rule for Y, and state the final verdict for each independently. Format:\n"
-            "   - Item 1: Quote text -> State verdict (Permitted or Prohibited)\n"
-            "   - Item 2: Quote text -> State verdict (Permitted or Prohibited)\n"
-            "   - Conclusion: Restate clearly which is allowed and which is forbidden without contradicting the quotes.\n"
-            "3. EXHAUSTIVE FACTUAL COMPLETENESS: State all specific numbers, time limits, deadlines, approval hierarchies, and conditional exceptions exactly as written in the text. Do not cut off or truncate key details.\n\n"
+            "1. GROUNDED FACTUAL SYNTHESIS: Answer directly and clearly using the exact facts, entities, numbers, and mechanisms found in the context. Do not use verbose evasive disclaimers if the factual answer is present in the text.\n"
+            "2. DIRECT ANSWERS & NEGATION: If the question asks whether something is true or effective, and the context shows it is not or indicates a different condition/purpose, state 'No' directly with the cited fact. Do not refuse to answer if the context provides the relevant facts.\n"
+            "3. MULTI-PART & COMPARATIVE QUESTIONS: If the user asks about multiple items (e.g., 'Can I do X or Y?', 'Compare A and B'), evaluate each item distinctly and thoroughly before stating the conclusion.\n"
+            "4. COMPLIANCE & POLICY QUERIES: Only if the user specifically inquires about whether an action is allowed, permitted, or against rules, explicitly state 'Permitted' or 'Prohibited' based on the text.\n"
+            "5. NO EXTERNAL HALLUCINATION: If the context genuinely contains no information or mention of the subject, state clearly what is missing based on the provided text. Never invent external facts.\n\n"
         )
         if hist_ctx:
             prompt += f"RECENT CONVERSATION HISTORY:\n{hist_ctx}\n\n"

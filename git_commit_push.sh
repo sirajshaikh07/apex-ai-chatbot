@@ -9,12 +9,13 @@ echo "======================================================="
 
 git status -s
 
-echo ""
-echo "[*] Adding changes to git..."
-git add .gitignore *.py *.sh *.sql rag_datasets/*.txt rag_datasets/*.json 2>/dev/null || git add -A
+MSG="${1:-streaming_rag.service naye 5 fixes ke sath successfully restart ho chuki hai!}"
 
-echo "[*] Committing changes with message: 'two datasets checks'..."
-git commit -m "two datasets checks" || echo "Nothing to commit or already committed."
+echo "[*] Adding changes to git..."
+git add -A
+
+echo "[*] Committing changes with message: '$MSG'..."
+git commit -m "$MSG" || echo "Nothing to commit or already committed."
 
 echo "[*] Pushing to remote repository..."
 git push
