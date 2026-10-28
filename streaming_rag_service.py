@@ -358,6 +358,60 @@ def admin_clean_history():
     conn.close()
     return jsonify({"status": "cleaned", "invalidated_rows": updated})
 
+@app.route('/api/admin/apex_debug', methods=['GET'])
+def admin_apex_debug():
+    """Retrieves exact error messages and region metadata from APEX tables."""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    out = {}
+    
+    # Check all regions with 'Admin' or on page 2 or page 0
+    try:
+        cur.execute("""
+            SELECT page_id, id, plug_name, plug_source_type, 
+                   CASE WHEN plug_source IS NOT NULL THEN DBMS_LOB.SUBSTR(plug_source, 200, 1) ELSE 'EMPTY' END
+            FROM APEX_260200.WWV_FLOW_PAGE_PLUGS
+            WHERE flow_id = 101 AND (page_id IN (0, 1, 2) OR plug_name LIKE '%Admin%')
+            ORDER BY page_id, id
+        """)
+        out["plugs"] = [{"page": r[0], "id": r[1], "name": r[2], "type": r[3], "snip": str(r[4])[:120]} for r in cur.fetchall()]
+    except Exception as e:
+        out["plugs_err"] = str(e)
+
+    # Check APEX debug messages
+    for tbl in ["APEX_260200.WWV_FLOW_DEBUG_MESSAGES", "APEX_DEBUG_MESSAGES"]:
+        try:
+            cur.execute(f"""
+                SELECT message, call_stack, message_timestamp
+                FROM {tbl}
+                WHERE flow_id = 101 OR application_id = 101
+                ORDER BY id DESC
+                FETCH FIRST 10 ROWS ONLY
+            """)
+            out["debug_messages"] = [{"msg": str(r[0]), "stack": str(r[1]) if r[1] else "", "ts": str(r[2])} for r in cur.fetchall()]
+            break
+        except Exception as e:
+            out[f"debug_err_{tbl}"] = str(e)
+
+    # Check APEX activity log
+    for tbl in ["APEX_260200.WWV_FLOW_ACTIVITY_LOG", "APEX_WORKSPACE_ACTIVITY_LOG"]:
+        try:
+            cur.execute(f"""
+                SELECT page_id, action, error_message, sqlerrm, time_stamp
+                FROM {tbl}
+                WHERE flow_id = 101 OR application_id = 101
+                ORDER BY time_stamp DESC
+                FETCH FIRST 10 ROWS ONLY
+            """)
+            out["activity_log"] = [{"page": r[0], "action": r[1], "err": str(r[2]), "sqlerrm": str(r[3]), "ts": str(r[4])} for r in cur.fetchall()]
+            break
+        except Exception as e:
+            out[f"activity_err_{tbl}"] = str(e)
+
+    cur.close()
+    conn.close()
+    return jsonify(out)
+
 @app.route('/api/admin/test_query', methods=['GET', 'POST'])
 def admin_test_query():
     """Executes a full test query through Fix 1 & Fix 2 and returns retrieval + generation results."""
