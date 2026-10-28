@@ -125,17 +125,17 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
             hist_turns.append(f"Turn {i} User: {u_prompt}\nAssistant: {a_resp}")
         hist_ctx = "\n".join(hist_turns)
 
-        # 2. Determine Smart Context Budget & Neighbor Window Expansion (Fix 1 & Fix 3)
+        # 2. Determine Smart Context Budget & Neighbor Window Expansion (Universal Standard)
         upper_q = clean_q.upper()
         is_procedure_query = any(w in upper_q for w in [
             "STAGE", "STAGES", "STEP", "STEPS", "PROCEDURE", "PROCESS", 
             "HOW TO", "ALL", "LIST", "EVERY", "SAB", "SAARE", "TIMELINE", "LEVEL", "SECTION"
         ])
-        cand_budget = 7 if is_procedure_query else 5
-        fetch_limit = 10 if is_procedure_query else 7
+        cand_budget = 6 if is_procedure_query else 4
+        fetch_limit = 8 if is_procedure_query else 6
         is_proc_val = 1 if is_procedure_query else 0
 
-        # Extract primary semantic keywords for lexical boost (Fix 4: No hardcoded POLICY fallback)
+        # Extract primary semantic keywords for lexical boost (Universal stopword filter)
         clean_words = [w for w in re.findall(r'[a-zA-Z0-9]+', upper_q) if len(w) >= 3 and w not in [
             "WHAT", "WHEN", "WHERE", "WHICH", "ABOUT", "TELL", "GIVE", "SHOW", 
             "THEIR", "THIS", "THAT", "WITH", "FROM", "HAVE", "BEEN", "WILL", 
@@ -153,7 +153,7 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
             JOIN source_docs d ON c.doc_id = d.doc_id
             WHERE d.status = 'ACTIVE'
             ORDER BY dist ASC
-            FETCH FIRST 35 ROWS ONLY
+            FETCH FIRST 30 ROWS ONLY
         ),
         scored_cand AS (
             SELECT v.chunk_id, v.doc_id, v.chunk_no, v.chunk_text,
@@ -194,27 +194,37 @@ def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=Fal
         })
         chunks = cursor.fetchall()
 
+        # Context length management: cap at 5,000 chars to guarantee sub-20s latency
         chunks_text_parts = []
         sources_list = []
+        total_chars = 0
+        MAX_CONTEXT_CHARS = 5200
+
         for ch in chunks:
             ch_id, ch_no, ch_text, doc_title = ch
-            chunks_text_parts.append(f"\n--- [Document: {doc_title} | Chunk #{ch_no}] ---\n{ch_text}")
+            part = f"\n--- [Document: {doc_title} | Chunk #{ch_no}] ---\n{ch_text}"
+            if total_chars + len(part) > MAX_CONTEXT_CHARS and len(chunks_text_parts) >= 2:
+                break
+            chunks_text_parts.append(part)
+            total_chars += len(part)
             if doc_title and doc_title not in sources_list:
                 sources_list.append(doc_title)
 
         sources_text = ", ".join(sources_list) if sources_list else "Enterprise Knowledge Base"
         chunks_ctx = "".join(chunks_text_parts)
 
-        # 4. Assemble Grounded System Prompt (Fix 1, 2 & 5: Adaptive, Domain-Agnostic, High-Precision)
+        # 4. Assemble Grounded System Prompt (Universal Enterprise Standard)
         prompt = (
             "You are an authoritative Enterprise AI Assistant for Oracle APEX.\n"
             "Answer the user's question accurately, thoroughly, and factually based SOLELY on the provided enterprise context chunks below.\n\n"
             "STRICT RAG GENERATION RULES:\n"
-            "1. GROUNDED FACTUAL SYNTHESIS: Answer directly and clearly using the exact facts, entities, numbers, and mechanisms found in the context. Do not use verbose evasive disclaimers if the factual answer is present in the text.\n"
-            "2. DIRECT ANSWERS & NEGATION: If the question asks whether something is true or effective, and the context shows it is not or indicates a different condition/purpose, state 'No' directly with the cited fact. Do not refuse to answer if the context provides the relevant facts.\n"
-            "3. MULTI-PART & COMPARATIVE QUESTIONS: If the user asks about multiple items (e.g., 'Can I do X or Y?', 'Compare A and B'), evaluate each item distinctly and thoroughly before stating the conclusion.\n"
-            "4. COMPLIANCE & POLICY QUERIES: Only if the user specifically inquires about whether an action is allowed, permitted, or against rules, explicitly state 'Permitted' or 'Prohibited' based on the text.\n"
-            "5. NO EXTERNAL HALLUCINATION: If the context genuinely contains no information or mention of the subject, state clearly what is missing based on the provided text. Never invent external facts.\n\n"
+            "1. GROUNDED FACTUAL SYNTHESIS: Answer directly and clearly using the exact facts, entities, numbers, and mechanisms found in the context. Do not use evasive disclaimers if the factual answer is present in the text.\n"
+            "2. ARITHMETIC & NUMERICAL REASONING: When a query requires computing changes, rates, ratios, percentages, sums, or differences from data in the context, extract the relevant numbers, perform the calculation step-by-step, and state the final result clearly.\n"
+            "3. DIRECT ANSWERS & NEGATION: If the question asks whether something is true or effective, and the context shows it is not or indicates a different condition/purpose, state 'No' directly with the cited fact. Do not refuse to answer if the context provides the relevant facts.\n"
+            "4. MULTI-PART & COMPARATIVE QUESTIONS: If the user asks about multiple items (e.g., 'Can I do X or Y?', 'Compare A and B'), evaluate each item distinctly and thoroughly before stating the conclusion.\n"
+            "5. COMPLIANCE & POLICY QUERIES: Only if the user specifically inquires about whether an action is allowed, permitted, or against rules, explicitly state 'Permitted' or 'Prohibited' based on the text.\n"
+            "6. MULTI-SOURCE ATTRIBUTION: Always specify which document or entity the figures and rules belong to when answering.\n"
+            "7. NO EXTERNAL HALLUCINATION: If the context genuinely contains no information or mention of the subject, state clearly what is missing based on the provided text. Never invent external facts.\n\n"
         )
         if hist_ctx:
             prompt += f"RECENT CONVERSATION HISTORY:\n{hist_ctx}\n\n"

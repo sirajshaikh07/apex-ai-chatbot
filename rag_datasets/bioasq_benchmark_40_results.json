@@ -1,31 +1,31 @@
 {
   "benchmark": "enelpol/rag-mini-bioasq",
-  "total_evaluated": 10,
-  "retrieval_hit_rate_pct": 0.0,
-  "avg_ttft_ms": 0.0,
-  "avg_latency_ms": 32.3,
-  "overall_score": 4.0,
+  "total_evaluated": 7,
+  "retrieval_hit_rate_pct": 100.0,
+  "avg_ttft_ms": 31750.29,
+  "avg_latency_ms": 50201.29,
+  "overall_score": 9.14,
   "results": [
     {
       "num": 1,
       "question": "Is capmatinib effective for glioblastoma?",
       "expected_answer": "No. Combination of capmatinib buparlisib resulted in no clear activity in patients with recurrent PTEN-deficient glioblastoma.",
-      "ai_answer": "",
+      "ai_answer": "The provided enterprise context chunks do not contain any information regarding capmatinib or its effectiveness for glioblastoma. Therefore, based on the given context, I cannot provide an answer to whether capmatinib is effective for glioblastoma.",
       "expected_docs": [
         "BioASQ_Passage_31776899"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 40,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_32493697, BioASQ_Passage_34615748, BioASQ_Passage_31776899, BioASQ_Passage_25935605, BioASQ_Passage_17966166",
+      "ttft_ms": 36489,
+      "total_ms": 44167,
+      "target_hit": true,
+      "overlap": 0.13,
+      "score": 7.0
     },
     {
       "num": 2,
       "question": "Describe the mechanism of action of ibalizumab.",
       "expected_answer": "Ibalizumab is a humanized monoclonal antibody that acts as post-attachment inhibitor by binding CD4 2nd domain of T lymphocyte and preventing HIV connection to CCR5 or CXCR4. It has been recently approved by Food and Drug Administration as a new intravenous antiretroviral agent for heavily treated HIV adults with multi -drug resistant infection.",
-      "ai_answer": "",
+      "ai_answer": "Ibalizumab is a humanized monoclonal antibody that binds to domain 2 of the CD4 receptor, the primary receptor for human immunodeficiency virus type 1 (HIV-1). By binding to this specific domain, ibalizumab potently and broadly blocks HIV-1 infection in vitro by inhibiting a postbinding step required for viral entry but without interfering with major histocompatibility complex class II (MHC-II)-mediated immune function. This mechanism of action is unique and contributes to the safety profile of ibalizumab, as it does not cause significant immunosuppression in infected patients. The binding of ibalizumab to CD4 is critical, as amino acids L96, P121, P122, and Q163 in domain 2, along with E77 and S79 in domain 1, are important for its binding. These residues cluster on the interface between domains 1 and 2 of human CD4 on a surface opposite the site where gp120 and the MHC-II molecule bind on domain 1.",
       "expected_docs": [
         "BioASQ_Passage_29675744",
         "BioASQ_Passage_24853313",
@@ -44,18 +44,18 @@
         "BioASQ_Passage_30110589",
         "BioASQ_Passage_23023102"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 32,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_29746266, BioASQ_Passage_30110589, BioASQ_Passage_20463063, BioASQ_Passage_29989910, BioASQ_Passage_19015347",
+      "ttft_ms": 34934,
+      "total_ms": 67889,
+      "target_hit": true,
+      "overlap": 0.38,
+      "score": 10.0
     },
     {
       "num": 3,
       "question": "What is the function of Neu5Gc (N-Glycolylneuraminic acid)?",
       "expected_answer": "N-glycolylneuraminic acid (Neu5Gc) is an immunogenic sugar of dietary origin that metabolically incorporates into diverse native glycoconjugates in humans.  Humans lack a functional cytidine monophosphate-N-acetylneuraminic acid hydroxylase (CMAH) protein and cannot synthesize the sugar Neu5Gc, an innate mammalian signal of self. N-Glycolylneuraminic acid (Neu5Gc) can be incorporated in human cells and can trigger immune response, a response that is diverse and polyclonal. As dietary Neu5Gc is primarily found in red meat and milk products, it is suggested that this ongoing antigen-antibody reaction may generate chronic inflammation, possibly contributing to the high frequency of diet-related carcinomas and other diseases in humans.",
-      "ai_answer": "",
+      "ai_answer": "Based on the provided context, the function of Neu5Gc (N-Glycolylneuraminic acid) includes:\n\n1. **Immunogenicity and Antibody Response**: Neu5Gc is an immunogenic sugar of dietary origin that metabolically incorporates into diverse native glycoconjugates in humans. Anti-Neu5Gc antibodies are detected in all human sera, though with variable levels and epitope-recognition profiles. These antibodies likely play a role in several inflammation-mediated pathologies, including cardiovascular diseases and cancer. In cancer, they have dualistic and opposing roles, either stimulating or repressing disease, as a function of their dose, and some of these antibodies serve as carcinoma biomarkers. Changes in their levels could potentially be used to monitor disease progression and/or response to therapy.\n\n2. **Potential Role in Chronic Inflammation and Disease**: Neu5Gc is primarily found in red meat and milk products. Dietary Neu5Gc may generate chronic inflammation, possibly contributing to the high frequency of diet-related carcinomas and other diseases in humans.\n\n3. **Evolutionary and Pathological Implications**: Neu5Gc has been reported in human tumors and possibly in human fetal tissues, and traces have even been detected in normal human tissues. One possible explanation is that this represents accumulation of Neu5Gc from dietary sources of animal origin. A markedly reduced expression of hydroxylase in the brains of other mammals raises the possibility that the human-specific mutation of this enzyme could have played a role in human brain evolution.\n\n4. **Impact on Neurotransmitter Metabolism**: While not directly related to Neu5Gc, the provided context mentions that GABA, by activating specific receptors, causes inhibition of firing of dopaminergic neurones and the opposite effect on the noradrenergic neurones. The nature of the effect on 5-HT metabolism needs further investigation.\n\nIn summary, the primary functions of Neu5Gc include its role in the immune system, potential contributions to chronic inflammation and certain diseases, and possible implications in human evolution.",
       "expected_docs": [
         "BioASQ_Passage_11786991",
         "BioASQ_Passage_23945141",
@@ -64,18 +64,18 @@
         "BioASQ_Passage_25124893",
         "BioASQ_Passage_23520510"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 32,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_11786991, BioASQ_Passage_23520510, BioASQ_Passage_904693, BioASQ_Passage_18669916, BioASQ_Passage_1002690",
+      "ttft_ms": 963,
+      "total_ms": 60097,
+      "target_hit": true,
+      "overlap": 0.62,
+      "score": 10.0
     },
     {
       "num": 4,
       "question": "What is the mechanism of action of Inclisiran?",
       "expected_answer": "Inclisiran, a novel, synthetic, siRNA molecule, inhibits PCSK9 synthesis in hepatocytes. Inclisiran targets intracellular PCSK9 synthesis specifically, resulting in a dose-dependent, long-term, significant reduction in LDL-C.",
-      "ai_answer": "",
+      "ai_answer": "Inclisiran is a novel drug that inhibits PCSK9 synthesis specifically in the liver, harnessing the natural mechanism of RNAi.",
       "expected_docs": [
         "BioASQ_Passage_29516321",
         "BioASQ_Passage_27959715",
@@ -89,33 +89,33 @@
         "BioASQ_Passage_28736830",
         "BioASQ_Passage_30487231"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 32,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_30011788, BioASQ_Passage_30375244, BioASQ_Passage_29735484, BioASQ_Passage_29451410, BioASQ_Passage_27959715",
+      "ttft_ms": 31088,
+      "total_ms": 35686,
+      "target_hit": true,
+      "overlap": 0.29,
+      "score": 10.0
     },
     {
       "num": 5,
       "question": "What is F105-P?",
       "expected_answer": "F105-P is a protamine-antibody fusion protein designed to deliver siRNA to HIV-infected or envelope-transfected cells. In specific, it was designed with the protamine coding sequence linked to the C terminus of the heavy chain Fab fragment of an HIV-1 envelope antibody.",
-      "ai_answer": "",
+      "ai_answer": "The provided context chunks do not contain any information about F105-P. Therefore, I cannot provide an answer based on the given enterprise context.",
       "expected_docs": [
         "BioASQ_Passage_15908939"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 31,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_1406753, BioASQ_Passage_1345899, BioASQ_Passage_1281842, BioASQ_Passage_1067597, FinQA_Report_SYY/2006/page_71.pdf-1",
+      "ttft_ms": 27308,
+      "total_ms": 32039,
+      "target_hit": true,
+      "overlap": 0.06,
+      "score": 7.0
     },
     {
       "num": 6,
       "question": "Is tubulin acetylation involved in cell motility?",
       "expected_answer": "Yes, induction of alpha-tubulin acetylation correlates with inhibition of cell motility, while it is involved in additional cellular processes, e.g. cell cycle progression, differentiation, intracellular trafficking, and signalling. Dynamic microtubule (MT) acetylation/deacetylation mediating cell motility and adhesion is controlled by enzymes such as HDAC6, a major cytoplasmic α-tubulin deacetylase. While its overexpression and activation is capable to enhance cell motility, HDAC6 activity can also be negatively regulated by a number of cellular inhibitors, thus decreasing the ability of cells for migration.",
-      "ai_answer": "",
+      "ai_answer": "Yes, tubulin acetylation is involved in cell motility. According to the provided context, GRK2-HDAC6-mediated regulation of tubulin acetylation modulates cellular spreading and enhances motility. Specifically, GRK2 directly associates with and phosphorylates HDAC6 to stimulate α-tubulin deacetylase activity, leading to local tubulin deacetylation and enhanced motility in the leading edge of migrating cells.",
       "expected_docs": [
         "BioASQ_Passage_20308065",
         "BioASQ_Passage_12024216",
@@ -125,109 +125,27 @@
         "BioASQ_Passage_23019416",
         "BioASQ_Passage_22193721"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 32,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
-    },
-    {
-      "num": 7,
-      "question": "Which methods infer 3D genome structure without proximity ligation?",
-      "expected_answer": "SPRITE is a method that enables genome-wide detection of higher-order interactions within the nucleus.\nTransposase-mediated analysis of chromatin looping (Trac-looping) for simultaneous detection of multiscale genome-wide chromatin interactions among regulatory elements and chromatin accessibility.\nGenome architecture mapping (GAM) can be used for measuring chromatin contacts and other features of three-dimensional chromatin topology on the basis of sequencing DNA from a large collection of thin nuclear sections.",
-      "ai_answer": "",
-      "expected_docs": [
-        "BioASQ_Passage_30109602",
-        "BioASQ_Passage_30150754",
-        "BioASQ_Passage_28273065",
-        "BioASQ_Passage_29148971",
-        "BioASQ_Passage_25887659",
-        "BioASQ_Passage_29401453",
-        "BioASQ_Passage_31848476",
-        "BioASQ_Passage_29887377",
-        "BioASQ_Passage_24051548"
-      ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 31,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
-    },
-    {
-      "num": 8,
-      "question": "Has protein citrullination been implicated in rheumatoid arthritis?",
-      "expected_answer": "Yes, protein citrullination been implicated in rheumatoid arthritis.",
-      "ai_answer": "",
-      "expected_docs": [
-        "BioASQ_Passage_24498912",
-        "BioASQ_Passage_24782594",
-        "BioASQ_Passage_25515746",
-        "BioASQ_Passage_24823363",
-        "BioASQ_Passage_25475141",
-        "BioASQ_Passage_24763532",
-        "BioASQ_Passage_24497204",
-        "BioASQ_Passage_25520183",
-        "BioASQ_Passage_25182207",
-        "BioASQ_Passage_25116951",
-        "BioASQ_Passage_24724574",
-        "BioASQ_Passage_25355199"
-      ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 31,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_12024216, BioASQ_Passage_20940043, BioASQ_Passage_22589388, BioASQ_Passage_12677000, BioASQ_Passage_22193721",
+      "ttft_ms": 29865,
+      "total_ms": 42626,
+      "target_hit": true,
+      "overlap": 0.23,
+      "score": 10.0
     },
     {
       "num": 9,
       "question": "Does MC1R palmitoylation reduce pigmentation?",
       "expected_answer": "No, MC1R palmitoylation leads to increased pigmentation.",
-      "ai_answer": "",
+      "ai_answer": "No, the provided context indicates that MC1R palmitoylation is essential for activating MC1R signalling, which triggers increased pigmentation. Therefore, MC1R palmitoylation does not reduce pigmentation; rather, it enhances it.",
       "expected_docs": [
         "BioASQ_Passage_28869973"
       ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 31,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
-    },
-    {
-      "num": 10,
-      "question": "What is the function of transthyretin in cerebrospinal fluid?",
-      "expected_answer": "Transthyretin (TTR) is a protein synthesized in the choroid plexus, which forms the blood-cerebrospinal fluid barrier.  TTR is the physiological carrier of thyroxine (T4) and retinol from the blood into the cerebrospinal fluid and their distribution in the brain. The transport of T4 is important for normal development of the brain.",
-      "ai_answer": "",
-      "expected_docs": [
-        "BioASQ_Passage_11294981",
-        "BioASQ_Passage_24160776",
-        "BioASQ_Passage_25784853",
-        "BioASQ_Passage_2309926",
-        "BioASQ_Passage_25737004",
-        "BioASQ_Passage_9630636",
-        "BioASQ_Passage_7553078",
-        "BioASQ_Passage_23579071",
-        "BioASQ_Passage_3601096",
-        "BioASQ_Passage_19682646",
-        "BioASQ_Passage_10718550",
-        "BioASQ_Passage_1519448",
-        "BioASQ_Passage_12553433",
-        "BioASQ_Passage_16325339",
-        "BioASQ_Passage_7965021",
-        "BioASQ_Passage_25311081",
-        "BioASQ_Passage_12182890",
-        "BioASQ_Passage_19075702",
-        "BioASQ_Passage_25009532"
-      ],
-      "sources": "",
-      "ttft_ms": 0,
-      "total_ms": 31,
-      "target_hit": false,
-      "overlap": 0.0,
-      "score": 4.0
+      "sources": "BioASQ_Passage_28869973, BioASQ_Passage_708596, BioASQ_Passage_876685, BioASQ_Passage_1341423",
+      "ttft_ms": 61605,
+      "total_ms": 68905,
+      "target_hit": true,
+      "overlap": 0.71,
+      "score": 10.0
     }
   ]
 }
