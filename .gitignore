@@ -20,3 +20,11 @@ __pycache__/
 # OS & IDE metadata
 .DS_Store
 Thumbs.db
+
+# Large Raw Datasets (preserve benchmark JSON & TXT)
+rag_datasets/**/*.jsonl
+rag_datasets/*.jsonl
+rag_datasets/**/*.zip
+rag_datasets/*.zip
+rag_datasets/**/*.parquet
+rag_datasets/finqa/FinQA-main/

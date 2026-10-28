@@ -274,6 +274,63 @@ function quickAsk(questionText) {
     }
 }
 
+window.submitChatFeedback = async function(msgId, feedbackType) {
+    var box = document.getElementById('feedback_box_' + msgId);
+    if (!msgId || msgId === 0) {
+        if (box) box.innerHTML = '<span style="color:#059669; font-weight:600; font-size:0.75rem;">👍 Helpful</span>';
+        return;
+    }
+    try {
+        if (box) box.innerHTML = '<span style="color:#64748b; font-size:0.75rem;">Saving...</span>';
+        var res = await fetch('/api/chat/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ msg_id: msgId, feedback: feedbackType })
+        });
+        if (box) {
+            box.innerHTML = '<span style="color:#059669; font-weight:600; font-size:0.75rem;">👍 Helpful</span>';
+        }
+    } catch (e) {
+        if (box) box.innerHTML = '<span style="color:#059669; font-weight:600; font-size:0.75rem;">👍 Helpful</span>';
+    }
+};
+
+window.openFeedbackModal = function(msgId) {
+    var box = document.getElementById('feedback_box_' + msgId);
+    if (!box) return;
+    box.innerHTML = 
+        '<div style="display:inline-flex; align-items:center; gap:4px; font-size:0.75rem;">' +
+            '<select id="fb_cat_' + msgId + '" style="font-size:0.75rem; padding:1px 4px; border:1px solid #cbd5e1; border-radius:4px; background:#fff;">' +
+                '<option value="Inaccurate">Inaccurate</option>' +
+                '<option value="Incomplete">Incomplete</option>' +
+                '<option value="Hallucination">Hallucination</option>' +
+                '<option value="Other">Other</option>' +
+            '</select>' +
+            '<input type="text" id="fb_comm_' + msgId + '" placeholder="Optional comment" style="font-size:0.75rem; padding:1px 6px; width:120px; border:1px solid #cbd5e1; border-radius:4px;" />' +
+            '<button type="button" onclick="submitDetailedFeedback(' + msgId + ');" style="background:#dc2626; color:white; border:none; border-radius:4px; padding:2px 6px; cursor:pointer; font-weight:600;">Submit</button>' +
+        '</div>';
+};
+
+window.submitDetailedFeedback = async function(msgId) {
+    var box = document.getElementById('feedback_box_' + msgId);
+    var catEl = document.getElementById('fb_cat_' + msgId);
+    var commEl = document.getElementById('fb_comm_' + msgId);
+    var cat = catEl ? catEl.value : 'Inaccurate';
+    var comm = commEl ? commEl.value : '';
+
+    try {
+        if (box) box.innerHTML = '<span style="color:#64748b; font-size:0.75rem;">Reporting...</span>';
+        await fetch('/api/chat/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ msg_id: msgId, feedback: 'DOWN', category: cat, comment: comm })
+        });
+        if (box) box.innerHTML = '<span style="color:#dc2626; font-weight:600; font-size:0.75rem;">👎 Issue Reported</span>';
+    } catch (e) {
+        if (box) box.innerHTML = '<span style="color:#dc2626; font-weight:600; font-size:0.75rem;">👎 Issue Reported</span>';
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof apex !== 'undefined' && apex.page) {
         apex.page.warnOnUnsavedChanges = function() { return false; };

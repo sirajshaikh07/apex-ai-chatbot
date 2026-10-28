@@ -1,0 +1,602 @@
+[
+  {
+    "question": "Who is the music director of the Quebec Symphony Orchestra?",
+    "answer": "The music director of the Quebec Symphony Orchestra is Fabien Gabel.",
+    "doc_title": "RAG12K_Doc_0001",
+    "doc_hash": "6a599d1398921eead8075027980fbea025d30618c56264285638d4d97913393e"
+  },
+  {
+    "question": "Who were the four students of the University of Port Harcourt that were allegedly murdered?",
+    "answer": "The four students of the University of Port Harcourt that were allegedly murdered were Chiadika Lordson, Ugonna Kelechi Obusor, Mike Lloyd Toku and Tekena Elkanah.",
+    "doc_title": "RAG12K_Doc_0002",
+    "doc_hash": "15f8418d194acc370d17b87196d994f42326dde02d2832e6a48be2f4208fc168"
+  },
+  {
+    "question": "What did Paul Wall offer to all U.S. Olympic Medalists?",
+    "answer": "Paul Wall wants to give free gold grills to all U.S. Olympic Medalists.",
+    "doc_title": "RAG12K_Doc_0003",
+    "doc_hash": "b2c76702f319353255bfa278a812a788c1db0e1befc4768e04406c55b7e6ce90"
+  },
+  {
+    "question": "What are the main agricultural products that African countries export to the rest of the world?",
+    "answer": "African countries mainly export cocoa, edible fruit and nuts, coffee and tea, and vegetables to the rest of the world.",
+    "doc_title": "RAG12K_Doc_0004",
+    "doc_hash": "445451a2ec7508a67089f3fbbd3dbc52b56a886b16016023db0e67ffa191886c"
+  },
+  {
+    "question": "What is the main goal of the CHI 2011 workshop on large interactive displays in public urban contexts?",
+    "answer": "The main goal of this one-day CHI 2011 workshop is to cross-fertilize insights from different disciplines, to establish a more general understanding of large interactive displays in public urban contexts, and to develop an agenda for future research directions in this area.",
+    "doc_title": "RAG12K_Doc_0005",
+    "doc_hash": "073e2cbf89b05127fcf7a931ebc6dfafc114a42e09650b46089c3e05bc0c61d4"
+  },
+  {
+    "question": "Can you get a cash advance without a bank account?",
+    "answer": "It's possible to get a cash advance without a bank account through certain methods. One can use a secured credit card or a prepaid debit card to take out a cash advance. Some \"cash advance\" loans, often referred to as payday loans, don't require a bank account and will either hand you cash or put the money on a prepaid debit card. However, most traditional credit cards will require a bank account before approval.",
+    "doc_title": "RAG12K_Doc_0006",
+    "doc_hash": "055bce692342d463837670761f5a0490e4396bfa709b694fa63a5334bda6af62"
+  },
+  {
+    "question": "Who is Theron Shan in the context?",
+    "answer": "Theron Shan is a man who has given over his life in service to the Republic, using work to try and cope with abandonment issues gained from being hurt too many times by those who were supposed to love him.",
+    "doc_title": "RAG12K_Doc_0007",
+    "doc_hash": "565366573434072bba8232c796c62ab6b53de27d4f005ff149dcb34660dfcdc6"
+  },
+  {
+    "question": "Who were the producers of Eminem's album, The Marshall Mathers LP?",
+    "answer": "The producers of The Marshall Mathers LP were Dr. Dre (executive producer), Eminem, Mark and Jeff Bass, The 45 King, and Mel-Man.",
+    "doc_title": "RAG12K_Doc_0008",
+    "doc_hash": "b92faf20e16518c04a3bb34d1722f28b099f9282470521246b1fba00bd14fcfd"
+  },
+  {
+    "question": "What are some of the features of the TIFF Bell Lightbox theatre mentioned in the context?",
+    "answer": "The TIFF Bell Lightbox theatre is described as having spacious and comfortable seats, ingenious cup-holders that are in front of and below the armrest and completely out of the way, while still easily accessible. The screenings start promptly, without commercials or previews.",
+    "doc_title": "RAG12K_Doc_0009",
+    "doc_hash": "e47a46a7522444b2c1f724af2952692838eeaff1278e54bb9aff9ddd7b5514ea"
+  },
+  {
+    "question": "What is the architectural style that is prevalent in Wildwood and how is it reflected in the town's buildings?",
+    "answer": "The architectural style prevalent in Wildwood is 'doo wop' architecture. This style came of age when Wildwood became a vacation destination in the mid-last-century and is reflected in the themes of the motels built during that era, which were influenced by the age of the automobile, the sputnik and the space race, Hawaiian / Polynesian fascination, and many other post World War themes. Today, many buildings in Wildwood, including new ones, reflect this doo wop style, which is also referred to as neo-doo wop.",
+    "doc_title": "RAG12K_Doc_0010",
+    "doc_hash": "6bd6a8ba5959b6e2f5456783d340ca193c1fb70cfe47eb4fe2b935a62c1fa6e6"
+  },
+  {
+    "question": "What are the three pillars on which the general second-class status of women depend according to Echidne of the Snakes?",
+    "answer": "The three pillars on which the general second-class status of women depend are religion, laws and science/pseudoscience.",
+    "doc_title": "RAG12K_Doc_0011",
+    "doc_hash": "741b7b21a3dab1adf1adb3ea3d4e920663b3fcf25495b944cb1b5368eaeb3253"
+  },
+  {
+    "question": "Who was identified as the attempted rape suspect in the MLK Neighborhood?",
+    "answer": "Thomas Lee Carr was identified as the attempted rape suspect in the MLK Neighborhood.",
+    "doc_title": "RAG12K_Doc_0012",
+    "doc_hash": "e0940c09959f56044d0b32d5dfeec170792576b4a459bf0f85c65fa66a996859"
+  },
+  {
+    "question": "What is the purpose of the U.S. patent 9,879,053 issued to Argos Therapeutics Inc.?",
+    "answer": "The U.S. patent 9,879,053 issued to Argos Therapeutics Inc. covers the strain-independent amplification of human immunodeficiency virus, or HIV, nucleic acid sequences for use in vaccinations. The methods described in this patent form the foundation for the manufacture of AGS-004, Argos' novel, dendritic cell-based immunotherapy for HIV.",
+    "doc_title": "RAG12K_Doc_0013",
+    "doc_hash": "b9311c0e9bcf290e759c78b056a56523afc9160e271c4ddba80530d0b6a2c7cc"
+  },
+  {
+    "question": "What is the street address for Beliveau Estate?",
+    "answer": "The address for Beliveau Estate is 5415 Gallion Ridge Rd, Blacksburg, VA 24060.",
+    "doc_title": "RAG12K_Doc_0014",
+    "doc_hash": "c434564c59f33629e553c84c594eb957aaaafaa07978c2369ca502da5b0960f0"
+  },
+  {
+    "question": "What amenities does Darren's Place offer to guests?",
+    "answer": "Darren's Place offers amenities such as a kitchen, laundry, lounge, hammocks, and gated parking. It also provides a tranquil, breezy 2 story home with bedrooms and a wrap around balcony with hammocks upstairs.",
+    "doc_title": "RAG12K_Doc_0015",
+    "doc_hash": "683bbbd2c0f2113d45c9346108acec732c119e5963e34476b7e8f47013dab5fb"
+  },
+  {
+    "question": "Who are the lead roles in the movie 'Thaana Serndha Kootam'?",
+    "answer": "The lead roles in the movie 'Thaana Serndha Kootam' are Suriya and Keerthy Suresh.",
+    "doc_title": "RAG12K_Doc_0016",
+    "doc_hash": "a68f3a58a2f3840b357409310e8d7c8a50557ac4f287e96c54b63b065cc4071f"
+  },
+  {
+    "question": "What was the outcome that Nelson had anticipated for the battle he had sought for two years?",
+    "answer": "The context does not provide specific information about the outcome that Nelson had anticipated for the battle he had sought for two years.",
+    "doc_title": "RAG12K_Doc_0017",
+    "doc_hash": "8ed48bb0af8f8386fde5c4c3aae6c27b989b412dcfcb612612aa9b763fa3edc5"
+  },
+  {
+    "question": "Who delivered the keynote address at the University of California, Santa Barbara event on April 24, 2015?",
+    "answer": "The keynote address was delivered by Margaret Ezell from Texas A&M University.",
+    "doc_title": "RAG12K_Doc_0018",
+    "doc_hash": "5905c173951c2ee17fd17fcda1052bac99b31a7eab677bb4b2e29dd7be5121d9"
+  },
+  {
+    "question": "What are some of the treatment techniques that Davina Hill uses in her osteopathy practice?",
+    "answer": "Davina Hill uses a combination of treatment techniques including Cranial Osteopathy, Western Medical Acupuncture and Sports Massage.",
+    "doc_title": "RAG12K_Doc_0019",
+    "doc_hash": "67ea9a81795438bf3eec4f6aefe6874ba994529a53f45e610bfbd56c85553432"
+  },
+  {
+    "question": "What is required for a patient to use medical marijuana in the state of New York?",
+    "answer": "Patients who are certified by a licensed healthcare practitioner to use medical marijuana in New York are required to register with the New York State Department of Health and must obtain a New York medical marijuana card. They must also possess a document-driven condition that has been clearly outlined by the New York State Department of Health’s list of qualifying conditions.",
+    "doc_title": "RAG12K_Doc_0020",
+    "doc_hash": "5591c70435784671ccaa297749a96ed8298daff8aafc000ad1b3e71c084bdd91"
+  },
+  {
+    "question": "What does SAFe describe Non-Functional Requirements (NFRs) as?",
+    "answer": "SAFe describes NFRs as “persistent qualities and constraints”.",
+    "doc_title": "RAG12K_Doc_0021",
+    "doc_hash": "470d1aedaffca85cd72a22c0e473953a58bf460b5b234971d98667487c8eca24"
+  },
+  {
+    "question": "What is the status of the trial \"Efficacy and Safety Study of Nicotine Mint Lozenge (2mg and 4mg) in Smoking Cessation\"?",
+    "answer": "The status of the trial \"Efficacy and Safety Study of Nicotine Mint Lozenge (2mg and 4mg) in Smoking Cessation\" is completed.",
+    "doc_title": "RAG12K_Doc_0022",
+    "doc_hash": "38430322de9041ec392c9f5242a7e577d3d8bee6f678be2fe3dc90ea705c5ebe"
+  },
+  {
+    "question": "What services does SERVPRO offer?",
+    "answer": "SERVPRO offers Fire & Water Damage Restoration, Air Duct Cleaning, Duct Cleaning, Crime & Trauma Scene Clean Up, Damage Assessment, Board-Up Service, Roof Tarp Service, and Smoke & Soot Removal.",
+    "doc_title": "RAG12K_Doc_0023",
+    "doc_hash": "68d179e47ae54a3a72f66588afcf78de443cef34c6421d9d98f4f240ddfec2c0"
+  },
+  {
+    "question": "What are some of the services provided by the Asha Project?",
+    "answer": "The Asha Project provides services such as domestic violence victim/survivor case management, crisis intervention, advocacy, safety planning, abuser/batterer counseling, parenting, anger management and job training. They also offer services for sex trafficking victims, in custody/post incarceration individuals, abusers/batterers, and families of victims/survivors.",
+    "doc_title": "RAG12K_Doc_0024",
+    "doc_hash": "7670c44c54808cdbb73d41a249c5b46ca232919ddb586930c85c7b99d5c871e6"
+  },
+  {
+    "question": "What are the two main sections of the book about mobile security published by Packt?",
+    "answer": "The two main sections of the book are a review of problems and threats affecting mobile devices, and tips and procedure to protect your mobile devices.",
+    "doc_title": "RAG12K_Doc_0025",
+    "doc_hash": "bbca8029899a5d32c26d0a3a02c7c87a7456934b45f48ca62ea37b5b785fea8f"
+  },
+  {
+    "question": "What was the Sea Colony and who was its primary clientele during the 1950s and 1960s?",
+    "answer": "The Sea Colony was a popular lesbian bar in Greenwich Village from at least 1955 through the 1960s. It was a sanctuary specifically for working-class lesbians at the time, despite being Mafia-run and frequently raided by the police. The patrons mostly fit into a “butch-femme” dynamic.",
+    "doc_title": "RAG12K_Doc_0026",
+    "doc_hash": "c4836f509a5f5bf20eb98db4a70374ac5bd12dae13dcecc520f33d0d74d7d457"
+  },
+  {
+    "question": "What was the reviewer's opinion about the game \"Space Maze 3D\"?",
+    "answer": "The reviewer rated \"Space Maze 3D\" 3 out of 5 stars. They found it reminiscent of the maze screensaver that used to come with Windows. They didn't find the end of the maze and mentioned that the first person view drives them nuts, but this didn't affect their rating. They suggested that variances in the design of the walls and eerie background music could have improved the game. They played it for almost 10 stages but stopped because they were too lazy to solve level 10. They found the game interesting and planned to return to it later.",
+    "doc_title": "RAG12K_Doc_0027",
+    "doc_hash": "307d2e2c255fd998cf3fb32c312ef06cfbfa7400f8598dad19b36a6a5985e9c5"
+  },
+  {
+    "question": "What are the common features of the Quince Hand Lotion as described by the reviewers?",
+    "answer": "The Quince Hand Lotion is described as light, fragrance-free, non-greasy, and fast-absorbing. It effectively moisturizes dry hands and even helps with conditions like stress eczema. It also has a fresh citrus-y smell that doesn't linger for too long.",
+    "doc_title": "RAG12K_Doc_0028",
+    "doc_hash": "c4cf2dfa3598ddcdda3fe173bd730d5bc7ed0fcd94d097113c9fe5adfb315e9f"
+  },
+  {
+    "question": "What is the main objective of the Cyclone Global Navigation Satellite System project led by the team of Michigan University professors?",
+    "answer": "The main objective of the Cyclone Global Navigation Satellite System project is to launch eight satellites by 2016 that will spend at least two years in space gathering data about cyclones and other tropical storms. The satellites will probe the interaction between seawater and air and how that interaction plays a role in the development of hurricanes and other tropical storms.",
+    "doc_title": "RAG12K_Doc_0029",
+    "doc_hash": "e00847ae38f4cbe61e44f66f43ed300a2d7935af2fb73c9c85a49cc53d4d1b9e"
+  },
+  {
+    "question": "Who are the authors of the book \"Gisele Amantea: Sweet Dreams, Hard Truths\"?",
+    "answer": "The authors of the book \"Gisele Amantea: Sweet Dreams, Hard Truths\" are Denise Markonish, Eve-Lyne Beaudry, and Rebecca Duclos.",
+    "doc_title": "RAG12K_Doc_0030",
+    "doc_hash": "a4be21bfd02502286853ec4816cf3f83c591b2dbdc906f9873ac224f66dbba0f"
+  },
+  {
+    "question": "What is the main purpose of the computer built in the summer of 2018?",
+    "answer": "The main purpose of the computer is mainly gaming, 3D modeling, a ton of college work, and to be overkill.",
+    "doc_title": "RAG12K_Doc_0031",
+    "doc_hash": "8ba899734c760b4919cd0fbed43aabf4c9c4475e1fc56b02c584fb90a05a8ec6"
+  },
+  {
+    "question": "What is the significance of the color blue in the High Priest's garments according to the sermon notes?",
+    "answer": "The color blue in the High Priest's garments signifies divinity and has a deeper meaning related to perfection and completeness. This is derived from the Hebrew word for blue, \"tekheleth\", which comes from another Hebrew word \"kahlah\" meaning perfection, completeness. It symbolizes the finished work of Jesus, of completeness.",
+    "doc_title": "RAG12K_Doc_0032",
+    "doc_hash": "14dda8bdf951469e42f52baffe9828f9c3d62e23a3c3a1097542df57a4e2a9cc"
+  },
+  {
+    "question": "Who was the first African-American to win a NASCAR race?",
+    "answer": "Wendell Scott was the first African-American to win a NASCAR race.",
+    "doc_title": "RAG12K_Doc_0033",
+    "doc_hash": "cc02ac61d0ff2b262f0b319c85884dbccad666a98862a6e0d8ae0db68ab1ca7e"
+  },
+  {
+    "question": "What is the full name of Alitalia and what does it mean?",
+    "answer": "The full name of Alitalia is Alitalia – Linee Aeree Italiane, and the name Alitalia is a play on the Italian word for wings (“ali”) and the name of the country (“Italia”).",
+    "doc_title": "RAG12K_Doc_0034",
+    "doc_hash": "24ad85b6f78e6045a27d241fb73edc5bb913bec6a6e97d9434a8a1a5c049b460"
+  },
+  {
+    "question": "What was the slogan of then-senator Barack Obama's campaign in 2008?",
+    "answer": "The slogan of then-senator Barack Obama's campaign in 2008 was \"Hope and Change\".",
+    "doc_title": "RAG12K_Doc_0035",
+    "doc_hash": "90d48650ab50d2aaab3866d108b27dbd07d1d321683ff932d1f6cc5b1b322137"
+  },
+  {
+    "question": "What event did the Salem Regional Medical Center Foundation plan to host?",
+    "answer": "The Salem Regional Medical Center Foundation planned to host its fifth annual Hearts and Stars Ball: A Celebration of Champions.",
+    "doc_title": "RAG12K_Doc_0036",
+    "doc_hash": "18955721819356e586134bd46bb0c4065160f44d127d2bd6080ba1987cb016f0"
+  },
+  {
+    "question": "What changes did United Airlines announce for its operation at Cleveland Hopkins International Airport?",
+    "answer": "United Airlines announced that it plans to drastically downsize its operation at Cleveland Hopkins International Airport due to lost profits. The airline said it will cut around 60 percent of its flights, and 430 airport operations and 40 catering jobs will be lost, as well as affecting TSA, ticketing and ground crew jobs. The downsize will begin in April and will continue incrementally into June.",
+    "doc_title": "RAG12K_Doc_0037",
+    "doc_hash": "747e0f0872e4173eddfbf6c3ad88f73a19969c17486f2c7a149426fba9c53db1"
+  },
+  {
+    "question": "What are some of the activities included in the 13-day tour of World Heritage Cultural Sites in Romania?",
+    "answer": "The 13-day tour includes a variety of activities such as a city tour of Bucharest, sightseeing in the Danube Delta, a full day tour of the Bucovina area to see painted monasteries, a tour of the Maramures region to see wooden churches, a visit to the Greek-Catholic wooden church at Surdesti Village, a walking tour of Sighisoara, a city tour of Brasov, a visit to Bran Castle, and a visit to the Peles Castle in Sinaia.",
+    "doc_title": "RAG12K_Doc_0038",
+    "doc_hash": "d0bf9e2352d5c7836f0167f34042831b7c0ef47f9a9a0a2d35a2ae6c6398f273"
+  },
+  {
+    "question": "What are the two primary personas that need to be acknowledged in a managed IT services marketing plan?",
+    "answer": "The two primary personas that need to be acknowledged in a managed IT services marketing plan are Crisis Mode Customers and Complacent Customers.",
+    "doc_title": "RAG12K_Doc_0039",
+    "doc_hash": "4b0ae51dcc59dc8338dd1f96f137aa2a7207d5288455983507caa7e89ec930ec"
+  },
+  {
+    "question": "What is the purpose of the DiverseForce On Boards program?",
+    "answer": "The DiverseForce On Boards program was founded in 2017 to address the lack of racial/ethnic diversity on nonprofit boards. It is designed to train professionals of color on board governance and to facilitate their placement on governing boards.",
+    "doc_title": "RAG12K_Doc_0040",
+    "doc_hash": "b337482f59164afd7f7fbd2e2c19fe30150cd660df7a0b89b362dd5e9d1fa860"
+  },
+  {
+    "question": "Who is the companion of the Tenth Doctor in the episode \"Daleks in Manhattan\"?",
+    "answer": "The companion of the Tenth Doctor in the episode \"Daleks in Manhattan\" is Martha Jones.",
+    "doc_title": "RAG12K_Doc_0041",
+    "doc_hash": "7dd356a3e6d5db15ca8a1281f46777a0e01d1d8eeb5464b0f5c43e618ed43e3d"
+  },
+  {
+    "question": "What are the two universities in Shanghai that the faculty from University of Wisconsin Oshkosh College of Business visited?",
+    "answer": "The faculty from University of Wisconsin Oshkosh College of Business visited the China-Europe International Business School (CEIBS) and Shanghai University in Shanghai.",
+    "doc_title": "RAG12K_Doc_0042",
+    "doc_hash": "b01a90d950873ac812f4ac953bb3033d75f9ce0a49f88b78f186ffb75e866f23"
+  },
+  {
+    "question": "What are the main materials used in the production of FieldSock?",
+    "answer": "FieldSock is made up of Polypropylene 55%, Nylon 45% and Spandex 5%.",
+    "doc_title": "RAG12K_Doc_0043",
+    "doc_hash": "ddf3aa6597db4772def3da711b31f08c07d8d0e601932c7b95aaf1fb198c6eac"
+  },
+  {
+    "question": "What is the reason the narrator gives her son for loving him so much?",
+    "answer": "The narrator loves her son because he grew inside her belly for 9 months, he was born healthy and placed into her arms, he is her proof that God is faithful and full of grace, she watched his pensive face melt into his first smile, she felt his first tooth, she watched him take his first step, and she has witnessed all his milestones and will continue to do so. It's endless.",
+    "doc_title": "RAG12K_Doc_0044",
+    "doc_hash": "14bd69e2a5539fac6bc3283c64f8be8a2b6174ba3a828e3ac20caec5a7abef51"
+  },
+  {
+    "question": "How much did Community Bank N.A. decrease its holdings in shares of United Parcel Service, Inc. during the 3rd quarter?",
+    "answer": "Community Bank N.A. decreased its holdings in shares of United Parcel Service, Inc. by 6.0% during the 3rd quarter.",
+    "doc_title": "RAG12K_Doc_0045",
+    "doc_hash": "0948faed33286a152c0bf1c23cd50eff179292f0107608e5f4836141f8137cee"
+  },
+  {
+    "question": "Who is living in the Alquist house according to Mrs. Thwaites?",
+    "answer": "A foreign couple named Anton is living in the Alquist house.",
+    "doc_title": "RAG12K_Doc_0046",
+    "doc_hash": "624d4e8c23456d4aa8abcf93ceccddf480b5024367b552e909684e03bb418152"
+  },
+  {
+    "question": "What services are offered by the dog walkers in Nolan, TX?",
+    "answer": "The dog walkers in Nolan, TX offer services such as Dog Boarding, House Sitting, Drop-In Visits, Doggy Day Care, and Dog Walking.",
+    "doc_title": "RAG12K_Doc_0047",
+    "doc_hash": "6f0650ce9515105111322c66c96e29703d946be356b3a3e5a36e7943416f4e85"
+  },
+  {
+    "question": "What are the window trends for 2019 according to the context?",
+    "answer": "The window trends for 2019 include larger windows with minimal frames, unobstructed viewing fields, and a modern aesthetic with square and rectilinear shapes. The frames are often dark in color, with black being a popular choice. There is also a trend towards removing screens and grids to increase the viewing area. Some designers are using painted metallic frames instead of actual metal ones due to cost and flexibility concerns.",
+    "doc_title": "RAG12K_Doc_0048",
+    "doc_hash": "cf648a52f09844710d038e6295f033c3a853d89f10983c22af63580ac5b9c2a8"
+  },
+  {
+    "question": "What are some of the safety measures included in Grab's GrabProtect initiative?",
+    "answer": "The safety measures in the GrabProtect initiative include a health declaration form that all drivers, delivery-partners, and passengers must complete, mandatory face masks for all parties, in-car sanitisation with hygiene kits provided to drivers and delivery-partners, trip monitoring to detect anomalies during a ride, an emergency button for immediate assistance, and a \"Share My Ride\" feature that allows passengers to share their ride details with loved ones. Only those with Low Risk and Casual Contact No Symptom on their MySejahtera COVID-19 risk status are eligible to use Grab’s e-hailing service.",
+    "doc_title": "RAG12K_Doc_0049",
+    "doc_hash": "74a056e8a01a6861ee470172f0cca664fa0b656a266251fe71147303dfa3913a"
+  },
+  {
+    "question": "What does Liza Minnelli say she will be performing in her Seattle show?",
+    "answer": "Liza Minnelli says she'll be singing mostly her signature tunes in her Seattle show, but that she'll also throw in a few surprises.",
+    "doc_title": "RAG12K_Doc_0050",
+    "doc_hash": "574f5e581776ef3ae6c13b22bf6699d7d78b6febd809d3e0cc94c60adcd72a4c"
+  },
+  {
+    "question": "Who is the second-largest institutional investor in Pioneer-Standard Electronics?",
+    "answer": "Putnam Investments is the second-largest institutional investor in Pioneer-Standard Electronics.",
+    "doc_title": "RAG12K_Doc_0051",
+    "doc_hash": "78e5a6df2d01e6123e6186659d5a7f220eac28bf8e5240324ec4f86a7a531840"
+  },
+  {
+    "question": "What type of bike was president-elect Joe Biden riding on his trip to Cape Henlopen State Park?",
+    "answer": "President-elect Joe Biden was riding a Trek FX hybrid bike.",
+    "doc_title": "RAG12K_Doc_0052",
+    "doc_hash": "5982d78c45c55db8404d67f4a9087eabb75012687105bf0c454412988b7c65ef"
+  },
+  {
+    "question": "What is the Na 'Aina Kai Botanical Garden described as in the context?",
+    "answer": "The Na 'Aina Kai Botanical Garden is described as a true magical paradise where you can experience the many moods and diversity of its beauty.",
+    "doc_title": "RAG12K_Doc_0053",
+    "doc_hash": "c6e3066a1c87b58e0ffea35ad3aa362dfde3e25b6d503605c9593c29717b482e"
+  },
+  {
+    "question": "How do politicians use public demographics and statistics data?",
+    "answer": "Politicians use public demographics and statistics data to determine where to campaign and where a certain percentage of voters typically live.",
+    "doc_title": "RAG12K_Doc_0054",
+    "doc_hash": "d4ad7ee6e797df990d24eca654f3e54c8c49e556e5241ca0c6c63154e4ee1465"
+  },
+  {
+    "question": "What are some of the benefits of investing in a holiday-let property according to Mark Baker and Lee from OnPoint Mortgages?",
+    "answer": "Some of the benefits of investing in a holiday-let property include the ability to offset full mortgage interest repayments against tax, deducting the cost of doing up a property from pre-tax profits, and avoiding council tax and local business rates. Additionally, the property can be used for personal holidays for up to 20 weeks a year. The potential increase in domestic tourism due to Brexit and the success of service accommodation and Airbnb are also seen as advantages.",
+    "doc_title": "RAG12K_Doc_0055",
+    "doc_hash": "8a9b93c5e7a616c884f43411c8d2bc5d749e64397eadb489434293ba492dcf4d"
+  },
+  {
+    "question": "How can one share their Peeps creation for a feature on Babble?",
+    "answer": "One can share their Peeps creation by emailing the photo to strollerderby@gmail.com or uploading the photo to Babble’s Facebook wall.",
+    "doc_title": "RAG12K_Doc_0056",
+    "doc_hash": "c47a07b69ddada1bcabae424de17d938dce9bec544275b0635c8597502a18183"
+  },
+  {
+    "question": "What are the video games that 2K Games will be showcasing at the Electronics Entertainment Expo (E3)?",
+    "answer": "2K Games will be showcasing Spec Ops: The Line, XCOM: Enemy Unknown, Borderlands 2, and 2K Sports at the Electronics Entertainment Expo (E3).",
+    "doc_title": "RAG12K_Doc_0057",
+    "doc_hash": "8e0a1dce314ad8e53dffda4b3d920265cbed8f8fd5a3590ae2692453e2095ae6"
+  },
+  {
+    "question": "Who took over as CEO of Barclays and initiated a shift towards retail banking?",
+    "answer": "Antony Jenkins took over as CEO of Barclays and initiated a shift towards retail banking.",
+    "doc_title": "RAG12K_Doc_0058",
+    "doc_hash": "d1ebf38ff1be0c1070c14baea64d754940cecce9def5b55ec16924465dcb5175"
+  },
+  {
+    "question": "What are some tips for starting or continuing a conversation with a loved one?",
+    "answer": "Some tips include not stressing over how or when to have the talk, having the talk with anyone who matters to you, relying on open-ended questions, listening carefully with an open mind and heart, respecting if a loved one is uncomfortable discussing a certain topic, using family photos or heirlooms to start a conversation, and just starting to talk even if the conversation may not go as planned.",
+    "doc_title": "RAG12K_Doc_0059",
+    "doc_hash": "2a9a9b63ffcff4f88d3eb3634c269ed31ae80e25cb63878de6d30199b624471a"
+  },
+  {
+    "question": "What special event occurs in Moor of Icirrus if you have Keldeo, Cobalion, Virizion and Terrakion in your party?",
+    "answer": "If you have Keldeo, Cobalion, Virizion and Terrakion in your party, a special event will occur causing the event-only Pokemon Keldeo to learn Secret Sword and transform into its Resolute Forme.",
+    "doc_title": "RAG12K_Doc_0060",
+    "doc_hash": "89da3fdfc90a56a3696c96aabd5e6d1d1e643a5e5e9fc1883d2eb168ed3ea44e"
+  },
+  {
+    "question": "What are the three items the person bought for their house?",
+    "answer": "The person bought a 12\" x 12\" square wall hanging with a seashell in the middle, a small plaque with a blue butterfly and a flower, and another small plaque with a daisy and a quote.",
+    "doc_title": "RAG12K_Doc_0061",
+    "doc_hash": "8701a6fe2e44a98115ee8eb1795b602d48b00a7931ef68be37865279c519d104"
+  },
+  {
+    "question": "What is the main issue with using two Smart Objects in Darken / Lighten mode for splitting dark and light halos in Photoshop?",
+    "answer": "The main issue with using two Smart Objects in Darken / Lighten mode for splitting dark and light halos in Photoshop is that the result is flawed. If the Amount of Dark halos is lowered back to 100%, no matter how the layers order is set, the result does not match the expectations. The Lighten effect erases the Darken effect, and the light halo is slightly darkened by the dark halo.",
+    "doc_title": "RAG12K_Doc_0062",
+    "doc_hash": "a109627283bb3523fdaf6cf731aadc6ed1626b138629f31706b51a6e85a7030e"
+  },
+  {
+    "question": "What measures can be taken to prevent infection during a pandemic flu?",
+    "answer": "Some measures to prevent infection during a pandemic flu include washing hands frequently with soap and water, using a hand sanitizer if water is not available, avoiding touching eyes, nose and mouth, avoiding close contact with people who have cold or flu symptoms, covering mouth and nose with a tissue when coughing or sneezing, getting the regular seasonal flu shot every year, and practicing other good health habits like getting plenty of sleep, being physically active, managing stress, drinking plenty of fluids, eating nutritious foods, and stopping smoking.",
+    "doc_title": "RAG12K_Doc_0063",
+    "doc_hash": "d82b3774173bce20853fa1021b9a83cfd19e060482bd1ec938b4530023be7265"
+  },
+  {
+    "question": "What are the preferred qualifications for the Boeing - St. Louis Electrical Engineering position?",
+    "answer": "The preferred qualifications include a Bachelor, Master or Doctorate of Science degree from an accredited course of study, in engineering, computer science, mathematics, physics or chemistry, with ABET being the preferred accreditation standard. Applicants should have a 3.0 or greater cumulative grade point average on a 4.0 scale and degrees in Electrical Engineering and/or Computer Engineering with relevant electrical engineering experience or coursework. At least 2 semesters/quarters of college level Physics and Mathematics coursework including both Calculus and Differential Equations is required. This position also requires an active (or ability to obtain) U.S. Security Clearance, for which the US Government requires US Citizenship.",
+    "doc_title": "RAG12K_Doc_0064",
+    "doc_hash": "184506b11833f074971c16600a1c334c5681b4606cee7183d13bef49ce1a2b81"
+  },
+  {
+    "question": "What were Susan Manning's main research interests?",
+    "answer": "Susan Manning's main research interests were primarily in the Scottish Enlightenment and in Scottish-American literary relations.",
+    "doc_title": "RAG12K_Doc_0065",
+    "doc_hash": "3fce669aff70b678d83b638aad7a47beb18d05643908a8432a928798d84efb0d"
+  },
+  {
+    "question": "What were the main health issues faced by the Midwestern Latino communities according to the Hunt Fellowship proposal?",
+    "answer": "The main health issues faced by the Midwestern Latino communities according to the Hunt Fellowship proposal were the degree to which federal agencies did or did not protect workers and their families in these areas, access to health insurance in a couple of Chicago neighborhoods that had high numbers of Latino residents working full time, and the issue of trauma and resilience resulting from migrants’ journeys north.",
+    "doc_title": "RAG12K_Doc_0066",
+    "doc_hash": "8b51948e08013e3b69aedd82a6982635963779ee7d610d8a727bc4210c9c7e8f"
+  },
+  {
+    "question": "What does the person do to keep warm during the cold weather?",
+    "answer": "The person uses a Pottery Barn bedset to keep warm at home, sets the thermostat at 68 or uses an EdenPure heater. They also wear tights or thin leggings under jeans with Ugg boots, and three layers on top. They also crank up the furnace.",
+    "doc_title": "RAG12K_Doc_0067",
+    "doc_hash": "d41bb3af67e754a549cfc9955772989f98f09dc3a844505d0e64fd5858c78434"
+  },
+  {
+    "question": "What is Juvederm lip filler and how does it work?",
+    "answer": "Juvederm is a lip filler solution commonly used in facial cosmetic treatments used to improve signs of aging, restore facial contours, and plump sagging or thin lips. This lip filler works by adding volume to the facial tissue. Utilizing the natural substance hyaluronic acid, Juvederm stimulates the production of the connective tissue collagen. It was approved by the FDA in 2006.",
+    "doc_title": "RAG12K_Doc_0068",
+    "doc_hash": "f8d1f65f52ce7e8bce918917237c3ff22f0d6b86bd2afc9dfa87d2e1cfbb84bf"
+  },
+  {
+    "question": "When was the property at 24 County St, Peabody, MA 01960 last sold?",
+    "answer": "The property at 24 County St, Peabody, MA 01960 was last sold in July 2002.",
+    "doc_title": "RAG12K_Doc_0069",
+    "doc_hash": "a70005dea9bd282f927d17400e7f2510c1d97868ae621a51eb60c13e06b6de16"
+  },
+  {
+    "question": "Who are the two teams Carmelo Anthony is interested in joining via trade?",
+    "answer": "The Houston Rockets and the Cleveland Cavaliers.",
+    "doc_title": "RAG12K_Doc_0070",
+    "doc_hash": "4a78648a48616dacacacbdd8ae519ad01e89cc6c9be0c47c7e98a88dd4e46c8b"
+  },
+  {
+    "question": "Who were the two professional wrestlers involved in the backstage brawl discussed in part two of the \"Backstage Fight Stories\" series?",
+    "answer": "The two professional wrestlers involved in the backstage brawl were Scott Steiner and Diamond Dallas Page.",
+    "doc_title": "RAG12K_Doc_0071",
+    "doc_hash": "169b5e14db16060909a5c01befd8842e70274bc61524183fb2be949c01dddc8a"
+  },
+  {
+    "question": "What are some examples of celebrities wearing fairy tale-inspired gowns at events?",
+    "answer": "Keira Knightley wore Valentino at the Evening Standard Theatre Awards, Jennifer Lawrence wore Dior Couture at the premiere of Mother, Brie Larson wore Gucci at The Oscars, and Gigi Hadid wore Zuhair Murad at the GLAMOUR of the Year Awards, among others.",
+    "doc_title": "RAG12K_Doc_0072",
+    "doc_hash": "8b490c3b0953c42d42b552f75f01023b52fe6fb8c39b087ae809998d79fe110a"
+  },
+  {
+    "question": "What was one of the reasons the individual came to campus?",
+    "answer": "One of the reasons the individual came to campus was to get away from the distractions of home.",
+    "doc_title": "RAG12K_Doc_0073",
+    "doc_hash": "ee5b668dc56e0084f791134812ea3b4a04907985f82da25477534456c6186153"
+  },
+  {
+    "question": "What are the latest trends in digital marketing according to Laura and Lydia?",
+    "answer": "According to Laura, personalisation is a popular trend in digital marketing, with personalised messaging capturing higher engagement levels from customers. Lydia mentions that the use of video to promote products or services has increased, with personalised video content being more engaging for customers.",
+    "doc_title": "RAG12K_Doc_0074",
+    "doc_hash": "8ce3ffe21f3fdcae243572f58813b765e7f22f913a3a622e8e420e98dab17762"
+  },
+  {
+    "question": "What are the common signs and symptoms of the Delta variant of COVID-19 according to data from the United Kingdom?",
+    "answer": "The most common symptoms of the Delta variant of COVID-19, according to data from the United Kingdom, include fever, cough, headache, sore throat, and a runny nose. Loss of smell, which was originally quite common, now ranks ninth.",
+    "doc_title": "RAG12K_Doc_0075",
+    "doc_hash": "b6dab0ba08387a4f87e698f587cd721562b9fd2b375591af0cc9c63cab616e14"
+  },
+  {
+    "question": "What was Jurgen Klopp's reaction to Cristiano Ronaldo's foul on Curtis Jones?",
+    "answer": "Jurgen Klopp said that he didn’t want Cristiano Ronaldo to be sent off for the foul on Curtis Jones. He initially thought it looked like a red card but was told it wasn't because Ronaldo made contact with the ball.",
+    "doc_title": "RAG12K_Doc_0076",
+    "doc_hash": "d90bb2608609ef306621b74fda9fd8f7d399633ac0d99dd049abd7f2a40c1812"
+  },
+  {
+    "question": "What is the new legislation about that could give Holbrook an advantage in deciding a new water distribution source?",
+    "answer": "The new legislation is about matching dollar-for-dollar the cost of a $50 million new Tri-Town water treatment plant or matching Holbrook's tie-in fee to the Massachusetts Water Resources Authority (MWRA) system. This legislation provides funding for water infrastructure improvements in the state.",
+    "doc_title": "RAG12K_Doc_0077",
+    "doc_hash": "e079e80786f8a2370b12e13d60d33a35636b65a87be398ff39c09771d702dc3f"
+  },
+  {
+    "question": "What are some of the services offered by Kimpton Hotel Monaco in Salt Lake City?",
+    "answer": "Kimpton Hotel Monaco Salt Lake City offers guests boutique service, a cool vibe and easy access to a host of regional attractions.",
+    "doc_title": "RAG12K_Doc_0078",
+    "doc_hash": "a2e5ad4dd4366b52f395a9970313493a2a91ac35c1c04f382b3612339c8f2639"
+  },
+  {
+    "question": "Why is the user phasing out the Alba Botanica Exfoliating Scrub from their shower routine?",
+    "answer": "The user is phasing out the Alba Botanica Exfoliating Scrub because it leaves large chunks of gooey-sand that dry and stick to the tub, causing a build-up in the tub's basin and on the ledges.",
+    "doc_title": "RAG12K_Doc_0079",
+    "doc_hash": "50f10c291c58d51f4883714acc65786c2cb6bf2c38057a5000cca9560561946f"
+  },
+  {
+    "question": "What is the main goal of the voter movement as envisioned in the context?",
+    "answer": "The main goal of the voter movement as envisioned in the context is to cross party lines, galvanize about 350,000 - 425,000 votes and focus on removing entrenched politicians from power. This movement aims to bring about change by targeting incumbents, raising awareness of their shortcomings, and shaking the foundation of the most ambitious and entrenched.",
+    "doc_title": "RAG12K_Doc_0080",
+    "doc_hash": "e82f7c2c3ecc76fdde52380cc498083a6b801fcf535fbe5581b934526af4da99"
+  },
+  {
+    "question": "Who was the CEO and treasurer of the host committee for the 2008 Republican National Convention?",
+    "answer": "Jeff Larson was the CEO and treasurer of the host committee for the 2008 Republican National Convention.",
+    "doc_title": "RAG12K_Doc_0081",
+    "doc_hash": "ec25358695bb10c95dffb16942cd1ab7db0d2fc5aa6b5c3434a0338649ce6f8b"
+  },
+  {
+    "question": "When did the author realize their blogiversary was?",
+    "answer": "The author realized their blogiversary was on February 3rd.",
+    "doc_title": "RAG12K_Doc_0082",
+    "doc_hash": "d3c3a74c18ec319eb26a188c6190205baf5a34fa3ab507704647c3c291a11296"
+  },
+  {
+    "question": "Who was the host of the iMedia Agency Summit in December 2013?",
+    "answer": "Sarah Fay, Chairman, Board of Governors, dmg events was the host of the iMedia Agency Summit in December 2013.",
+    "doc_title": "RAG12K_Doc_0083",
+    "doc_hash": "236479d369c459ae49a2f5e4ab254a463ad22a44c331a24e327b46c98d6cbc01"
+  },
+  {
+    "question": "What does KatyKatCafe look forward to during #PawPawty time?",
+    "answer": "KatyKatCafe looks forward to Boogie with the Bad Cats during #PawPawty time.",
+    "doc_title": "RAG12K_Doc_0084",
+    "doc_hash": "0d68c4e140e06499279074fbb1b3a18c93adad0317be30402aff5a93fc325d8e"
+  },
+  {
+    "question": "When will the first day for Kindergarten be in the 2017/2018 School Year according to the amended school calendar?",
+    "answer": "The first day for Kindergarten will be Sept. 5 in the 2017/2018 School Year according to the amended school calendar.",
+    "doc_title": "RAG12K_Doc_0085",
+    "doc_hash": "e56929290a5c301f41459a61726ed8c2fc89ee2d81a9c3a09f524252ce805a7e"
+  },
+  {
+    "question": "Who was accused of carrying out the deadly airstrikes in the eastern city of Derna?",
+    "answer": "Tobruk-based military commander Khalifa Haftar was accused of carrying out the deadly airstrikes in the eastern city of Derna.",
+    "doc_title": "RAG12K_Doc_0086",
+    "doc_hash": "358567f647827702e7d656c3e4468bbac0d615f73dce537905b27c78f386e994"
+  },
+  {
+    "question": "Who won the grand prize in news writing at the 53rd Wilmer C. Fields Awards?",
+    "answer": "Seth Brown, BR content editor, won the grand prize in news writing.",
+    "doc_title": "RAG12K_Doc_0087",
+    "doc_hash": "4bcf946a5f87feda2eb0c07ad5fea2fbd2d0b63559e06ed57d3b5ec6ac7324f7"
+  },
+  {
+    "question": "What are the main categories that determine the amount and duration of financial assistance received from workers' compensation benefits in Massachusetts?",
+    "answer": "The amount of financial assistance you receive, and the duration, will depend on how much your accident or illness disabled you.",
+    "doc_title": "RAG12K_Doc_0088",
+    "doc_hash": "5af660b4bc33642e3620df949c0c19a29aa14c06af18a5040a5809711144aa81"
+  },
+  {
+    "question": "What are the guidelines for fasting and abstinence according to the United States Council of Catholic Bishops?",
+    "answer": "Ash Wednesday and Good Friday are obligatory days of fasting and abstinence. Fridays during Lent are obligatory days of abstinence for those age 14 and up, with church law specifying abstaining from eating meat as an act of penitence. Fasting is obligatory from age 18 until age 59, where a person is permitted to eat one full meal, and two smaller meals that together are not equal to a full meal. People who are ill, suffering from a chronic illness, and pregnant or nursing women are excused from fast and abstinence.",
+    "doc_title": "RAG12K_Doc_0089",
+    "doc_hash": "f3231793fd3baa1aef26497e57f5a4b5776d773c215bc373de2a0f9b70458617"
+  },
+  {
+    "question": "What is the country of origin for the majority of visits to Lasierra.edu?",
+    "answer": "The country of origin for the majority of visits to Lasierra.edu is United States.",
+    "doc_title": "RAG12K_Doc_0090",
+    "doc_hash": "f3adb35c35477c94dfa4ad0f75d06fb38aeda7b63112795a0361cb3de37b964b"
+  },
+  {
+    "question": "What is the regular price of the Lilac Ribbed Belted Top Wide Leg Loungewear Set - Tallulah?",
+    "answer": "The regular price of the Lilac Ribbed Belted Top Wide Leg Loungewear Set - Tallulah is £43.98.",
+    "doc_title": "RAG12K_Doc_0091",
+    "doc_hash": "b76a739061e5b3c9ca5ffb2419aaa6a9cf338b9be39d87aacb9b7f0d59f52ee9"
+  },
+  {
+    "question": "Which HTC phones will be the first to get the two-part update for unlocked bootloaders?",
+    "answer": "The global HTC Sensation, the HTC Evo 3D for Sprint and the HTC Sensation 4G for T-Mobile will be the first to get the two-part update for unlocked bootloaders.",
+    "doc_title": "RAG12K_Doc_0092",
+    "doc_hash": "1ea6902638779257bcf33e50544f790a984f7120ba2615dc867ba87e49ad49dd"
+  },
+  {
+    "question": "What is the Social Media Impact score of expert-sport.by?",
+    "answer": "The Social Media Impact score of expert-sport.by is 59.",
+    "doc_title": "RAG12K_Doc_0093",
+    "doc_hash": "a12ee07ab01452c6d814b83205640c1503fefc403ea19bd5b5550d4621255d5d"
+  },
+  {
+    "question": "What kind of support does the Solo and Small Practice Incubator (SSPI) provide to its graduates?",
+    "answer": "The Solo and Small Practice Incubator (SSPI) supports its graduates by providing substantive and skills training workshops, coaching in marketing and business development, mentoring support, networking opportunities, and an array of other resources. Participants are also provided with a working space and basic office fixtures.",
+    "doc_title": "RAG12K_Doc_0094",
+    "doc_hash": "294ab72930ebc54527d7a74d66af6f987760eebcc0deaf19531a8a270361d651"
+  },
+  {
+    "question": "What is the main active substance in Filorga Art Filler Volume and what is its function?",
+    "answer": "The main active substance in Filorga Art Filler Volume is Hyaluronic acid. It nourishes skin by helping it to retain moisture. By injecting hyaluronic acid back into aging skin, Filorga Art Filler Volume plumps and hydrates at a cellular level, filling out the facial features.",
+    "doc_title": "RAG12K_Doc_0095",
+    "doc_hash": "21e8ac5170a797f425b69521c42435212a40540d0d699901d26f030849b99cdb"
+  },
+  {
+    "question": "Where did Sarah and Alessandro's wedding take place and what was unique about their ceremony?",
+    "answer": "Sarah and Alessandro's wedding took place in Trentino in Northern Italy, specifically in Ale’s hometown. The ceremony was unique as it was held in an open field overlooking the Italian Alps and the reception was in a wooden house in a forest close to the field. They incorporated Italian wedding traditions into their ceremony, such as the groom holding the bouquet and giving it to the bride when she reaches the top of the aisle, and the Italian friends preparing games and pranks for the newlywed couple.",
+    "doc_title": "RAG12K_Doc_0096",
+    "doc_hash": "13fd900311d200a08c441945e62af878229633ed95d0a122aa1bdc3e46696c4a"
+  },
+  {
+    "question": "When was Elva Lee Huddleston born?",
+    "answer": "Elva Lee Huddleston was born in 1910.",
+    "doc_title": "RAG12K_Doc_0097",
+    "doc_hash": "583c40290e4eb32ea0fee44fb3e468d04d1f46f25d36f4e403c9b890313884fc"
+  },
+  {
+    "question": "What is the main ingredient of the Amish dish that the author adapted their version from?",
+    "answer": "The main ingredient of the Amish dish that the author adapted their version from is beet pickled eggs.",
+    "doc_title": "RAG12K_Doc_0098",
+    "doc_hash": "c88ecae0be922f8a6e20c03efc4003b798e3c6ed229b2317bf2db5d1a0de1510"
+  },
+  {
+    "question": "What are the services offered by La Petrolifera Italo Rumena (PIR)?",
+    "answer": "La Petrolifera Italo Rumena (PIR) offers storage and handling activities of chemicals, petrochemicals, oil, biofuels, food grade products, liquids and solids, in bulk and packaged. It also provides large areas for parking and manoeuvring for road tank trucks as well as for rail tank cars, assistance for Customs formalities and an effective online service for the monitoring of the goods.",
+    "doc_title": "RAG12K_Doc_0099",
+    "doc_hash": "17428cac5aedc26ef4bf25515f72acf4cc53b196c0678b1c02948c082dd7b100"
+  },
+  {
+    "question": "What was the super-power of the maiden named Fudgemella?",
+    "answer": "Fudgemella's super-power was astro-physics.",
+    "doc_title": "RAG12K_Doc_0100",
+    "doc_hash": "dfbaa83128b71370807be0c53d27bb25fc18efe58c0f0fa2e21127d07c215879"
+  }
+]

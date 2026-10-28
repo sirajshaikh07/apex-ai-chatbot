@@ -147,21 +147,56 @@ BEGIN
   -- 4. Delete old chunks if updating document
   DELETE FROM doc_chunks WHERE doc_id = l_doc_id;
 
-  -- 5. Universal Structure-Aware Semantic Chunking (UGDS Custom Delimiters)
-  -- Uses custom record separator ('---') and markdown headings ('# ', '## ', '### ')
-  -- to guarantee that atomic records, ERP rows, or policy sections are NEVER cut in half!
-  INSERT INTO doc_chunks (doc_id, chunk_no, chunk_text, embedding, project_code, keywords)
-  SELECT d.doc_id, 
-         ROW_NUMBER() OVER (PARTITION BY d.doc_id ORDER BY c.chunk_offset),
-         '[Document: ' || d.title || '] ' || c.chunk_text,
-         VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING ('[Document: ' || d.title || '] ' || c.chunk_text) AS data),
-         NULL,
-         NULL
-  FROM   source_docs d,
-         VECTOR_CHUNKS(d.content BY characters MAX 1200 OVERLAP 100
-                       SPLIT CUSTOM ('---', '# ', '## ', '### ')
-                       LANGUAGE american NORMALIZE all) c
-  WHERE  d.doc_id = l_doc_id;
+  -- 5. Universal Hierarchical Context Header Injection & Semantic Chunking (Fix 1 Enterprise Standard)
+  -- Automatically tracks active section headers across chunk boundaries so that sub-chunks,
+  -- procedures, multi-stage policies, and roll-over pages inherit the parent section context!
+  DECLARE
+    l_chunk_no        NUMBER := 0;
+    l_curr_section    VARCHAR2(300) := NULL;
+    l_header_match    VARCHAR2(300);
+    l_full_chunk_text CLOB;
+  BEGIN
+    FOR rec IN (
+      SELECT c.chunk_offset, c.chunk_text
+      FROM   source_docs d,
+             VECTOR_CHUNKS(d.content BY characters MAX 1200 OVERLAP 100
+                           SPLIT CUSTOM ('---', '# ', '## ', '### ')
+                           LANGUAGE american NORMALIZE all) c
+      WHERE  d.doc_id = l_doc_id
+      ORDER BY c.chunk_offset ASC
+    ) LOOP
+      l_chunk_no := l_chunk_no + 1;
+      
+      -- Extract section title if present in this chunk:
+      -- Matches: # Heading, ## Heading, ### Heading, or [SECTION: ...], or Section X: ...
+      l_header_match := REGEXP_SUBSTR(rec.chunk_text, '(#{1,3}\s*\[?SECTION:?[^]\r\n]+\]?|#{1,3}\s*[^#\r\n]{3,80}|Section\s+\d+[^:\r\n]{0,60}|^\s*\d+\.\s+[A-Z][A-Za-z0-9 ]{3,60})', 1, 1, 'm');
+      
+      IF l_header_match IS NOT NULL THEN
+        -- Clean markdown formatting marks from heading
+        l_curr_section := TRIM(REGEXP_REPLACE(l_header_match, '^(#{1,3}\s*|\[SECTION:\s*|\[|\])', ''));
+        l_curr_section := TRIM(REGEXP_REPLACE(l_curr_section, '\]$', ''));
+        IF LENGTH(l_curr_section) > 120 THEN
+          l_curr_section := SUBSTR(l_curr_section, 1, 120);
+        END IF;
+      END IF;
+
+      -- Formulate canonical contextualized chunk text:
+      -- e.g. [Document: Employee Handbook | Section: 6. Controlling Absence Policy] Stage 2...
+      l_full_chunk_text := '[Document: ' || l_title || 
+                           CASE WHEN l_curr_section IS NOT NULL THEN ' | Section: ' || l_curr_section END || 
+                           '] ' || rec.chunk_text;
+
+      INSERT INTO doc_chunks (doc_id, chunk_no, chunk_text, embedding, project_code, keywords)
+      VALUES (
+        l_doc_id,
+        l_chunk_no,
+        l_full_chunk_text,
+        VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING l_full_chunk_text AS DATA),
+        NULL,
+        NULL
+      );
+    END LOOP;
+  END;
 
   SELECT count(*) INTO p_chunks_count FROM doc_chunks WHERE doc_id = l_doc_id;
 

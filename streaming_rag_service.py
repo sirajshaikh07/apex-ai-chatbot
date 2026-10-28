@@ -57,7 +57,7 @@ def get_db_connection():
     dsn = f"{CONFIG['DB_IP']}:{CONFIG['DB_PORT']}/{CONFIG['DB_SERVICE']}"
     return oracledb.connect(user=CONFIG["DB_USER"], password=CONFIG["DB_PWD"], dsn=dsn)
 
-def get_rag_context_and_prompt(question, session_id, user_name):
+def get_rag_context_and_prompt(question, session_id, user_name, bypass_cache=False):
     """
     1. Checks Strategy 3 Semantic Cache (< 20ms) using in-DB vector embeddings
     2. Applies Strategy 1 Smart Context Budgeting (Top 2 dense chunks, ~1,200 chars)
@@ -75,30 +75,32 @@ def get_rag_context_and_prompt(question, session_id, user_name):
 
         # =====================================================================
         # Strategy 3: Check In-Database Semantic Cache (< 20ms)
+        # Only return verified high-quality answers with user_feedback = 'UP'
         # =====================================================================
-        cache_sql = """
-        SELECT ai_response, sources, msg_id
-        FROM chat_history
-        WHERE prompt_embedding IS NOT NULL
-          AND (user_feedback IS NULL OR user_feedback = 'UP')
-          AND NVL(is_refusal, 'N') = 'N'
-          AND ai_response IS NOT NULL
-          AND DBMS_LOB.GETLENGTH(ai_response) > 20
-          AND (
-              VECTOR_DISTANCE(prompt_embedding, VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING :q1 AS DATA), COSINE) <= 0.0800
-           OR REGEXP_REPLACE(LOWER(user_prompt), '[^a-z0-9]', '') = REGEXP_REPLACE(LOWER(:q2), '[^a-z0-9]', '')
-          )
-        ORDER BY VECTOR_DISTANCE(prompt_embedding, VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING :q3 AS DATA), COSINE) ASC
-        FETCH FIRST 1 ROW ONLY
-        """
-        cursor.execute(cache_sql, [clean_q, clean_q, clean_q])
-        cache_row = cursor.fetchone()
-        if cache_row:
-            cached_ans, cached_sources, cached_msg_id = cache_row
-            db_elapsed = (time.time() - t0) * 1000
-            src = (cached_sources or "Enterprise Knowledge Base") + " [⚡ Instant Semantic Cache Hit]"
-            print(f"DB Retrieval: CacheHit=True in {db_elapsed:.1f}ms. Sources: {src}")
-            return True, str(cached_ans), src, int(cached_msg_id or 0)
+        if not bypass_cache:
+            cache_sql = """
+            SELECT ai_response, sources, msg_id
+            FROM chat_history
+            WHERE prompt_embedding IS NOT NULL
+              AND user_feedback = 'UP'
+              AND NVL(is_refusal, 'N') = 'N'
+              AND ai_response IS NOT NULL
+              AND DBMS_LOB.GETLENGTH(ai_response) > 20
+              AND (
+                  VECTOR_DISTANCE(prompt_embedding, VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING :q1 AS DATA), COSINE) <= 0.0800
+               OR REGEXP_REPLACE(LOWER(user_prompt), '[^a-z0-9]', '') = REGEXP_REPLACE(LOWER(:q2), '[^a-z0-9]', '')
+              )
+            ORDER BY VECTOR_DISTANCE(prompt_embedding, VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING :q3 AS DATA), COSINE) ASC
+            FETCH FIRST 1 ROW ONLY
+            """
+            cursor.execute(cache_sql, [clean_q, clean_q, clean_q])
+            cache_row = cursor.fetchone()
+            if cache_row:
+                cached_ans, cached_sources, cached_msg_id = cache_row
+                db_elapsed = (time.time() - t0) * 1000
+                src = (cached_sources or "Enterprise Knowledge Base") + " [⚡ Instant Semantic Cache Hit]"
+                print(f"DB Retrieval: CacheHit=True in {db_elapsed:.1f}ms. Sources: {src}")
+                return True, str(cached_ans), src, int(cached_msg_id or 0)
 
         # =====================================================================
         # Strategy 1: Smart Context Budgeting (< 1,500 chars context)
@@ -114,20 +116,31 @@ def get_rag_context_and_prompt(question, session_id, user_name):
         ) WHERE ROWNUM <= 2
         ORDER BY ROWNUM DESC
         """
-        cursor.execute(hist_sql, [int(session_id or 0)])
+        digits = ''.join(filter(str.isdigit, str(session_id or '')))
+        numeric_sid = int(digits) if digits else 0
+        cursor.execute(hist_sql, [numeric_sid])
         hist_turns = []
         for i, h_row in enumerate(cursor.fetchall(), 1):
             u_prompt, a_resp = h_row
             hist_turns.append(f"Turn {i} User: {u_prompt}\nAssistant: {a_resp}")
         hist_ctx = "\n".join(hist_turns)
 
-        # 2. Determine Smart Context Budget
+        # 2. Determine Smart Context Budget & Neighbor Window Expansion (Fix 1)
         upper_q = clean_q.upper()
-        is_list_query = any(w in upper_q for w in ["ALL", "LIST", "EVERY", "SAB", "SAARE"])
-        cand_budget = 6 if is_list_query else 2
-        fetch_limit = 5 if is_list_query else 3
+        is_procedure_query = any(w in upper_q for w in [
+            "STAGE", "STAGES", "STEP", "STEPS", "PROCEDURE", "PROCESS", 
+            "HOW TO", "ALL", "LIST", "EVERY", "SAB", "SAARE", "TIMELINE", "LEVEL", "SECTION"
+        ])
+        cand_budget = 5 if is_procedure_query else 3
+        fetch_limit = 6 if is_procedure_query else 4
+        is_proc_val = 1 if is_procedure_query else 0
 
-        # 3. Hybrid Vector + Keyword Retrieval
+        # Extract primary semantic keywords for lexical boost
+        clean_words = [w for w in re.findall(r'[a-zA-Z0-9]+', upper_q) if len(w) >= 4 and w not in ["WHAT", "WHEN", "WHERE", "WHICH", "ABOUT", "TELL", "GIVE", "SHOW", "THEIR", "THIS", "THAT", "WITH", "FROM", "HAVE", "BEEN", "WILL", "THEY", "YOUR", "DOES"]]
+        kw1 = clean_words[0] if len(clean_words) > 0 else "POLICY"
+        kw2 = clean_words[1] if len(clean_words) > 1 else kw1
+
+        # 3. Hybrid Vector + Keyword Retrieval with Cross-Chunk Neighbor Expansion
         retrieval_sql = """
         WITH vec_cand AS (
             SELECT c.chunk_id, c.doc_id, c.chunk_no, c.chunk_text,
@@ -136,14 +149,14 @@ def get_rag_context_and_prompt(question, session_id, user_name):
             JOIN source_docs d ON c.doc_id = d.doc_id
             WHERE d.status = 'ACTIVE'
             ORDER BY dist ASC
-            FETCH FIRST 20 ROWS ONLY
+            FETCH FIRST 30 ROWS ONLY
         ),
         scored_cand AS (
             SELECT v.chunk_id, v.doc_id, v.chunk_no, v.chunk_text,
-                   (v.dist - CASE 
-                               WHEN UPPER(v.chunk_text) LIKE '%' || UPPER(:q2) || '%' THEN 0.10
-                               ELSE 0.0
-                             END) AS adj_dist
+                   (v.dist - (
+                       CASE WHEN UPPER(v.chunk_text) LIKE '%' || UPPER(:kw1) || '%' THEN 0.08 ELSE 0.0 END +
+                       CASE WHEN UPPER(v.chunk_text) LIKE '%' || UPPER(:kw2) || '%' THEN 0.05 ELSE 0.0 END
+                   )) AS adj_dist
             FROM vec_cand v
         ),
         top_cand AS (
@@ -152,21 +165,22 @@ def get_rag_context_and_prompt(question, session_id, user_name):
             ) WHERE ROWNUM <= :budget
         ),
         retrieved_cand AS (
+            -- Dynamic Neighbor Window Expansion: automatically pulls N, N+1, N+2 for multi-stage procedures
             SELECT c.chunk_id, t.adj_dist as dist,
                    ROW_NUMBER() OVER (PARTITION BY c.chunk_id ORDER BY t.adj_dist ASC) as rn
             FROM top_cand t
             JOIN doc_chunks c ON c.doc_id = t.doc_id
-                             AND c.chunk_no BETWEEN t.chunk_no - 1 AND t.chunk_no + 1
+                             AND c.chunk_no BETWEEN t.chunk_no AND t.chunk_no + (CASE WHEN :is_proc = 1 THEN 2 ELSE 1 END)
         )
         SELECT r.chunk_id, c.chunk_no, c.chunk_text, d.title as doc_title
         FROM retrieved_cand r
         JOIN doc_chunks c ON r.chunk_id = c.chunk_id
         JOIN source_docs d ON c.doc_id = d.doc_id
         WHERE r.rn = 1 AND d.status = 'ACTIVE'
-        ORDER BY r.dist ASC, c.chunk_no ASC
+        ORDER BY r.dist ASC, c.doc_id ASC, c.chunk_no ASC
         FETCH FIRST :fetch_lim ROWS ONLY
         """
-        cursor.execute(retrieval_sql, [clean_q, clean_q, cand_budget, fetch_limit])
+        cursor.execute(retrieval_sql, [clean_q, kw1, kw2, cand_budget, is_proc_val, fetch_limit])
         chunks = cursor.fetchall()
 
         chunks_text_parts = []
@@ -180,13 +194,17 @@ def get_rag_context_and_prompt(question, session_id, user_name):
         sources_text = ", ".join(sources_list) if sources_list else "Enterprise Knowledge Base"
         chunks_ctx = "".join(chunks_text_parts)
 
-        # 4. Assemble Grounded System Prompt
+        # 4. Assemble Grounded System Prompt (Fix 2: Zero Speculation & Multi-Part Decomposition)
         prompt = (
-            "You are an authoritative Enterprise AI Assistant for Oracle APEX. "
-            "Answer the user's question thoroughly, accurately, and completely based SOLELY on the provided enterprise context chunks below. "
-            "Do NOT invent or assume facts not present in the text. "
-            "Explain all details, numbers, durations, rules, conditions, and exceptions clearly and comprehensively. "
-            "Do not truncate the answer, but avoid repetitive boilerplate filler.\n\n"
+            "You are an authoritative Enterprise AI Assistant for Oracle APEX.\n"
+            "Answer the user's question thoroughly, accurately, and completely based SOLELY on the provided enterprise context chunks below.\n\n"
+            "STRICT RAG GENERATION RULES:\n"
+            "1. NO SPECULATION OR INFERENCE: If the retrieved context does not explicitly contain the answer, state ONLY what is missing and stop immediately. NEVER use phrases like 'we can infer', 'typically', 'the policy might specify', or provide general industry advice.\n"
+            "2. MULTI-PART QUESTION DECOMPOSITION: If the user asks about multiple items (e.g., 'Can I do X or Y?'), evaluate each item independently against the text BEFORE writing your conclusion. Quote the exact rule for X, quote the exact rule for Y, and state the final verdict for each independently. Format:\n"
+            "   - Item 1: Quote text -> State verdict (Permitted or Prohibited)\n"
+            "   - Item 2: Quote text -> State verdict (Permitted or Prohibited)\n"
+            "   - Conclusion: Restate clearly which is allowed and which is forbidden without contradicting the quotes.\n"
+            "3. EXHAUSTIVE FACTUAL COMPLETENESS: State all specific numbers, time limits, deadlines, approval hierarchies, and conditional exceptions exactly as written in the text. Do not cut off or truncate key details.\n\n"
         )
         if hist_ctx:
             prompt += f"RECENT CONVERSATION HISTORY:\n{hist_ctx}\n\n"
@@ -215,8 +233,10 @@ def save_chat_turn(session_id, user_name, question, answer, sources, elapsed_ms)
             VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING :7 AS DATA)
         ) RETURNING msg_id INTO :8
         """
+        digits = ''.join(filter(str.isdigit, str(session_id or '')))
+        numeric_sid = int(digits) if digits else 0
         cursor.execute(sql, [
-            int(session_id or 0),
+            numeric_sid,
             user_name or 'USER',
             question,
             answer,
@@ -235,6 +255,132 @@ def save_chat_turn(session_id, user_name, question, answer, sources, elapsed_ms)
         cursor.close()
         conn.close()
 
+@app.route('/api/chat/feedback', methods=['POST'])
+def chat_feedback():
+    """Records user thumbs up / down feedback and comments into chat_history table."""
+    try:
+        data = request.get_json(force=True, silent=True) or {}
+        msg_id = int(data.get("msg_id", 0))
+        feedback = data.get("feedback", "UP").upper()
+        category = data.get("category", "")
+        comment = data.get("comment", "")
+
+        if msg_id <= 0:
+            return jsonify({"status": "error", "message": "Invalid msg_id"}), 400
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            UPDATE chat_history
+            SET user_feedback = :1,
+                feedback_category = :2,
+                feedback_comment = :3
+            WHERE msg_id = :4
+        """, [feedback, category, comment, msg_id])
+        conn.commit()
+        cur.close()
+        conn.close()
+        return jsonify({"status": "success", "msg_id": msg_id, "feedback": feedback})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/admin/reload', methods=['GET', 'POST'])
+def admin_reload():
+    """Triggers clean process exit so systemd automatically restarts service in 5s with new code."""
+    import threading
+    def do_exit():
+        time.sleep(0.5)
+        os._exit(0)
+    threading.Thread(target=do_exit).start()
+    return jsonify({"status": "restarting", "message": "Service process exiting for systemd restart in 5s"})
+
+@app.route('/api/admin/apply_ui', methods=['GET', 'POST'])
+def admin_apply_ui():
+    """Applies Page 1 Streaming UI (with feedback JS) and Page 2 Sandbox to Oracle DB."""
+    results = {}
+    try:
+        import importlib.util
+        spec1 = importlib.util.spec_from_file_location("apply_p1", "/home/ubuntu/docs/apply_p1_streaming_ui.py")
+        mod1 = importlib.util.module_from_spec(spec1)
+        spec1.loader.exec_module(mod1)
+        mod1.main()
+        results["p1_ui"] = "SUCCESS: Updated Page 1 Chat Input Bar with Feedback JS"
+    except Exception as e1:
+        results["p1_ui"] = f"ERROR: {e1}"
+
+    try:
+        spec2 = importlib.util.spec_from_file_location("apply_p2", "/home/ubuntu/docs/apply_p2_sandbox.py")
+        mod2 = importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(mod2)
+        mod2.main()
+        results["p2_sandbox"] = "SUCCESS: Updated Page 2 Active Knowledge Base Sandbox"
+    except Exception as e2:
+        results["p2_sandbox"] = f"ERROR: {e2}"
+
+    return jsonify(results)
+
+@app.route('/api/admin/clean_history', methods=['GET', 'POST'])
+def admin_clean_history():
+    """Purges old flawed turns from cache by setting them to DOWN."""
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE chat_history
+        SET user_feedback = 'DOWN'
+        WHERE UPPER(user_prompt) LIKE '%FACEBOOK%'
+           OR UPPER(user_prompt) LIKE '%ABSENCE%'
+           OR UPPER(user_prompt) LIKE '%MEDICAL%'
+           OR user_feedback IS NULL
+    """)
+    updated = cur.rowcount
+    conn.commit()
+    cur.close()
+    conn.close()
+    return jsonify({"status": "cleaned", "invalidated_rows": updated})
+
+@app.route('/api/admin/test_query', methods=['GET', 'POST'])
+def admin_test_query():
+    """Executes a full test query through Fix 1 & Fix 2 and returns retrieval + generation results."""
+    q = request.args.get("q") or (request.get_json(silent=True) or {}).get("q", "")
+    bypass = request.args.get("bypass_cache", "0") == "1"
+    if not q:
+        return jsonify({"error": "Missing ?q= parameter"}), 400
+
+    t0 = time.time()
+    is_cache, prompt, sources, cached_id = get_rag_context_and_prompt(q, "9999", "TEST_USER", bypass_cache=bypass)
+    
+    if is_cache:
+        return jsonify({
+            "question": q,
+            "cache_hit": True,
+            "answer": prompt,
+            "sources": sources,
+            "elapsed_ms": round((time.time() - t0) * 1000)
+        })
+
+    payload = {
+        "model": CONFIG["OLLAMA_MODEL"],
+        "prompt": prompt,
+        "stream": False,
+        "options": {
+            "temperature": 0.1,
+            "top_p": 0.9,
+            "num_ctx": 4096
+        }
+    }
+    resp = requests.post(f"{CONFIG['OLLAMA_URL']}/api/generate", json=payload, timeout=120)
+    ans = resp.json().get("response", "") if resp.status_code == 200 else f"HTTP {resp.status_code}"
+    elapsed = round((time.time() - t0) * 1000)
+
+    return jsonify({
+        "question": q,
+        "cache_hit": False,
+        "sources": sources,
+        "prompt_length": len(prompt),
+        "answer": ans,
+        "elapsed_ms": elapsed
+    })
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({
@@ -243,6 +389,7 @@ def health():
         "model": CONFIG["OLLAMA_MODEL"],
         "ollama_url": CONFIG["OLLAMA_URL"]
     })
+
 
 @app.route('/api/chat/stream', methods=['POST'])
 def chat_stream():
