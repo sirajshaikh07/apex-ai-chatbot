@@ -44,7 +44,7 @@ def evaluate_bioasq(test_items, max_eval=40):
         final_payload = {}
 
         try:
-            with requests.post(STREAM_URL, json=payload, stream=True, timeout=90) as resp:
+            with requests.post(STREAM_URL, json=payload, stream=True, timeout=120) as resp:
                 if resp.status_code != 200:
                     print(f"  [!] HTTP Error: {resp.status_code}")
                     continue
